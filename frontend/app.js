@@ -157,7 +157,7 @@ async function loadAdminHistory(){
 
 function openPage(page){
  const btn=$(`#nav button[data-page="${page}"]`);if(btn&&state.currentPortal&&btn.dataset.portal!==state.currentPortal)return;
- state.page=page;$('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));
+ state.page=page;$$('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));
  const t=titles[page]||[page,''];$('#page-title').textContent=t[0];$('#page-subtitle').textContent=t[1];loadCurrent();
 }
 async function loadCurrent(){
@@ -167,14 +167,14 @@ async function loadCurrent(){
 function showPortalSelector(){state.currentPortal=null;$('#portal-shell').classList.remove('portal-hidden');$('#app-layout').classList.add('app-hidden')}
 function enterPortal(portal,page){
  state.currentPortal=portal;$('#portal-shell').classList.add('portal-hidden');$('#app-layout').classList.remove('app-hidden');
- $('#nav button').forEach(b=>b.hidden=b.dataset.portal!==portal);
+ $$('#nav button').forEach(b=>b.hidden=b.dataset.portal!==portal);
  const defaults={BV:'dashboard',CONTRACTOR:'contractor-home',QUALITY:'quality-traces',ADMIN:'admin'};
  openPage(page||defaults[portal]);
 }
-$('#nav button').forEach(b=>b.onclick=()=>openPage(b.dataset.page));$('#refresh-current').onclick=loadCurrent;$('#dash-refresh').onclick=loadDash;$('#dash-status').onchange=loadDash;$('#dash-measurement').onchange=()=>{if($('#dash-measurement').value){$('#dash-start').value='';$('#dash-end').value=''}loadDash()};$('#dash-contractor').onchange=async()=>{state.dashCertificates.clear();await Promise.all([loadDashCertificateOptions(),loadDash()])};['#dash-start','#dash-end'].forEach(id=>$(id).onchange=()=>{if($(id).value)$('#dash-measurement').value=''});$('#go-certificates').onclick=()=>openPage('certificates');
+$$('#nav button').forEach(b=>b.onclick=()=>openPage(b.dataset.page));$('#refresh-current').onclick=loadCurrent;$('#dash-refresh').onclick=loadDash;$('#dash-status').onchange=loadDash;$('#dash-measurement').onchange=()=>{if($('#dash-measurement').value){$('#dash-start').value='';$('#dash-end').value=''}loadDash()};$('#dash-contractor').onchange=async()=>{state.dashCertificates.clear();await Promise.all([loadDashCertificateOptions(),loadDash()])};['#dash-start','#dash-end'].forEach(id=>$(id).onchange=()=>{if($(id).value)$('#dash-measurement').value=''});$('#go-certificates').onclick=()=>openPage('certificates');
 $('#dash-cert-trigger').onclick=e=>{e.stopPropagation();$('#dash-cert-menu').hidden=!$('#dash-cert-menu').hidden};$('#dash-cert-menu').onclick=e=>e.stopPropagation();$('#dash-cert-search').oninput=renderDashCertificateOptions;$('#dash-cert-all').onclick=()=>{state.dashCertificates.clear();renderDashCertificateOptions();renderDashCertificateChips();loadDash()};$('#dash-cert-clear').onclick=$('#dash-cert-all').onclick;document.addEventListener('click',()=>$('#dash-cert-menu').hidden=true);
 $('#c-load').onclick=()=>loadCertificates(1);$('#c-clear').onclick=clearCertificateFilters;$('#c-contractor').onchange=()=>{loadCertificateFilterOptions();state.certPage=1};$('#c-segment').onkeydown=e=>{if(e.key==='Enter')loadCertificates(1)};$('#p-load').onclick=loadPending;$('#p-contractor').onchange=loadPending;$('#m-load').onclick=()=>loadMeasurements(1);$('#m-contractor').onchange=()=>loadMeasurements(1);$('#m-search').onkeydown=e=>{if(e.key==='Enter')loadMeasurements(1)};$('#modal-close').onclick=closeModal;$('#modal').onclick=e=>{if(e.target===$('#modal'))closeModal()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-$('[data-portal-card]').forEach(card=>card.onclick=()=>enterPortal(card.dataset.portalCard));$('#portal-back-btn').onclick=showPortalSelector;
+$$('[data-portal-card]').forEach(card=>card.onclick=()=>enterPortal(card.dataset.portalCard));$('#portal-back-btn').onclick=showPortalSelector;
 $('#contractor-home-company').onchange=loadContractorHome;$('#kit-load').onclick=loadContractorKits;$('#kit-contractor').onchange=loadContractorKits;$('#kit-status').onchange=loadContractorKits;$('#contractor-doc-refresh').onclick=loadContractorDocuments;$('#contractor-doc-company').onchange=loadContractorDocuments;$('#contractor-pending-refresh').onclick=loadContractorPending;$('#contractor-pending-company').onchange=loadContractorPending;
 $('#trace-load').onclick=loadTraces;$('#trace-contractor').onchange=loadTraces;$('#trace-status').onchange=loadTraces;$('#nc-load').onclick=loadNCs;$('#nc-contractor').onchange=loadNCs;$('#nc-status').onchange=loadNCs;$('#admin-refresh').onclick=loadAdmin;$('#admin-history-refresh').onclick=loadAdminHistory;
 (async()=>{try{await Promise.all([loadDashCertificateOptions(),loadCycleOptions(['#p-measurement','#m-measurement'])]);showPortalSelector()}catch(e){toast(e.message,true)}})();
