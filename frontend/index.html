@@ -16,15 +16,40 @@
     <div class="car car-a"><i></i></div><div class="car car-b"><i></i></div>
   </div>
 
-  <div class="layout">
+
+  <section class="portal-shell" id="portal-shell">
+    <div class="portal-topbar"><div class="portal-brand"><div class="logo">QM</div><div><b>QualiMatch</b><small>Portfolio Edition</small></div></div><div class="portal-userbar"><span>Ambiente demonstrativo</span><b>Luan HCP</b></div></div>
+    <div class="portal-stage">
+      <div class="portal-intro"><span class="eyebrow">ESCOLHA O AMBIENTE</span><h1>Qual área você quer visualizar?</h1><p>Todos os módulos abaixo usam dados fictícios, preservando a experiência e a organização do QualiMatch.</p></div>
+      <div class="portal-cards portal-cards-4">
+        <button class="portal-card portal-bv" data-portal-card="BV"><div class="portal-card-glow"></div><div class="portal-emblem">BV</div><div class="portal-card-copy"><span class="portal-tag">CONTROLE TÉCNICO</span><h2>BV</h2><p>Dashboard, certificados, pendências e medições.</p></div><div class="portal-card-state"><span>DISPONÍVEL</span><b>Abrir ambiente →</b></div></button>
+        <button class="portal-card portal-contractor" data-portal-card="CONTRACTOR"><div class="portal-card-glow"></div><div class="portal-emblem">CT</div><div class="portal-card-copy"><span class="portal-tag">ENTREGAS E KITS</span><h2>Contratada</h2><p>Visão operacional, kits de ensaio, documentos e pendências.</p></div><div class="portal-card-state"><span>DISPONÍVEL</span><b>Abrir ambiente →</b></div></button>
+        <button class="portal-card portal-quality" data-portal-card="QUALITY"><div class="portal-card-glow"></div><div class="portal-emblem">QG</div><div class="portal-card-copy"><span class="portal-tag">QUALIDADE GERAL</span><h2>Traços & NCs</h2><p>Traços aprovados, revisões e gestão de não conformidades.</p></div><div class="portal-card-state"><span>DISPONÍVEL</span><b>Abrir ambiente →</b></div></button>
+        <button class="portal-card portal-admin" data-portal-card="ADMIN"><div class="portal-card-glow"></div><div class="portal-emblem">AD</div><div class="portal-card-copy"><span class="portal-tag">GOVERNANÇA</span><h2>Administração</h2><p>Usuários, acessos, saúde do sistema e histórico de auditoria.</p></div><div class="portal-card-state"><span>DISPONÍVEL</span><b>Abrir ambiente →</b></div></button>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout app-hidden" id="app-layout">
     <aside class="sidebar">
       <div class="brand"><div class="logo">QM</div><div><b>QualiMatch</b><small>Portfolio Edition</small></div></div>
-      <button class="portal-back ghost"><span>‹</span> Visão pública</button>
+      <button class="portal-back ghost" id="portal-back-btn"><span>‹</span> Ambientes</button>
       <nav id="nav">
-        <button data-page="dashboard" class="active"><span>▦</span> Dashboard</button>
-        <button data-page="certificates"><span>▤</span> Certificados</button>
-        <button data-page="pending"><span>△</span> Pendências</button>
-        <button data-page="measurements"><span>≡</span> Medições</button>
+        <button data-page="dashboard" data-portal="BV" class="active"><span>▦</span> Dashboard</button>
+        <button data-page="certificates" data-portal="BV"><span>▤</span> Certificados</button>
+        <button data-page="pending" data-portal="BV"><span>△</span> Pendências BV</button>
+        <button data-page="measurements" data-portal="BV"><span>≡</span> Medições</button>
+
+        <button data-page="contractor-home" data-portal="CONTRACTOR"><span>▦</span> Visão geral</button>
+        <button data-page="contractor-kits" data-portal="CONTRACTOR"><span>▤</span> Kits de ensaio</button>
+        <button data-page="contractor-documents" data-portal="CONTRACTOR"><span>▥</span> Documentos</button>
+        <button data-page="contractor-pending" data-portal="CONTRACTOR"><span>△</span> Pendências</button>
+
+        <button data-page="quality-traces" data-portal="QUALITY"><span>≋</span> Traços</button>
+        <button data-page="quality-ncs" data-portal="QUALITY"><span>!</span> Não Conformidades</button>
+
+        <button data-page="admin" data-portal="ADMIN"><span>⚙</span> Administração</button>
+        <button data-page="admin-history" data-portal="ADMIN"><span>◴</span> Histórico</button>
       </nav>
       <div class="sidebar-demo"><b>DEMO SANITIZADA</b><span>SQLite local • dados 100% fictícios</span></div>
       <div class="sidefoot"><span id="server-dot"></span> Sistema online<br><small>Ambiente de demonstração</small></div>
@@ -100,6 +125,46 @@
       <section id="page-measurements" class="page">
         <div class="panel"><div class="panel-head"><div><h3>Medições importadas</h3><p>Base operacional fictícia usada no cruzamento com os certificados.</p></div><div class="toolbar no-margin"><select id="m-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><select id="m-measurement"><option value="">Todas as medições</option></select><input id="m-search" placeholder="Buscar data, rodovia, medição..."><button id="m-load">Buscar</button></div></div><div class="rounded-table-shell"><div class="table-wrap"><table class="measurements-table"><thead><tr><th>Linha</th><th>Empresa</th><th>Data</th><th>Ref.</th><th>Rodovia</th><th>Sentido</th><th>KMI</th><th>KMF</th><th>Faixa</th><th>Extensão</th><th>Largura</th><th>Espessura</th><th>Volume</th><th>Quantidade</th></tr></thead><tbody id="m-body"></tbody></table></div></div><div id="measurement-pagination" class="pagination"></div></div>
       </section>
+
+      <section id="page-contractor-home" class="page">
+        <div class="contractor-hero panel"><div><span class="eyebrow">PORTAL DA CONTRATADA</span><h2>Entregas laboratoriais e kits</h2><p>Acompanhe o recebimento, situação dos controles e documentação associada aos kits de ensaio.</p></div><select id="contractor-home-company"><option value="ALL">Contratada A + B</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select></div>
+        <div id="contractor-kpis" class="cards cards-4"></div>
+        <div class="section-title"><div><span class="eyebrow">CONTROLES DO KIT</span><h2>Conformidade por etapa</h2></div><small>Base demonstrativa</small></div>
+        <div id="contractor-control-cards" class="control-status-grid"></div>
+      </section>
+
+      <section id="page-contractor-kits" class="page">
+        <div class="panel"><div class="panel-head"><div><h3>Kits de ensaio</h3><p>Linhas fictícias da tabela operacional da contratada.</p></div><div class="toolbar no-margin"><select id="kit-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><select id="kit-status"><option value="ALL">Todas as situações</option><option>OK</option><option>PENDENTE</option><option>INCOMPLETO</option></select><button id="kit-load">Atualizar</button></div></div><div id="kit-summary" class="inline-summary"></div><div class="rounded-table-shell"><div class="table-wrap kit-table-wrap"><table class="kit-table"><thead><tr><th>#SEQ</th><th>Contratada</th><th>Serviço</th><th>Data aplicação</th><th>Projeto mistura</th><th>Período</th><th>Rodovia</th><th>KMI</th><th>KMF</th><th>Recebimento</th><th>Entrega</th><th>Situação</th><th>Aplicação</th><th>Usinagem</th><th>Vv</th><th>Taxa</th><th>Ligante</th><th>Mancha</th><th>Pêndulo</th><th>Esp.</th></tr></thead><tbody id="kit-body"></tbody></table></div></div></div>
+      </section>
+
+      <section id="page-contractor-documents" class="page">
+        <div class="panel"><div class="panel-head"><div><h3>Documentos dos Kits</h3><p>Arquivos sintéticos organizados como uma entrega de contratada.</p></div><div class="toolbar no-margin"><select id="contractor-doc-company"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><button id="contractor-doc-refresh">Atualizar</button></div></div><div id="contractor-doc-summary" class="inline-summary"></div><div id="contractor-doc-grid" class="file-preview-grid"></div></div>
+      </section>
+
+      <section id="page-contractor-pending" class="page">
+        <div class="panel"><div class="panel-head"><div><h3>Pendências da Contratada</h3><p>Kits incompletos ou ainda pendentes na base fictícia.</p></div><div class="toolbar no-margin"><select id="contractor-pending-company"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><button id="contractor-pending-refresh">Atualizar</button></div></div><div id="contractor-pending-summary" class="inline-summary"></div><div class="rounded-table-shell"><div class="table-wrap"><table><thead><tr><th>#SEQ</th><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Projeto</th><th>Entrega</th><th>Situação</th></tr></thead><tbody id="contractor-pending-body"></tbody></table></div></div></div>
+      </section>
+
+      <section id="page-quality-traces" class="page">
+        <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL</span><h2>Traços aprovados</h2></div><small>Projetos de mistura sintéticos</small></div>
+        <div class="panel"><div class="panel-head"><div><h3>Base de traços</h3><p>Controle de vigência, revisão, usina, fornecedor e ligante.</p></div><div class="toolbar no-margin"><select id="trace-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><select id="trace-status"><option value="ALL">Todos os status</option><option>VIGENTE</option><option>EM REVISÃO</option></select><button id="trace-load">Atualizar</button></div></div><div id="trace-summary" class="inline-summary"></div><div class="trace-grid" id="trace-grid"></div></div>
+      </section>
+
+      <section id="page-quality-ncs" class="page">
+        <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL</span><h2>Não Conformidades</h2></div><small>Gestão e tratativas</small></div>
+        <div class="panel"><div class="panel-head"><div><h3>Registro de NCs</h3><p>Abertura, severidade, prazo, ação e encerramento.</p></div><div class="toolbar no-margin"><select id="nc-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><select id="nc-status"><option value="ALL">Todos os status</option><option>ABERTA</option><option>EM TRATAMENTO</option><option>ENCERRADA</option></select><button id="nc-load">Atualizar</button></div></div><div id="nc-kpis" class="cards cards-4"></div><div class="rounded-table-shell"><div class="table-wrap"><table class="nc-table"><thead><tr><th>NC</th><th>Abertura</th><th>Contratada</th><th>Local</th><th>Descrição</th><th>Categoria</th><th>Severidade</th><th>Status</th><th>Prazo</th><th>Ação</th></tr></thead><tbody id="nc-body"></tbody></table></div></div></div>
+      </section>
+
+      <section id="page-admin" class="page">
+        <div class="section-title"><div><span class="eyebrow">ADMINISTRAÇÃO</span><h2>Governança da aplicação</h2></div><small>Modo demonstrativo somente leitura</small></div>
+        <div id="admin-kpis" class="cards cards-4"></div>
+        <div class="panel"><div class="panel-head"><div><h3>Usuários e acessos</h3><p>Perfis fictícios usados para demonstrar a gestão de permissões.</p></div><button id="admin-refresh">Atualizar</button></div><div class="rounded-table-shell"><div class="table-wrap"><table class="admin-users-table"><thead><tr><th>Usuário</th><th>E-mail</th><th>Função</th><th>Nível</th><th>Status</th><th>Último acesso</th></tr></thead><tbody id="admin-users-body"></tbody></table></div></div></div>
+      </section>
+
+      <section id="page-admin-history" class="page">
+        <div class="panel"><div class="panel-head"><div><h3>Histórico e auditoria</h3><p>Eventos sintéticos de sincronização, consulta e gestão.</p></div><button id="admin-history-refresh">Atualizar</button></div><div class="rounded-table-shell"><div class="table-wrap"><table><thead><tr><th>Data / hora</th><th>Usuário</th><th>Ação</th><th>Alvo</th><th>Detalhe</th></tr></thead><tbody id="admin-history-body"></tbody></table></div></div></div>
+      </section>
+
     </main>
   </div>
 
