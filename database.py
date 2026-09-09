@@ -68,6 +68,90 @@ def _schema(conn: sqlite3.Connection) -> None:
             status_final TEXT
         );
 
+        CREATE TABLE IF NOT EXISTS kits (
+            id INTEGER PRIMARY KEY,
+            seq TEXT NOT NULL,
+            contractor TEXT NOT NULL,
+            service TEXT,
+            application_date TEXT,
+            mix_project TEXT,
+            period TEXT,
+            road TEXT,
+            kmi REAL,
+            kmf REAL,
+            receipt_date TEXT,
+            delivery_status TEXT,
+            status TEXT,
+            status_1 TEXT,
+            status_2 TEXT,
+            status_3 TEXT,
+            status_4 TEXT,
+            status_5 TEXT,
+            status_6 TEXT,
+            status_7 TEXT,
+            status_8 TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS contractor_documents (
+            id INTEGER PRIMARY KEY,
+            contractor TEXT NOT NULL,
+            file_name TEXT NOT NULL,
+            folder TEXT,
+            document_type TEXT,
+            linked_seq TEXT,
+            status TEXT,
+            modified_at TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS traces (
+            id INTEGER PRIMARY KEY,
+            contractor TEXT NOT NULL,
+            code TEXT NOT NULL UNIQUE,
+            plant TEXT,
+            supplier TEXT,
+            binder TEXT,
+            mixture TEXT,
+            status TEXT,
+            valid_from TEXT,
+            valid_to TEXT,
+            revision INTEGER,
+            notes TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS nonconformities (
+            id INTEGER PRIMARY KEY,
+            number TEXT NOT NULL UNIQUE,
+            opened_date TEXT,
+            contractor TEXT,
+            road TEXT,
+            km TEXT,
+            description TEXT,
+            category TEXT,
+            severity TEXT,
+            status TEXT,
+            action TEXT,
+            due_date TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS demo_users (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            role TEXT,
+            access_level TEXT,
+            status TEXT,
+            last_access TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS audit_log (
+            id INTEGER PRIMARY KEY,
+            created_at TEXT,
+            actor TEXT,
+            action TEXT,
+            target TEXT,
+            detail TEXT
+        );
+
         CREATE INDEX IF NOT EXISTS idx_cert_contract_date ON certificates(contractor, service_date);
         CREATE INDEX IF NOT EXISTS idx_cert_number ON certificates(number);
         CREATE INDEX IF NOT EXISTS idx_measure_contract_date ON measurements(contractor, date);
@@ -194,6 +278,138 @@ def _seed(conn: sqlite3.Connection) -> None:
     conn.commit()
 
 
+def _seed_portfolio_modules(conn: sqlite3.Connection) -> None:
+    rng = random.Random(77442026)
+
+    if conn.execute("SELECT COUNT(*) FROM kits").fetchone()[0] == 0:
+        kit_rows = []
+        for i in range(1, 31):
+            contractor = CONTRACTORS[(i - 1) % 2]
+            d = date(2026, 6, 3) + timedelta(days=i * 3)
+            road = ROADS[i % len(ROADS)]
+            kmi = float((35 + i * 5) * 1000 + rng.choice([120, 350, 620]))
+            kmf = kmi + rng.choice([350, 500, 700])
+            status = "OK" if i % 6 not in {0, 5} else ("PENDENTE" if i % 6 == 0 else "INCOMPLETO")
+            delivery = "RECEBIDO" if i % 5 else "AGUARDANDO"
+            controls = []
+            for n in range(8):
+                if status == "OK":
+                    controls.append("OK")
+                elif status == "PENDENTE" and n in {2, 5}:
+                    controls.append("PENDENTE")
+                elif status == "INCOMPLETO" and n in {3, 7}:
+                    controls.append("INCOMPLETO")
+                else:
+                    controls.append("OK")
+            kit_rows.append((
+                i, f"KIT-{i:03d}", contractor, "CBUQ - CAMADA DE ROLAMENTO", d.isoformat(),
+                f"MIX DEMO {1 + i % 8:02d}", "DIURNO" if i % 3 else "NOTURNO", road, kmi, kmf,
+                (d + timedelta(days=rng.randint(1, 4))).isoformat(), delivery, status, *controls
+            ))
+        conn.executemany(
+            """INSERT INTO kits(
+                id,seq,contractor,service,application_date,mix_project,period,road,kmi,kmf,receipt_date,
+                delivery_status,status,status_1,status_2,status_3,status_4,status_5,status_6,status_7,status_8
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            kit_rows,
+        )
+
+    if conn.execute("SELECT COUNT(*) FROM contractor_documents").fetchone()[0] == 0:
+        docs = []
+        doc_id = 1
+        for i in range(1, 31):
+            contractor = CONTRACTORS[(i - 1) % 2]
+            if i % 4 == 0:
+                continue
+            docs.append((
+                doc_id, contractor, f"KIT-{i:03d}_ensaio_demo.pdf", f"M{12 + i // 7}/Ensaios",
+                "RELATÓRIO DE ENSAIO", f"KIT-{i:03d}", "INDEXADO",
+                (date(2026, 6, 5) + timedelta(days=i * 3)).isoformat()
+            ))
+            doc_id += 1
+        conn.executemany(
+            "INSERT INTO contractor_documents(id,contractor,file_name,folder,document_type,linked_seq,status,modified_at) VALUES (?,?,?,?,?,?,?,?)",
+            docs,
+        )
+
+    if conn.execute("SELECT COUNT(*) FROM traces").fetchone()[0] == 0:
+        trace_rows = []
+        for i in range(1, 15):
+            contractor = CONTRACTORS[(i - 1) % 2]
+            valid_from = date(2026, 1, 10) + timedelta(days=i * 12)
+            trace_rows.append((
+                i, contractor, f"TR-{1200 + i:04d}-R{1 + i % 3:02d}",
+                f"Usina Demo {1 + i % 3}", f"Fornecedor Sintético {1 + i % 4}", "CAP 50/70",
+                f"Faixa granulométrica {chr(64 + 1 + i % 4)}",
+                "VIGENTE" if i % 5 else "EM REVISÃO", valid_from.isoformat(),
+                (valid_from + timedelta(days=210)).isoformat(), 1 + i % 3,
+                "Traço sintético para demonstração pública."
+            ))
+        conn.executemany(
+            "INSERT INTO traces(id,contractor,code,plant,supplier,binder,mixture,status,valid_from,valid_to,revision,notes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            trace_rows,
+        )
+
+    if conn.execute("SELECT COUNT(*) FROM nonconformities").fetchone()[0] == 0:
+        descriptions = [
+            "Volume de vazios fora da faixa de controle.",
+            "Espessura executada inferior ao valor de referência.",
+            "Documentação do lote recebida com campo obrigatório ausente.",
+            "Ponto de extração divergente do trecho programado.",
+            "Resultado de controle requer verificação complementar.",
+            "Rastreabilidade de material incompleta na inspeção.",
+            "Amostra de contra-prova aguardando resultado.",
+            "Divergência entre data de execução e registro laboratorial.",
+            "Controle geométrico com valor fora da tolerância demonstrativa.",
+            "Revisão de traço pendente para novo lote."
+        ]
+        nc_rows = []
+        for i, desc in enumerate(descriptions, 1):
+            d = date(2026, 5, 8) + timedelta(days=i * 10)
+            status = ["ABERTA", "EM TRATAMENTO", "ENCERRADA"][i % 3]
+            severity = ["BAIXA", "MÉDIA", "ALTA"][i % 3]
+            nc_rows.append((
+                i, f"NC-{50 + i:03d}", d.isoformat(), CONTRACTORS[(i - 1) % 2], ROADS[i % len(ROADS)],
+                f"{42 + i * 7}+{rng.choice([120, 380, 750]):03d}", desc,
+                ["LABORATÓRIO", "EXECUÇÃO", "DOCUMENTAÇÃO"][i % 3], severity, status,
+                "Analisar evidências, registrar tratativa e validar encerramento.",
+                (d + timedelta(days=20 + i)).isoformat()
+            ))
+        conn.executemany(
+            "INSERT INTO nonconformities(id,number,opened_date,contractor,road,km,description,category,severity,status,action,due_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            nc_rows,
+        )
+
+    if conn.execute("SELECT COUNT(*) FROM demo_users").fetchone()[0] == 0:
+        users = [
+            (1, "Luan HCP", "luan.demo@qualimatch.local", "Administrador", "ADMIN", "ATIVO", "2026-09-09 14:20"),
+            (2, "Analista Demo", "analista@qualimatch.local", "Analista BV", "EDITOR", "ATIVO", "2026-09-09 13:48"),
+            (3, "Técnico A", "tecnico.a@qualimatch.local", "Contratada A", "EDITOR", "ATIVO", "2026-09-08 17:31"),
+            (4, "Técnico B", "tecnico.b@qualimatch.local", "Contratada B", "VIEWER", "ATIVO", "2026-09-08 16:05"),
+            (5, "Auditoria Demo", "auditoria@qualimatch.local", "Auditoria", "VIEWER", "BLOQUEADO", "2026-08-29 10:12"),
+        ]
+        conn.executemany("INSERT INTO demo_users(id,name,email,role,access_level,status,last_access) VALUES (?,?,?,?,?,?,?)", users)
+
+    if conn.execute("SELECT COUNT(*) FROM audit_log").fetchone()[0] == 0:
+        actions = [
+            ("Luan HCP", "SYNC_DEMO", "Base SQLite", "Atualização demonstrativa concluída"),
+            ("Analista Demo", "VIEW_CERTIFICATE", "BI330-0142", "Consulta de certificado"),
+            ("Técnico A", "UPLOAD_KIT", "KIT-018", "Documento sintético indexado"),
+            ("Luan HCP", "UPDATE_TRACE", "TR-1208-R03", "Revisão de traço demonstrativa"),
+            ("Analista Demo", "CLOSE_NC", "NC-054", "Encerramento simulado"),
+        ]
+        logs = []
+        base = date(2026, 9, 1)
+        lid = 1
+        for day in range(9):
+            for actor, action, target, detail in actions[: 2 + day % 4]:
+                logs.append((lid, f"{(base + timedelta(days=day)).isoformat()} {8 + lid % 9:02d}:{(lid * 7) % 60:02d}", actor, action, target, detail))
+                lid += 1
+        conn.executemany("INSERT INTO audit_log(id,created_at,actor,action,target,detail) VALUES (?,?,?,?,?,?)", logs)
+
+    conn.commit()
+
+
 def init_db(reset: bool = False) -> Path:
     if reset and DB_PATH.exists():
         DB_PATH.unlink()
@@ -202,6 +418,7 @@ def init_db(reset: bool = False) -> Path:
         count = conn.execute("SELECT COUNT(*) FROM certificates").fetchone()[0]
         if count == 0:
             _seed(conn)
+        _seed_portfolio_modules(conn)
     return DB_PATH
 
 
