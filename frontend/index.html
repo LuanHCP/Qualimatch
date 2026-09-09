@@ -3,63 +3,107 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090910">
   <title>QualiMatch — Portfolio Edition</title>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <div class="shell">
-    <aside>
-      <div class="brand"><span>QM</span><div><b>QualiMatch</b><small>Portfolio Edition</small></div></div>
-      <nav>
-        <button class="active" data-page="dashboard">Dashboard</button>
-        <button data-page="certificates">Certificados</button>
-        <button data-page="pending">Pendências</button>
-        <button data-page="measurements">Medições</button>
+  <div class="road-scene" aria-hidden="true">
+    <div class="sky-glow"></div><div class="moon"></div>
+    <div class="cloud cloud-a"></div><div class="cloud cloud-b"></div>
+    <div class="tree-line tree-line-a"></div><div class="tree-line tree-line-b"></div>
+    <div class="highway"><span class="lane-line l1"></span><span class="lane-line l2"></span></div>
+    <div class="car car-a"><i></i></div><div class="car car-b"><i></i></div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">QM</div><div><b>QualiMatch</b><small>Portfolio Edition</small></div></div>
+      <button class="portal-back ghost"><span>‹</span> Visão pública</button>
+      <nav id="nav">
+        <button data-page="dashboard" class="active"><span>▦</span> Dashboard</button>
+        <button data-page="certificates"><span>▤</span> Certificados</button>
+        <button data-page="pending"><span>△</span> Pendências</button>
+        <button data-page="measurements"><span>≡</span> Medições</button>
       </nav>
-      <div class="aside-foot">Demo sanitizada • dados sintéticos</div>
+      <div class="sidebar-demo"><b>DEMO SANITIZADA</b><span>SQLite local • dados 100% fictícios</span></div>
+      <div class="sidefoot"><span id="server-dot"></span> Sistema online<br><small>Ambiente de demonstração</small></div>
     </aside>
 
     <main>
       <header>
-        <div><span class="eyebrow">PORTFÓLIO</span><h1 id="title">Dashboard</h1><p>Gestão técnica da qualidade em obras de infraestrutura.</p></div>
-        <div class="filters">
-          <select id="contractor"><option value="ALL">Todas as contratadas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select>
-          <select id="measurement"><option value="">Todos os ciclos</option><option value="M14">M14</option><option value="M15">M15</option></select>
-          <button id="refresh">Atualizar</button>
-        </div>
+        <div><h1 id="page-title">Dashboard</h1><p id="page-subtitle">Visão financeira, qualidade e certificados</p></div>
+        <div class="header-actions"><div class="demo-search"><span>⌕</span><input placeholder="Dados fictícios para portfólio" disabled></div><button class="notification-btn ghost">🔔 <b>2</b></button><button class="primary" id="refresh-current">↻ Atualizar</button></div>
+        <div class="progress-line" id="qm-progress"></div>
       </header>
 
       <section id="page-dashboard" class="page active">
-        <div id="kpis" class="kpis"></div>
-        <div class="grid">
-          <div class="panel"><div class="panel-head"><h2>Certificados recentes</h2><span>Últimos registros</span></div><div id="recent"></div></div>
-          <div class="panel"><div class="panel-head"><h2>Leitura técnica</h2><span>Regras configuráveis</span></div><div class="rules"><p><b>Vv:</b> aprovado entre 3,5% e 7,5%</p><p><b>A/B:</b> aprovado a partir de 90%</p><p class="muted">Os limites desta edição são apenas valores de demonstração e podem ser configurados por ambiente.</p></div></div>
+        <div class="filters panel compact-panel dashboard-filters">
+          <div class="filter-label">Filtros</div>
+          <select id="dash-contractor"><option value="ALL">Contratada A + B</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select>
+          <select id="dash-status"><option value="ALL">Todos os status</option><option value="APROVADO">Aprovados</option><option value="REPROVADO">Reprovados</option></select>
+          <select id="dash-measurement"><option value="">Todas as medições</option></select>
+          <div class="multi-select" id="dash-certificate-filter">
+            <button type="button" class="multi-trigger" id="dash-cert-trigger">Certificados <span id="dash-cert-count">Todos</span>⌄</button>
+            <div class="multi-menu" id="dash-cert-menu" hidden>
+              <input id="dash-cert-search" placeholder="Buscar BI330...">
+              <div class="multi-actions"><button type="button" class="ghost compact" id="dash-cert-all">Todos</button><button type="button" class="ghost compact" id="dash-cert-clear">Limpar</button></div>
+              <div id="dash-cert-options" class="multi-options"></div>
+            </div>
+          </div>
+          <input type="date" id="dash-start" title="Data inicial opcional"><input type="date" id="dash-end" title="Data final opcional">
+          <button id="dash-refresh">Atualizar</button><small id="dash-measurement-period" class="filter-period-hint"></small>
         </div>
+        <div id="dash-cert-chips" class="selection-chips"></div>
+
+        <div class="section-title"><div><span class="eyebrow">FINANCEIRO / PRODUÇÃO</span><h2>Resumo oficial consolidado</h2></div><small>Banco local fictício • mesmo formato operacional</small></div>
+        <div class="cards cards-4" id="financial-kpis"></div>
+
+        <div class="section-title"><div><span class="eyebrow">CERTIFICADOS BI330</span><h2>Controle técnico</h2></div><small>Fase final: contra-prova quando existente; senão rotina</small></div>
+        <div class="cards cards-4" id="technical-kpis"></div>
+
+        <div class="grid-main">
+          <div class="panel"><div class="panel-head"><div><h3>Certificados recentes</h3><p>VV, espessura e situação em um único lugar.</p></div><button class="ghost compact" id="go-certificates">Ver todos</button></div><div id="recent-certificates"></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Status da qualidade oficial <span title="Dados sintéticos desta edição pública">ⓘ</span></h3><p>Distribuição da base fictícia por situação.</p></div></div><div id="status-pie"></div></div>
+        </div>
+        <div class="panel"><div class="panel-head"><div><h3>Fontes e atualização</h3><p>De onde vieram os números exibidos acima.</p></div></div><div id="source-info" class="source-grid"></div></div>
       </section>
 
       <section id="page-certificates" class="page">
-        <div class="panel">
-          <div class="toolbar"><input id="certificate-search" placeholder="Buscar certificado, rodovia, traço..."><button id="certificate-apply">Buscar</button></div>
-          <div class="table-wrap"><table><thead><tr><th>Certificado</th><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Traço</th><th>Vv</th><th>A/B</th><th>Status</th></tr></thead><tbody id="certificate-body"></tbody></table></div>
+        <div class="certificate-top">
+          <div class="panel import-panel"><span class="eyebrow">DEMONSTRAÇÃO</span><h3>Certificados BI330</h3><p>Nesta edição pública os PDFs reais foram removidos. O banco local gera registros fictícios preservando a mesma estrutura visual da aplicação.</p><div class="upload-row"><select disabled><option>CONTRATADA A</option></select><button class="ghost" disabled>Selecionar PDFs</button><button class="primary" disabled>Extrair selecionados</button></div><div class="meta">Importação desativada no portfólio para não expor documentos.</div></div>
+          <div class="panel"><span class="eyebrow">LEITURA TÉCNICA</span><h3>O que é exibido</h3><div class="mini-grid"><div><b>VV médio</b><span>Média do volume de vazios da fase final</span></div><div><b>Esp. média</b><span>Espessura executada média em cm</span></div><div><b>Esp. média (%)</b><span>Relação A/B usada na demonstração</span></div><div><b>Contra-prova</b><span>Mantida separada da rotina</span></div></div></div>
+        </div>
+        <div class="panel certificate-base-panel">
+          <div class="panel-head certificate-filters"><div><h3>Base de certificados</h3><p>Filtros técnicos combináveis. A tela mantém o mesmo fluxo do sistema operacional, mas usa somente dados sintéticos.</p></div></div>
+          <div class="certificate-filter-grid">
+            <label><span>Contratada</span><select id="c-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select></label>
+            <label><span>Medição</span><select id="c-measurement"><option value="">Todas as medições</option></select></label>
+            <label><span>Volume de vazios (Vv)</span><select id="c-vv-status"><option value="ALL">Todos</option><option value="APROVADO">Aprovado</option><option value="REPROVADO">Reprovado</option><option value="SEM_RESULTADO">Sem resultado</option></select></label>
+            <label><span>Espessura</span><select id="c-thickness-status"><option value="ALL">Todas</option><option value="APROVADO">Aprovada</option><option value="REPROVADO">Reprovada</option><option value="SEM_RESULTADO">Sem resultado</option></select></label>
+            <label><span>Rodovia</span><select id="c-road"><option value="">Todas as BR/PR</option></select></label>
+            <label><span>Certificado</span><select id="c-number"><option value="">Todos os certificados</option></select></label>
+            <label class="filter-wide"><span>Trecho / estaca</span><input id="c-segment" placeholder="Ex.: 120+500"></label>
+            <label><span>Ordenar</span><select id="c-sort"><option value="newest">Mais recentes</option><option value="oldest">Mais antigos</option></select></label>
+            <div class="filter-actions"><button id="c-clear" class="ghost">Limpar</button><button id="c-load" class="primary">Aplicar filtros</button></div>
+          </div>
+          <div id="certificate-summary" class="inline-summary"></div>
+          <div class="rounded-table-shell"><div class="table-wrap"><table class="data-table certificate-table"><thead><tr><th>Certificado</th><th>Data ext. CPs</th><th>Trecho</th><th>Traço</th><th>CPs</th><th>VV médio</th><th>Esp. média</th><th>Esp. média (%)</th><th>VV</th><th>Espessura</th><th>Contra-prova</th><th>Leitura</th></tr></thead><tbody id="c-body"></tbody></table></div></div>
           <div id="certificate-pagination" class="pagination"></div>
         </div>
       </section>
 
       <section id="page-pending" class="page">
-        <div class="panel">
-          <div class="panel-head"><h2>Pendências documentais</h2><span>Datas medidas sem certificado técnico válido</span></div>
-          <div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Faixa</th><th>Quantidade</th></tr></thead><tbody id="pending-body"></tbody></table></div>
-        </div>
+        <div class="panel"><div class="panel-head"><div><h3>Responsabilidade técnica</h3><p>Mostra execuções fictícias que ainda não possuem certificado técnico válido.</p></div><div class="toolbar no-margin"><select id="p-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><select id="p-measurement"><option value="">Todas as medições</option></select><button id="p-load">Atualizar</button></div></div><div id="pending-summary" class="inline-summary"></div><div class="rounded-table-shell"><div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Medição</th><th>Data de execução</th><th>Rodovia</th><th>Linhas de medição</th><th>Entrega</th><th>Status / SLA</th></tr></thead><tbody id="p-body"></tbody></table></div></div></div>
       </section>
 
       <section id="page-measurements" class="page">
-        <div class="panel">
-          <div class="panel-head"><h2>Medições</h2><span>Base operacional sintética</span></div>
-          <div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Faixa</th><th>Quantidade</th></tr></thead><tbody id="measurement-body"></tbody></table></div>
-        </div>
+        <div class="panel"><div class="panel-head"><div><h3>Medições importadas</h3><p>Base operacional fictícia usada no cruzamento com os certificados.</p></div><div class="toolbar no-margin"><select id="m-contractor"><option value="ALL">Todas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select><select id="m-measurement"><option value="">Todas as medições</option></select><input id="m-search" placeholder="Buscar data, rodovia, medição..."><button id="m-load">Buscar</button></div></div><div class="rounded-table-shell"><div class="table-wrap"><table class="measurements-table"><thead><tr><th>Linha</th><th>Empresa</th><th>Data</th><th>Ref.</th><th>Rodovia</th><th>Sentido</th><th>KMI</th><th>KMF</th><th>Faixa</th><th>Extensão</th><th>Largura</th><th>Espessura</th><th>Volume</th><th>Quantidade</th></tr></thead><tbody id="m-body"></tbody></table></div></div><div id="measurement-pagination" class="pagination"></div></div>
       </section>
     </main>
   </div>
+
+  <div id="modal" class="modal-backdrop"><div class="modal-card"><button class="modal-close" id="modal-close">×</button><div id="modal-body"></div></div></div>
   <div id="toast"></div>
   <script src="/static/app.js"></script>
 </body>
