@@ -39,3 +39,25 @@ body{background:radial-gradient(circle at 78% 4%,#5a47777a 0,transparent 26%),ra
 @media(max-width:820px){.portal-topbar{height:auto;padding:14px 16px}.portal-userbar span{display:none}.portal-cards-4{grid-template-columns:1fr}.portal-card{min-height:300px}.control-status-grid,.file-preview-grid,.trace-grid{grid-template-columns:1fr}.trace-info-grid{grid-template-columns:1fr}.contractor-hero{align-items:flex-start;flex-direction:column}.road-scene{opacity:.5}}
 
 nav button[hidden]{display:none!important}
+
+
+/* v2.1.1 — carros alinhados às faixas visíveis da rodovia em perspectiva */
+.car-a{
+  left:-70px;
+  bottom:1.1vh;
+  animation:drive-near 16s linear infinite;
+}
+.car-b{
+  left:-120px;
+  bottom:6.2vh;
+  animation:drive-far 23s linear infinite;
+  background:#345867;
+}
+@keyframes drive-near{
+  from{transform:translateX(0) scale(1)}
+  to{transform:translateX(calc(100vw + 190px)) scale(1)}
+}
+@keyframes drive-far{
+  from{transform:translateX(0) scale(.72)}
+  to{transform:translateX(calc(100vw + 220px)) scale(.72)}
+}
