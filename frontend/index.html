@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QualiMatch — Portfolio Edition</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><span>QM</span><div><b>QualiMatch</b><small>Portfolio Edition</small></div></div>
+      <nav>
+        <button class="active" data-page="dashboard">Dashboard</button>
+        <button data-page="certificates">Certificados</button>
+        <button data-page="pending">Pendências</button>
+        <button data-page="measurements">Medições</button>
+      </nav>
+      <div class="aside-foot">Demo sanitizada • dados sintéticos</div>
+    </aside>
+
+    <main>
+      <header>
+        <div><span class="eyebrow">PORTFÓLIO</span><h1 id="title">Dashboard</h1><p>Gestão técnica da qualidade em obras de infraestrutura.</p></div>
+        <div class="filters">
+          <select id="contractor"><option value="ALL">Todas as contratadas</option><option>CONTRATADA A</option><option>CONTRATADA B</option></select>
+          <select id="measurement"><option value="">Todos os ciclos</option><option value="M14">M14</option><option value="M15">M15</option></select>
+          <button id="refresh">Atualizar</button>
+        </div>
+      </header>
+
+      <section id="page-dashboard" class="page active">
+        <div id="kpis" class="kpis"></div>
+        <div class="grid">
+          <div class="panel"><div class="panel-head"><h2>Certificados recentes</h2><span>Últimos registros</span></div><div id="recent"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Leitura técnica</h2><span>Regras configuráveis</span></div><div class="rules"><p><b>Vv:</b> aprovado entre 3,5% e 7,5%</p><p><b>A/B:</b> aprovado a partir de 90%</p><p class="muted">Os limites desta edição são apenas valores de demonstração e podem ser configurados por ambiente.</p></div></div>
+        </div>
+      </section>
+
+      <section id="page-certificates" class="page">
+        <div class="panel">
+          <div class="toolbar"><input id="certificate-search" placeholder="Buscar certificado, rodovia, traço..."><button id="certificate-apply">Buscar</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Certificado</th><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Traço</th><th>Vv</th><th>A/B</th><th>Status</th></tr></thead><tbody id="certificate-body"></tbody></table></div>
+          <div id="certificate-pagination" class="pagination"></div>
+        </div>
+      </section>
+
+      <section id="page-pending" class="page">
+        <div class="panel">
+          <div class="panel-head"><h2>Pendências documentais</h2><span>Datas medidas sem certificado técnico válido</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Faixa</th><th>Quantidade</th></tr></thead><tbody id="pending-body"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="page-measurements" class="page">
+        <div class="panel">
+          <div class="panel-head"><h2>Medições</h2><span>Base operacional sintética</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Trecho</th><th>Faixa</th><th>Quantidade</th></tr></thead><tbody id="measurement-body"></tbody></table></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
