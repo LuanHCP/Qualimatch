@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent
 FRONTEND = BASE_DIR / "frontend"
 init_db()
 
-app = FastAPI(title="QualiMatch Portfolio Edition", version="2.1.0")
+app = FastAPI(title="QualiMatch Portfolio Edition", version="2.1.2")
 app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
 
 
@@ -114,7 +114,7 @@ def index():
 
 @app.get("/api/health")
 def health():
-    return {"ok": True, "edition": "portfolio", "version": "2.1.0", "database": str(DB_PATH.name)}
+    return {"ok": True, "edition": "portfolio", "version": "2.1.2", "database": str(DB_PATH.name)}
 
 
 @app.get("/api/measurement-cycles/options")
