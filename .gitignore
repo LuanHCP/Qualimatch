@@ -1,15 +1,11 @@
 .venv/
 __pycache__/
-*.pyc
 .pytest_cache/
+*.pyc
 .env
-.env.*
-!.env.example
-data/
-*.db
-*.sqlite
-*.log
-.vscode/
-.idea/
 .DS_Store
-Thumbs.db
+
+# Banco local gerado automaticamente pela Portfolio Edition
+data/*.db
+data/*.db-shm
+data/*.db-wal
