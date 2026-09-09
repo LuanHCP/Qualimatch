@@ -1,6 +1,19 @@
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
-const state={page:'dashboard',certPage:1,measurementPage:1,dashCertificates:new Set(),certificateOptions:[]};
-const titles={dashboard:['Dashboard','Visão financeira, qualidade e certificados'],certificates:['Certificados','BI330 com resumo estatístico, VV, espessura e corpos de prova'],pending:['Pendências','Somente certificados pendentes sob responsabilidade técnica'],measurements:['Medições','Base operacional usada no cruzamento']};
+const state={page:'dashboard',currentPortal:null,certPage:1,measurementPage:1,dashCertificates:new Set(),certificateOptions:[]};
+const titles={
+ dashboard:['Dashboard','Visão financeira, qualidade e certificados'],
+ certificates:['Certificados','BI330 com resumo estatístico, VV, espessura e corpos de prova'],
+ pending:['Pendências BV','Somente certificados pendentes sob responsabilidade técnica'],
+ measurements:['Medições','Base operacional usada no cruzamento'],
+ 'contractor-home':['Contratada','Visão geral de entregas, kits e controles'],
+ 'contractor-kits':['Kits de ensaio','Tabela operacional da Contratada'],
+ 'contractor-documents':['Documentos','Entregas e arquivos associados aos kits'],
+ 'contractor-pending':['Pendências Contratada','Kits incompletos ou aguardando controles'],
+ 'quality-traces':['Traços','Projetos de mistura, revisões e vigência'],
+ 'quality-ncs':['Não Conformidades','Abertura, tratativa e encerramento de NCs'],
+ admin:['Administração','Usuários, acessos e saúde da aplicação'],
+ 'admin-history':['Histórico','Auditoria e eventos da aplicação']
+};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=(v,d=1)=>Number(v??0).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:d});
 const brl=v=>Number(v??0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
@@ -8,7 +21,7 @@ const dateBR=v=>{if(!v)return'—';const p=String(v).slice(0,10).split('-');retu
 const fmtSta=v=>{const n=Number(v);if(!Number.isFinite(n))return'—';return`${Math.floor(n/1000)}+${String(Math.round(n%1000)).padStart(3,'0')}`};
 const pct=(v,d=1)=>v==null?'—':num(v,d)+'%';
 const cm=(v,d=2)=>v==null?'—':num(v,d)+' cm';
-const statusBadge=v=>{const s=String(v||'SEM RESULTADO').toUpperCase();const cls=s.includes('APROV')||s==='CARREGADO'||s==='ENTREGUE'?'ok':s.includes('REPROV')||s.includes('PENDENTE CERTIFICADO')?'bad':s.includes('PEND')||s.includes('PARCIAL')||s.includes('SEM')?'warn':'neutral';return`<span class="status-badge ${cls}">${esc(s)}</span>`};
+const statusBadge=v=>{const s=String(v||'SEM RESULTADO').toUpperCase();const cls=s.includes('APROV')||['CARREGADO','ENTREGUE','RECEBIDO','OK','VIGENTE','ATIVO','INDEXADO','ENCERRADA'].includes(s)?'ok':s.includes('REPROV')||s.includes('BLOQUEADO')||s.includes('ALTA')||s.includes('PENDENTE CERTIFICADO')?'bad':s.includes('PEND')||s.includes('PARCIAL')||s.includes('SEM')||s.includes('REVISÃO')||s.includes('TRATAMENTO')||s.includes('MÉDIA')?'warn':'neutral';return`<span class="status-badge ${cls}">${esc(s)}</span>`};
 const query=o=>{const p=new URLSearchParams();Object.entries(o).forEach(([k,v])=>{if(v!==''&&v!=null)p.set(k,v)});return p};
 async function api(url){progress();const r=await fetch(url);let d={};try{d=await r.json()}catch{}if(!r.ok)throw new Error(d.detail||'Falha na API');return d}
 function toast(m,bad=false){const e=$('#toast');e.textContent=m;e.style.display='block';e.style.borderColor=bad?'#6f303b':'#413b5b';clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.style.display='none',3500)}
@@ -86,10 +99,82 @@ function renderPagination(selector,total,page,size,handler){const box=$(selector
 window.openCertificate=async id=>{try{const c=await api('/api/certificates/'+id);$('#modal-body').innerHTML=`<div class="detail-head"><div><span class="eyebrow">CERTIFICADO BI330 • DEMO</span><h2>${esc(c.number)}</h2><div class="meta">${esc(c.contractor)} • ${dateBR(c.extraction_date)}</div></div><div>${statusBadge(c.overall_status)}</div></div><div class="detail-grid"><div class="detail-field"><b>Rodovia</b>${esc(c.road)}</div><div class="detail-field"><b>Trecho</b>${fmtSta(c.kmi)} a ${fmtSta(c.kmf)}</div><div class="detail-field"><b>Traço</b>${esc(c.trace_approved)}</div><div class="detail-field"><b>Data aplicação</b>${dateBR(c.service_date)}</div><div class="detail-field"><b>VV médio</b>${pct(c.mean_vv,2)}</div><div class="detail-field"><b>Esp. média</b>${cm(c.mean_thickness_cm,2)}</div><div class="detail-field"><b>A/B médio</b>${pct(c.mean_ratio,2)}</div><div class="detail-field"><b>Contra-prova</b>${statusBadge(c.counterproof_state)}</div></div><div class="phase-card"><div class="panel-head"><div><h3>Corpos de prova</h3><p>Valores sintéticos gerados a partir da média do certificado.</p></div></div><div class="table-wrap"><table><thead><tr><th>CP</th><th>Data</th><th>Rodovia</th><th>Estaca</th><th>Faixa</th><th>Vv</th><th>Espessura</th><th>A/B</th></tr></thead><tbody>${(c.samples||[]).map(s=>`<tr><td>CP ${s.cp}</td><td>${dateBR(s.application_date)}</td><td>${esc(s.road)}</td><td>${fmtSta(s.kmi)}</td><td>${esc(s.lane)}</td><td>${pct(s.vv,2)}</td><td>${cm(s.thickness_cm,2)}</td><td>${pct(s.ratio,2)}</td></tr>`).join('')}</tbody></table></div></div>`;$('#modal').classList.add('open')}catch(e){toast(e.message,true)}};
 function closeModal(){$('#modal').classList.remove('open')}
 
-function openPage(page){state.page=page;$$('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));const t=titles[page];$('#page-title').textContent=t[0];$('#page-subtitle').textContent=t[1];loadCurrent()}
-async function loadCurrent(){if(state.page==='dashboard')return loadDash();if(state.page==='certificates')return loadCertificates(state.certPage);if(state.page==='pending')return loadPending();return loadMeasurements(state.measurementPage)}
+const controlNames={1:'Aplicação',2:'Usinagem',3:'Vv',4:'Taxa',5:'Ligante',6:'Mancha de areia',7:'Pêndulo',8:'Esp. úmida'};
+async function loadContractorHome(){
+ try{
+  const contractor=$('#contractor-home-company').value,d=await api('/api/contractor/summary?contractor='+encodeURIComponent(contractor));
+  $('#contractor-kpis').innerHTML=[metric('Kits',d.kits,'Registros da tabela de kits',true),metric('Recebidos',d.received,'Entregas laboratoriais recebidas',true),metric('Status OK',d.ok,'Kits sem pendência',true),metric('Atenção',d.attention,'Pendentes ou incompletos',true),metric('Documentos',d.documents,'Arquivos indexados',true),metric('Vinculados',d.linked_documents,'Documentos associados a kits',true)].join('');
+  $('#contractor-control-cards').innerHTML=Object.entries(d.controls||{}).map(([n,c])=>{const total=Number(c.total||0),ok=Number(c.ok||0),p=total?ok/total*100:0,cls=p>=90?'ok':p>=75?'warn':'bad';return`<div class="control-status-card ${cls}"><div class="control-status-head"><b>${esc(controlNames[n]||n)}</b><span>${ok}/${total}</span></div><div class="control-status-value">${num(p,1)}%</div><div class="control-progress"><span style="width:${Math.min(100,p)}%"></span></div><small>${c.pending||0} pend. • ${c.incomplete||0} incompletos</small></div>`}).join('');
+ }catch(e){toast(e.message,true)}
+}
+async function loadContractorKits(){
+ try{
+  const contractor=$('#kit-contractor').value,status=$('#kit-status').value,list=await api('/api/contractor/kits?'+query({contractor,status,limit:500}));
+  const ok=list.filter(x=>x.status==='OK').length,attention=list.length-ok;
+  $('#kit-summary').innerHTML=`<div class="summary-chip"><b>${list.length}</b> kits</div><div class="summary-chip"><b>${ok}</b> OK</div><div class="summary-chip"><b>${attention}</b> atenção</div>`;
+  $('#kit-body').innerHTML=list.map(x=>`<tr><td><b>${esc(x.seq)}</b></td><td>${esc(x.contractor)}</td><td>${esc(x.service)}</td><td>${dateBR(x.application_date)}</td><td>${esc(x.mix_project)}</td><td>${esc(x.period)}</td><td>${esc(x.road)}</td><td>${fmtSta(x.kmi)}</td><td>${fmtSta(x.kmf)}</td><td>${dateBR(x.receipt_date)}</td><td>${statusBadge(x.delivery_status)}</td><td>${statusBadge(x.status)}</td><td>${statusBadge(x.status_1)}</td><td>${statusBadge(x.status_2)}</td><td>${statusBadge(x.status_3)}</td><td>${statusBadge(x.status_4)}</td><td>${statusBadge(x.status_5)}</td><td>${statusBadge(x.status_6)}</td><td>${statusBadge(x.status_7)}</td><td>${statusBadge(x.status_8)}</td></tr>`).join('')||'<tr><td colspan="20">Nenhum kit.</td></tr>';
+ }catch(e){toast(e.message,true)}
+}
+async function loadContractorDocuments(){
+ try{
+  const contractor=$('#contractor-doc-company').value,list=await api('/api/contractor/documents?contractor='+encodeURIComponent(contractor));
+  $('#contractor-doc-summary').innerHTML=`<div class="summary-chip"><b>${list.length}</b> documentos</div><div class="summary-chip"><b>${list.filter(x=>x.linked_seq).length}</b> vinculados</div>`;
+  $('#contractor-doc-grid').innerHTML=list.map(x=>`<div class="file-card"><div class="file-icon">PDF</div><div class="file-copy"><b>${esc(x.file_name)}</b><span>${esc(x.folder)}</span><small>${esc(x.document_type)} • ${esc(x.linked_seq||'Sem vínculo')}</small></div><div>${statusBadge(x.status)}</div></div>`).join('')||'<div class="empty">Nenhum documento.</div>';
+ }catch(e){toast(e.message,true)}
+}
+async function loadContractorPending(){
+ try{
+  const contractor=$('#contractor-pending-company').value,list=await api('/api/contractor/pending?contractor='+encodeURIComponent(contractor));
+  $('#contractor-pending-summary').innerHTML=`<div class="summary-chip"><b>${list.length}</b> pendências</div><div class="summary-chip"><b>${list.filter(x=>x.status==='PENDENTE').length}</b> pendentes</div><div class="summary-chip"><b>${list.filter(x=>x.status==='INCOMPLETO').length}</b> incompletos</div>`;
+  $('#contractor-pending-body').innerHTML=list.map(x=>`<tr><td><b>${esc(x.seq)}</b></td><td>${esc(x.contractor)}</td><td>${dateBR(x.application_date)}</td><td>${esc(x.road)}</td><td>${fmtSta(x.kmi)} a ${fmtSta(x.kmf)}</td><td>${esc(x.mix_project)}</td><td>${statusBadge(x.delivery_status)}</td><td>${statusBadge(x.status)}</td></tr>`).join('')||'<tr><td colspan="8">Nenhuma pendência.</td></tr>';
+ }catch(e){toast(e.message,true)}
+}
+async function loadTraces(){
+ try{
+  const contractor=$('#trace-contractor').value,status=$('#trace-status').value,list=await api('/api/quality/traces?'+query({contractor,status}));
+  $('#trace-summary').innerHTML=`<div class="summary-chip"><b>${list.length}</b> traços</div><div class="summary-chip"><b>${list.filter(x=>x.status==='VIGENTE').length}</b> vigentes</div><div class="summary-chip"><b>${list.filter(x=>x.status==='EM REVISÃO').length}</b> em revisão</div>`;
+  $('#trace-grid').innerHTML=list.map(x=>`<article class="trace-card"><div class="trace-card-head"><div><span class="eyebrow">PROJETO DE MISTURA</span><h3>${esc(x.code)}</h3></div>${statusBadge(x.status)}</div><div class="trace-info-grid"><div><b>Contratada</b><span>${esc(x.contractor)}</span></div><div><b>Usina</b><span>${esc(x.plant)}</span></div><div><b>Fornecedor</b><span>${esc(x.supplier)}</span></div><div><b>Ligante</b><span>${esc(x.binder)}</span></div><div><b>Faixa</b><span>${esc(x.mixture)}</span></div><div><b>Revisão</b><span>R${String(x.revision).padStart(2,'0')}</span></div><div><b>Vigência</b><span>${dateBR(x.valid_from)} a ${dateBR(x.valid_to)}</span></div></div><p>${esc(x.notes)}</p></article>`).join('')||'<div class="empty">Nenhum traço.</div>';
+ }catch(e){toast(e.message,true)}
+}
+async function loadNCs(){
+ try{
+  const contractor=$('#nc-contractor').value,status=$('#nc-status').value,list=await api('/api/quality/nonconformities?'+query({contractor,status}));
+  const open=list.filter(x=>x.status==='ABERTA').length,treat=list.filter(x=>x.status==='EM TRATAMENTO').length,closed=list.filter(x=>x.status==='ENCERRADA').length,high=list.filter(x=>x.severity==='ALTA').length;
+  $('#nc-kpis').innerHTML=[metric('Total',list.length,'NCs neste filtro',true),metric('Abertas',open,'Aguardando tratativa',true),metric('Em tratamento',treat,'Ação em andamento',true),metric('Encerradas',closed,'Tratativa concluída',true),metric('Severidade alta',high,'Prioridade elevada',true)].join('');
+  $('#nc-body').innerHTML=list.map(x=>`<tr><td><b>${esc(x.number)}</b></td><td>${dateBR(x.opened_date)}</td><td>${esc(x.contractor)}</td><td>${esc(x.road)}<span class="sub">km ${esc(x.km)}</span></td><td class="nc-description">${esc(x.description)}</td><td>${esc(x.category)}</td><td>${statusBadge(x.severity)}</td><td>${statusBadge(x.status)}</td><td>${dateBR(x.due_date)}</td><td class="nc-action">${esc(x.action)}</td></tr>`).join('')||'<tr><td colspan="10">Nenhuma NC.</td></tr>';
+ }catch(e){toast(e.message,true)}
+}
+async function loadAdmin(){
+ try{
+  const [d,users]=await Promise.all([api('/api/admin/summary'),api('/api/admin/users')]);
+  $('#admin-kpis').innerHTML=[metric('Usuários',d.users,'Perfis demonstrativos',true),metric('Ativos',d.active_users,'Acesso liberado',true),metric('Bloqueados',d.blocked_users,'Acesso suspenso',true),metric('Eventos',d.audit_events,'Registros de auditoria',true),metric('Certificados',d.certificates,'Base demo',true),metric('Kits',d.kits,'Base demo',true),metric('Traços',d.traces,'Base demo',true),metric('NCs',d.nonconformities,'Base demo',true)].join('');
+  $('#admin-users-body').innerHTML=users.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.email)}</td><td>${esc(x.role)}</td><td>${statusBadge(x.access_level)}</td><td>${statusBadge(x.status)}</td><td>${esc(x.last_access)}</td></tr>`).join('');
+ }catch(e){toast(e.message,true)}
+}
+async function loadAdminHistory(){
+ try{const list=await api('/api/admin/audit?limit=150');$('#admin-history-body').innerHTML=list.map(x=>`<tr><td>${esc(x.created_at)}</td><td><b>${esc(x.actor)}</b></td><td>${esc(x.action)}</td><td>${esc(x.target)}</td><td>${esc(x.detail)}</td></tr>`).join('')}catch(e){toast(e.message,true)}
+}
 
-$$('#nav button').forEach(b=>b.onclick=()=>openPage(b.dataset.page));$('#refresh-current').onclick=loadCurrent;$('#dash-refresh').onclick=loadDash;$('#dash-status').onchange=loadDash;$('#dash-measurement').onchange=()=>{if($('#dash-measurement').value){$('#dash-start').value='';$('#dash-end').value=''}loadDash()};$('#dash-contractor').onchange=async()=>{state.dashCertificates.clear();await Promise.all([loadDashCertificateOptions(),loadDash()])};['#dash-start','#dash-end'].forEach(id=>$(id).onchange=()=>{if($(id).value)$('#dash-measurement').value=''});$('#go-certificates').onclick=()=>openPage('certificates');
+function openPage(page){
+ const btn=$(`#nav button[data-page="${page}"]`);if(btn&&state.currentPortal&&btn.dataset.portal!==state.currentPortal)return;
+ state.page=page;$('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));
+ const t=titles[page]||[page,''];$('#page-title').textContent=t[0];$('#page-subtitle').textContent=t[1];loadCurrent();
+}
+async function loadCurrent(){
+ const loaders={dashboard:loadDash,certificates:()=>loadCertificates(state.certPage),pending:loadPending,measurements:()=>loadMeasurements(state.measurementPage),'contractor-home':loadContractorHome,'contractor-kits':loadContractorKits,'contractor-documents':loadContractorDocuments,'contractor-pending':loadContractorPending,'quality-traces':loadTraces,'quality-ncs':loadNCs,admin:loadAdmin,'admin-history':loadAdminHistory};
+ return (loaders[state.page]||(()=>{}))();
+}
+function showPortalSelector(){state.currentPortal=null;$('#portal-shell').classList.remove('portal-hidden');$('#app-layout').classList.add('app-hidden')}
+function enterPortal(portal,page){
+ state.currentPortal=portal;$('#portal-shell').classList.add('portal-hidden');$('#app-layout').classList.remove('app-hidden');
+ $('#nav button').forEach(b=>b.hidden=b.dataset.portal!==portal);
+ const defaults={BV:'dashboard',CONTRACTOR:'contractor-home',QUALITY:'quality-traces',ADMIN:'admin'};
+ openPage(page||defaults[portal]);
+}
+$('#nav button').forEach(b=>b.onclick=()=>openPage(b.dataset.page));$('#refresh-current').onclick=loadCurrent;$('#dash-refresh').onclick=loadDash;$('#dash-status').onchange=loadDash;$('#dash-measurement').onchange=()=>{if($('#dash-measurement').value){$('#dash-start').value='';$('#dash-end').value=''}loadDash()};$('#dash-contractor').onchange=async()=>{state.dashCertificates.clear();await Promise.all([loadDashCertificateOptions(),loadDash()])};['#dash-start','#dash-end'].forEach(id=>$(id).onchange=()=>{if($(id).value)$('#dash-measurement').value=''});$('#go-certificates').onclick=()=>openPage('certificates');
 $('#dash-cert-trigger').onclick=e=>{e.stopPropagation();$('#dash-cert-menu').hidden=!$('#dash-cert-menu').hidden};$('#dash-cert-menu').onclick=e=>e.stopPropagation();$('#dash-cert-search').oninput=renderDashCertificateOptions;$('#dash-cert-all').onclick=()=>{state.dashCertificates.clear();renderDashCertificateOptions();renderDashCertificateChips();loadDash()};$('#dash-cert-clear').onclick=$('#dash-cert-all').onclick;document.addEventListener('click',()=>$('#dash-cert-menu').hidden=true);
 $('#c-load').onclick=()=>loadCertificates(1);$('#c-clear').onclick=clearCertificateFilters;$('#c-contractor').onchange=()=>{loadCertificateFilterOptions();state.certPage=1};$('#c-segment').onkeydown=e=>{if(e.key==='Enter')loadCertificates(1)};$('#p-load').onclick=loadPending;$('#p-contractor').onchange=loadPending;$('#m-load').onclick=()=>loadMeasurements(1);$('#m-contractor').onchange=()=>loadMeasurements(1);$('#m-search').onkeydown=e=>{if(e.key==='Enter')loadMeasurements(1)};$('#modal-close').onclick=closeModal;$('#modal').onclick=e=>{if(e.target===$('#modal'))closeModal()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-(async()=>{try{await Promise.all([loadDashCertificateOptions(),loadCycleOptions(['#p-measurement','#m-measurement'])]);await loadDash()}catch(e){toast(e.message,true)}})();
+$('[data-portal-card]').forEach(card=>card.onclick=()=>enterPortal(card.dataset.portalCard));$('#portal-back-btn').onclick=showPortalSelector;
+$('#contractor-home-company').onchange=loadContractorHome;$('#kit-load').onclick=loadContractorKits;$('#kit-contractor').onchange=loadContractorKits;$('#kit-status').onchange=loadContractorKits;$('#contractor-doc-refresh').onclick=loadContractorDocuments;$('#contractor-doc-company').onchange=loadContractorDocuments;$('#contractor-pending-refresh').onclick=loadContractorPending;$('#contractor-pending-company').onchange=loadContractorPending;
+$('#trace-load').onclick=loadTraces;$('#trace-contractor').onchange=loadTraces;$('#trace-status').onchange=loadTraces;$('#nc-load').onclick=loadNCs;$('#nc-contractor').onchange=loadNCs;$('#nc-status').onchange=loadNCs;$('#admin-refresh').onclick=loadAdmin;$('#admin-history-refresh').onclick=loadAdminHistory;
+(async()=>{try{await Promise.all([loadDashCertificateOptions(),loadCycleOptions(['#p-measurement','#m-measurement'])]);showPortalSelector()}catch(e){toast(e.message,true)}})();
