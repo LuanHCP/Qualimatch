@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent
 FRONTEND = BASE_DIR / "frontend"
 init_db()
 
-app = FastAPI(title="QualiMatch Portfolio Edition", version="2.0.0")
+app = FastAPI(title="QualiMatch Portfolio Edition", version="2.1.0")
 app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
 
 
@@ -114,7 +114,7 @@ def index():
 
 @app.get("/api/health")
 def health():
-    return {"ok": True, "edition": "portfolio", "version": "2.0.0", "database": str(DB_PATH.name)}
+    return {"ok": True, "edition": "portfolio", "version": "2.1.0", "database": str(DB_PATH.name)}
 
 
 @app.get("/api/measurement-cycles/options")
@@ -303,3 +303,112 @@ def measurements(
     offset = (page - 1) * page_size
     items = rows(f"SELECT * FROM measurements{w} ORDER BY date DESC,id DESC LIMIT ? OFFSET ?", tuple(params + [page_size, offset]))
     return {"items": items, "total": total, "page": page, "page_size": page_size}
+
+
+@app.get("/api/contractor/summary")
+def contractor_summary(contractor: str = "ALL"):
+    contractor = _contractor(contractor)
+    where = "" if contractor == "ALL" else " WHERE contractor=?"
+    params = () if contractor == "ALL" else (contractor,)
+    kits = rows(f"SELECT * FROM kits{where}", params)
+    docs = rows(f"SELECT * FROM contractor_documents{where}", params)
+    attention = sum(1 for x in kits if x["status"] != "OK")
+    received = sum(1 for x in kits if x["delivery_status"] == "RECEBIDO")
+    controls = {}
+    for n in range(1, 9):
+        key = f"status_{n}"
+        values = [x.get(key) for x in kits]
+        controls[str(n)] = {
+            "ok": sum(1 for v in values if v == "OK"),
+            "pending": sum(1 for v in values if v == "PENDENTE"),
+            "incomplete": sum(1 for v in values if v == "INCOMPLETO"),
+            "total": len(values),
+        }
+    return {
+        "kits": len(kits), "received": received, "ok": len(kits) - attention, "attention": attention,
+        "documents": len(docs), "linked_documents": sum(1 for x in docs if x.get("linked_seq")),
+        "controls": controls,
+    }
+
+
+@app.get("/api/contractor/kits")
+def contractor_kits(contractor: str = "ALL", status: str = "ALL", limit: int = Query(200, ge=1, le=1000)):
+    contractor = _contractor(contractor)
+    where = []
+    params: list[Any] = []
+    if contractor != "ALL":
+        where.append("contractor=?"); params.append(contractor)
+    if status.upper() != "ALL":
+        where.append("status=?"); params.append(status.upper())
+    w = " WHERE " + " AND ".join(where) if where else ""
+    return rows(f"SELECT * FROM kits{w} ORDER BY application_date DESC,id DESC LIMIT ?", tuple(params + [limit]))
+
+
+@app.get("/api/contractor/documents")
+def contractor_documents(contractor: str = "ALL"):
+    contractor = _contractor(contractor)
+    where = "" if contractor == "ALL" else " WHERE contractor=?"
+    params = () if contractor == "ALL" else (contractor,)
+    return rows(f"SELECT * FROM contractor_documents{where} ORDER BY modified_at DESC,id DESC", params)
+
+
+@app.get("/api/contractor/pending")
+def contractor_pending(contractor: str = "ALL"):
+    contractor = _contractor(contractor)
+    where = ["status<>'OK'"]
+    params: list[Any] = []
+    if contractor != "ALL":
+        where.append("contractor=?"); params.append(contractor)
+    return rows("SELECT * FROM kits WHERE " + " AND ".join(where) + " ORDER BY application_date DESC", tuple(params))
+
+
+@app.get("/api/quality/traces")
+def quality_traces(contractor: str = "ALL", status: str = "ALL"):
+    contractor = _contractor(contractor)
+    where = []
+    params: list[Any] = []
+    if contractor != "ALL":
+        where.append("contractor=?"); params.append(contractor)
+    if status.upper() != "ALL":
+        where.append("status=?"); params.append(status.upper())
+    w = " WHERE " + " AND ".join(where) if where else ""
+    return rows(f"SELECT * FROM traces{w} ORDER BY valid_from DESC,id DESC", tuple(params))
+
+
+@app.get("/api/quality/nonconformities")
+def quality_nonconformities(contractor: str = "ALL", status: str = "ALL"):
+    contractor = _contractor(contractor)
+    where = []
+    params: list[Any] = []
+    if contractor != "ALL":
+        where.append("contractor=?"); params.append(contractor)
+    if status.upper() != "ALL":
+        where.append("status=?"); params.append(status.upper())
+    w = " WHERE " + " AND ".join(where) if where else ""
+    return rows(f"SELECT * FROM nonconformities{w} ORDER BY opened_date DESC,id DESC", tuple(params))
+
+
+@app.get("/api/admin/summary")
+def admin_summary():
+    return {
+        "users": row("SELECT COUNT(*) n FROM demo_users")["n"],
+        "active_users": row("SELECT COUNT(*) n FROM demo_users WHERE status='ATIVO'")["n"],
+        "blocked_users": row("SELECT COUNT(*) n FROM demo_users WHERE status='BLOQUEADO'")["n"],
+        "audit_events": row("SELECT COUNT(*) n FROM audit_log")["n"],
+        "certificates": row("SELECT COUNT(*) n FROM certificates")["n"],
+        "measurements": row("SELECT COUNT(*) n FROM measurements")["n"],
+        "kits": row("SELECT COUNT(*) n FROM kits")["n"],
+        "traces": row("SELECT COUNT(*) n FROM traces")["n"],
+        "nonconformities": row("SELECT COUNT(*) n FROM nonconformities")["n"],
+        "database": DB_PATH.name,
+    }
+
+
+@app.get("/api/admin/users")
+def admin_users():
+    return rows("SELECT * FROM demo_users ORDER BY id")
+
+
+@app.get("/api/admin/audit")
+def admin_audit(limit: int = Query(100, ge=1, le=500)):
+    return rows("SELECT * FROM audit_log ORDER BY created_at DESC,id DESC LIMIT ?", (limit,))
