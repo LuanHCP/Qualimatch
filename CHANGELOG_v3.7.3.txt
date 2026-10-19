@@ -1,0 +1,8 @@
+QualiMatch v3.7.3 — Excel visível + alerta de data
+
+- Corrige geração de cópias da BD_QUALI quando a planilha de origem estava com AutoFilter ativo.
+- Linhas novas clonadas não herdam mais hidden="1" de linhas filtradas.
+- Na cópia gerada, filtros ativos são limpos e as linhas da tabela são reexibidas para revisão; o arquivo oficial não é alterado.
+- A geração passa a validar o XLSX final e só entrega o arquivo se o Nº CERTIFICADO Vv estiver realmente gravado nas linhas previstas.
+- O download informa as linhas efetivamente escritas no Excel.
+- Na aba Certificados BV, certificados com Data Rec. em Lab. anterior à Data Ext. dos CPs recebem destaque amarelo e aviso "Data inconsistente".

@@ -1,0 +1,41 @@
+QualiMatch v3.8.20 — Filtros por Medição, Pendências e Fundo com Árvores
+Data: 24/08/2026
+Base: v3.8.19 enviada pelo usuário, preservando as customizações visuais já existentes.
+
+1. Dashboard — filtro por medição
+- Novo filtro Mxx no Dashboard.
+- Regra operacional mantida: cada medição inicia no dia 11 e termina no dia 10 do mês seguinte.
+- Referências: M14 = 11/08/2026 a 10/09/2026; M13 = 11/07/2026 a 10/08/2026.
+- O filtro recorta financeiro, qualidade, certificados e pendências do Dashboard.
+- Ao selecionar uma medição, a tela mostra o período correspondente.
+
+2. BV > Certificados — filtro por medição
+- Novo filtro Mxx na base de certificados.
+- O enquadramento usa Data ex. serviço e Data Aplicação dos CPs.
+- Para legados sem essas datas, o sistema tenta recuperar datas operacionais presentes no nome do PDF antes de recorrer à Data Ext. dos CPs.
+
+3. BV > Pendências — correção de falso pendente do BI330-0169
+- Cobertura passa a considerar também vínculos formais Medição ↔ Certificado.
+- Certificados legados sem service_date/CPs podem usar, de forma conservadora, datas existentes no nome do PDF.
+- Validação somente leitura no banco empacotado confirmou que as datas associadas ao BI330-0169 deixaram de aparecer como pendentes nos casos verificados de ARENA e PAVIDEZ.
+
+4. Contratada > Pendências — Data da d.KIT
+- Linha com Data Aplicação vazia passa a contar como pendência da Contratada.
+- Exceção solicitada: se Data Aplicação estiver vazia, mas KMI e KMF estiverem ambos preenchidos, a linha não gera pendência por falta de data.
+- A tela diferencia explicitamente "Data não preenchida".
+
+5. Administração > Histórico
+- Novo filtro por data.
+- O mesmo filtro é aplicado ao histórico de sincronizações e às alterações manuais.
+
+6. Visual
+- Adicionadas árvores discretas ao fundo da aplicação, integradas à cena de céu/rodovia já existente no projeto enviado pelo usuário.
+- A decoração permanece atrás da interface, sem bloquear cliques.
+
+7. Compatibilidade e segurança
+- Parser BI330 permanece na versão 3.8.13.
+- Bootstrap Python robusto da linha v3.8.17 foi preservado.
+- Remoção de duplicados da v3.8.19 foi preservada.
+- O painel mensal removido nas customizações visuais do usuário NÃO foi reintroduzido.
+- Nenhuma migração de schema foi necessária.
+- data/qualimatch.db preservado sem alteração.

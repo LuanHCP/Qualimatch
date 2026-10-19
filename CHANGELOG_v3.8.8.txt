@@ -1,0 +1,27 @@
+QualiMatch v3.8.8 — STATUS FINAL + ENTREGA POR RESPONSABILIDADE
+
+1. Dashboard de certificados
+- A classificação principal agora é mutuamente exclusiva: Aprovados + Reprovados + Ajustes/sem resultado = Total de certificados.
+- Contra-prova passa a ser indicador transversal (subconjunto do total), sem ser somada como terceira categoria.
+- O card foi renomeado para “Com contra-prova” e explica que esses certificados já estão incluídos no total.
+
+2. Status final e contra-prova
+- A presença real de CPs na fase CONTRA_PROVA é a fonte de verdade para contra-prova entregue.
+- Quando há contra-prova entregue, seus resultados são a fase final usada em VV, espessura e status geral.
+- Flags antigos de has_counterproof não fazem mais um certificado parecer com contra-prova entregue sem existir fase/CPs correspondentes.
+- A listagem mostra ENTREGUE/PENDENTE/NÃO na coluna de contra-prova.
+
+3. Pendências por coluna ENTREGA da construtora
+- A d.KIT passa a extrair a coluna ENTREGA para delivery_status.
+- Se TODOS os kits da data estão “Entregue”, a responsabilidade passa para a BV.
+- Se algum estiver “Não entregue” ou vazio, permanece na Contratada.
+- A BV recebe o item imediatamente quando a entrega é confirmada; o SLA de 3 dias aparece separadamente como NO PRAZO ou PENDENTE CERTIFICADO.
+- Planilhas históricas sem coluna ENTREGA mantêm o comportamento legado para não gerar falsas pendências em massa.
+- O gráfico de entregas mensais também respeita a coluna ENTREGA quando ela existe.
+
+4. Interface
+- Kits de ensaio exibem a coluna Entrega.
+- Pendências da Contratada exibem a situação de Entrega.
+- Pendências BV mostram apenas itens cuja responsabilidade já passou para a BV.
+
+Versão visual: v3.8.8

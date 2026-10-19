@@ -1,0 +1,11 @@
+QualiMatch v3.8.20
+Base: cópia personalizada da v3.8.19 enviada pelo usuário em 24/08/2026.
+
+Atualizações principais:
+- filtro por medição no Dashboard e em BV > Certificados;
+- correção de falso pendente do BI330-0169;
+- nova regra de pendência Contratada para Data/KMI/KMF;
+- filtro por data em Administração > Histórico;
+- árvores discretas no fundo, preservando a cena personalizada existente.
+
+Consulte CHANGELOG_v3.8.20.txt e VALIDACAO_v3.8.20.md.

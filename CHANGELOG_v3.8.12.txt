@@ -1,0 +1,17 @@
+QualiMatch v3.8.12 — Parser BV com etapas E1/E3
+Data: 21/08/2026
+
+CORREÇÃO
+- Linhas de CP com Data Aplicação no formato 09/10/2025-E3 ou 09/10/2025-E1 agora são reconhecidas.
+- O identificador E1/E3 é tratado como marcador de etapa e não interfere na data usada pelo matching.
+- PARSER_VERSION atualizado para 3.8.12.
+
+VALIDAÇÃO
+- BI330-0093: 10/10 CPs extraídos, status CARREGADO.
+- BI330-0446: 6/6 CPs extraídos, status CARREGADO.
+- BI330-0471: 6/6 CPs extraídos, status CARREGADO.
+- Regressão de parser: 12 testes aprovados.
+
+BANCO
+- Nenhuma migração ou alteração de schema necessária.
+- A correção atua exclusivamente no parser de PDF.

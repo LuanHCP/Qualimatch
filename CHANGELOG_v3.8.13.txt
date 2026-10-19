@@ -1,0 +1,41 @@
+QualiMatch v3.8.13 — REVALIDAÇÃO SEM RESULTADO BV
+Data: 21/08/2026
+
+1. Auditoria da base BV
+- O banco empacotado foi consultado em modo somente leitura.
+- 765 certificados ativos.
+- 567 certificados com Situação = Sem resultado.
+- 336 PAVIDEZ e 231 ARENA.
+- Os 567 registros Sem resultado não possuem CPs/fases técnicas gravadas.
+- Os arquivos vinculados são registros legados com parser_version vazio, originados da carga de 13/08/2026.
+
+2. Parser BV mais tolerante
+- Aceita faixa com múltiplas palavras, como "Faixa adicional".
+- Aceita faixa vazia quando a estaca aparece logo após o sentido.
+- Aceita marcadores de etapa após Data Aplicação: -E1, -E2, -E3, .E3, _E3 e também " E3".
+- Junta linhas de CP quebradas pelo extrator de texto do PDF.
+- Usa estaca e o bloco Espessura/A-B como âncoras, reduzindo dependência de posição fixa.
+- Mantém compatibilidade com layout antigo e layout novo que inclui Vv com plástico filme.
+- Rice/Gmm, Gmb e Vv são localizados com validações físicas para evitar deslocamento silencioso.
+
+3. Validação em lote de Sem resultado
+- Novo botão: BV > Certificados > "Validar sem resultado" (ADMIN).
+- Reprocessa apenas certificados cuja Situação atual é Sem resultado.
+- Usa somente os PDFs já vinculados ao certificado.
+- Mostra total analisado, corrigidos, remanescentes, PDFs não encontrados e motivos principais.
+- Não executa preenchimento da BD_QUALI nesta rotina.
+- Recalcula os vínculos de medição somente após concluir o lote por contratada.
+
+4. Sincronização normal
+- PARSER_VERSION alterado para 3.8.13.
+- Na próxima sincronização, registros antigos incompletos são automaticamente relidos.
+- Registros antigos já tecnicamente completos usam o upgrade inteligente e não são reprocessados sem necessidade.
+
+5. Diagnóstico
+- Incluído tools/diagnosticar_sem_resultado_bv.py.
+- O modo padrão consulta o SQLite em read-only.
+- A opção --parse faz uma simulação de leitura dos PDFs existentes sem persistir o resultado no banco.
+
+6. Segurança do banco
+- Nenhuma migração de schema.
+- O arquivo data/qualimatch.db foi preservado byte a byte em relação à v3.8.12.

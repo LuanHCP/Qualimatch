@@ -1,0 +1,14 @@
+QualiMatch v3.6.4 — Contratada: gráfico mensal e filtros refinados
+
+- Visão Geral / Contratada:
+  - gráfico de Entregas passa de diário para mensal;
+  - barras representam entregas registradas no mês pela data da d.KIT;
+  - linha representa a meta mensal, calculada pela quantidade de dias distintos com medição;
+  - em Arena + Pavidez, dias são contabilizados por contratada para respeitar fluxos independentes.
+- Kits de ensaio:
+  - Situação passa a usar opções fixas: OK, INCOMPLETO e PENDENTE;
+  - Período passa a usar opções fixas: DIURNO e NOTURNO;
+  - filtro Serviço removido;
+  - Rodovia passa a ser consultada diretamente da coluna road da base de kits;
+  - opções de filtros agora são carregadas automaticamente ao abrir a aba Kits de ensaio, corrigindo o select de rodovias vazio.
+- Cache visual atualizado para v3.6.4.

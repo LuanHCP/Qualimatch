@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema de Gestão de NC / RNC / AC-AP</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<div id="app"></div>
+
+<!-- núcleo (ordem: api -> dados/download -> estado/utilitários -> domínio -> componentes -> pdf -> roteador) -->
+<script src="assets/js/api.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/permissions.js"></script>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/pdf.js"></script>
+<script src="assets/js/router.js"></script>
+
+<!-- páginas -->
+<script src="assets/js/pages/login.js"></script>
+<script src="assets/js/pages/change-password.js"></script>
+<script src="assets/js/pages/dashboard.js"></script>
+<script src="assets/js/pages/registros.js"></script>
+<script src="assets/js/pages/registro-detail.js"></script>
+<script src="assets/js/pages/registro-form.js"></script>
+<script src="assets/js/pages/contratos.js"></script>
+<script src="assets/js/pages/textos.js"></script>
+<script src="assets/js/pages/usuarios.js"></script>
+<script src="assets/js/pages/configuracao.js"></script>
+<script src="assets/js/pages/import-export.js"></script>
+
+<!-- inicialização -->
+<script>
+if(window.self!==window.top){
+  document.documentElement.classList.add('qualimatch-embedded');
+  function sendNcContext(){
+    if(!App.state||!App.state.user)return;
+    var sedes=App.perm.sedesDoUsuario().map(function(s){return{id:s.id,sigla:s.sigla,nome:s.nome};});
+    window.parent.postMessage({source:'nc-app',type:'nc-context',sedeId:App.state.sedeId,sedes:sedes},'*');
+  }
+  window.addEventListener('message',function(event){
+    var data=event.data||{},allowed=['dashboard','ncs','contratos','textos','config','usuarios','importexport'];
+    if(data.source!=='qualimatch')return;
+    if(data.type==='nc-navigate'&&allowed.indexOf(data.target)>=0)location.hash='#/'+data.target;
+    if(data.type==='nc-select-sede'&&data.sedeId){
+      var permitted=App.perm.sedesDoUsuario().some(function(s){return s.id===data.sedeId;});
+      if(permitted){App.state.sedeId=data.sedeId;location.hash='#/dashboard';App.router.render();setTimeout(sendNcContext,0);}
+    }
+  });
+  window.addEventListener('hashchange',function(){
+    var target=location.hash.replace(/^#\/?/,'').split('/')[0]||'dashboard';
+    window.parent.postMessage({source:'nc-app',type:'nc-route',target:target},'*');
+    sendNcContext();
+  });
+  var contextAttempts=0,contextTimer=setInterval(function(){
+    contextAttempts+=1;sendNcContext();
+    if((App.state&&App.state.user)||contextAttempts>=20)clearInterval(contextTimer);
+  },300);
+}
+App.boot();
+</script>
+</body>
+</html>

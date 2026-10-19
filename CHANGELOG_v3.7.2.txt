@@ -1,0 +1,13 @@
+QualiMatch v3.7.2 — Revisão manual, edição segura e autoria
+Data: 18/08/2026
+
+- PDF → BD_QUALI: certificados novos continuam sendo adicionados ao fim da tabela para preservar a estrutura do Excel; certificados existentes são atualizados nas próprias linhas.
+- A prévia agora informa a posição projetada das linhas Excel para cada certificado pronto.
+- Linhas em REVISAR/SEM MEDIÇÃO com candidatos passam a permitir seleção manual da medição correta; a escolha é reaplicada também ao gerar a cópia Excel.
+- A geração informa quantas linhas foram adicionadas e quantas foram atualizadas.
+- Detalhe do certificado: ADMIN pode editar resumo/status por fase (status geral, VV, espessura, K e estatísticas).
+- Cada CP possui botão Editar para corrigir Data Aplicação, sentido, faixa, estaca, posição, espessuras, A/B, Rice, Gmb e VV.
+- Edições manuais criam backup automático, auditoria e manual_override para impedir sobrescrita pela sincronização.
+- Opcionalmente, ao editar um CP, os cartões estatísticos são recalculados a partir dos CPs editados.
+- Rodapé: "Desenvolvido por Luan".
+- Cache visual versionado para v3.7.2.

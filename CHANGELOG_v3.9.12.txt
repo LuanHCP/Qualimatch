@@ -1,0 +1,16 @@
+QualiMatch v3.9.12 — HOTFIX DASHBOARD
+
+Data: 31/08/2026
+
+Objetivo:
+Evitar que uma falha em um indicador secundário derrube o Dashboard inteiro com "Internal Server Error".
+
+Ajustes:
+- consultas auxiliares do Dashboard (tendência financeira, visão mensal, visão por medição, pendências e resumo de certificados) agora falham de forma isolada;
+- se um bloco secundário apresentar problema, os demais dados continuam carregando e o erro aparece como aviso;
+- acesso a campos de snapshot/BD_QUALI ficou mais tolerante a bancos antigos ou colunas nulas;
+- a rota /api/dashboard passa a retornar uma mensagem de diagnóstico legível em vez do texto genérico "Internal Server Error";
+- versão atualizada para v3.9.12 e cache dos scripts invalidado pelo novo número de versão.
+
+Observação:
+Este hotfix não altera regras de negócio nem dados; apenas melhora robustez e diagnóstico do Dashboard.

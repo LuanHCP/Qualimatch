@@ -1,0 +1,16 @@
+QualiMatch v3.8.11 — Parser BV multiversão
+Data: 21/08/2026
+
+CORREÇÕES
+- BI330 com faixa textual de múltiplas palavras (ex.: "Faixa adicional") agora é reconhecido.
+- BI330 antigos e novos passam a compartilhar uma leitura de linha mais tolerante.
+- Corrigida a leitura de Gmb/VV quando a revisão nova da BV inclui "Volume de Vazios com Plástico Filme (%)".
+- PARSER_VERSION atualizado para 3.8.11.
+
+VALIDAÇÃO
+- BI330-0446: 6/6 CPs extraídos, status CARREGADO.
+- BI330-0471: 6/6 CPs extraídos, status CARREGADO.
+- Testes unitários do parser: 10 aprovados.
+
+BANCO
+- Nenhuma migração, consulta ou alteração de schema necessária para esta correção.

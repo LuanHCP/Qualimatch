@@ -1,0 +1,9 @@
+QualiMatch v3.8.10 — LINHA ESTRUTURAL AUTOMÁTICA BD_QUALI
+
+- Corrige “Sem linha-modelo na BD_QUALI” para medições novas.
+- Se existir a linha exata da medição, ela continua sendo usada como primeira opção.
+- Se não existir, busca uma linha estrutural da mesma BD_QUALI/contratada, priorizando linha recente, sem certificado e semelhante em rodovia/sentido/faixa.
+- O fallback preserva estilos e fórmulas, limpa todos os valores constantes do molde e reaplica os dados-base da medição.
+- Não copia KIT, RNC, certificados ou valores manuais da linha-modelo para a nova medição.
+- Continua bloqueando quando não há nenhuma estrutura segura na BD_QUALI ou quando a medição completa não está disponível no banco.
+- Mantidas gravação direta, backup, escrita atômica e validação pós-gravação.

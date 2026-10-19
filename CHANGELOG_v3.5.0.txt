@@ -1,0 +1,14 @@
+QualiMatch v3.5.0 — Documentos dos Kits + Feedback Contratada
+Data: 17/08/2026
+
+- Nova fonte local por contratada: kit_documentos.
+- Varredura recursiva da pasta Entrega Contratada, incluindo subpastas aninhadas.
+- Índice de documentos em kit_documents sem duplicar os arquivos do SharePoint.
+- Tentativa de vínculo automático documento ↔ kit pelo #SEQ no nome/caminho.
+- Aba Contratada / Kits exibe documentos indexados, pasta relativa, tipo, tamanho e botão Abrir.
+- Dashboard ganha filtro Todos/Aprovados/Reprovados.
+- Removido card Volume massa.
+- Linhas qualidade substituído por Quantidade CPs.
+- Removidos filtros CP mín./máx. da aba Certificados.
+- Adicionado filtro suspenso por certificado.
+- Cache de frontend versionado para 3.5.0.

@@ -1,0 +1,26 @@
+QualiMatch v3.8.18 — DUPLICADOS + DASHBOARD MENSAL + CONTRATADA SEM META
+Data: 24/08/2026
+Base: v3.8.17
+
+1. Arquivos BV — remoção rápida de duplicados
+- Adicionado botão "Remover duplicados" em BV > Arquivos por medição.
+- A ação considera o filtro atual de contratada (Arena + Pavidez / ARENA / PAVIDEZ).
+- Arquiva da visualização somente ocorrências já classificadas como DUPLICADO.
+- Preserva uma ocorrência canônica/original de cada certificado.
+- Não apaga o arquivo físico do SharePoint/OneDrive.
+- A ação exige perfil com permissão de edição, pede confirmação e gera registro de auditoria.
+
+2. Dashboard — visão financeira mensal
+- Adicionada seção "Visão financeira por mês" com os últimos 12 meses disponíveis.
+- Exibe Total do serviço, Aprovado, Pendente e Reprovado por mês de execução.
+- As setas/variações dos cards passam a comparar mês contra mês, em vez de usar alteração diária/sincronização.
+
+3. Contratada — visão geral sem meta
+- Removida a linha/meta artificial do gráfico da visão geral da Contratada.
+- O gráfico passa a mostrar exclusivamente as entregas efetivamente registradas por mês.
+- Data de recebimento é usada primeiro; Data de aplicação permanece como fallback quando necessário.
+
+4. Compatibilidade
+- Parser BI330 permanece na versão 3.8.13.
+- Bootstrap Python da v3.8.17 foi mantido.
+- Nenhuma migração de banco é necessária.

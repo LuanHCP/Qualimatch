@@ -1,0 +1,21 @@
+QualiMatch v3.2.0 — MELHORIAS DA ABA CERTIFICADOS
+Data: 17/08/2026
+
+MELHORIAS SOLICITADAS
+- Detalhe do certificado exibe explicitamente "Data ex. serviço".
+- "Linhas vinculadas" foi renomeado para "Linhas vinculadas por medição".
+- Leitura completa passa a usar o status CARREGADO; PARCIAL fica reservado para dados realmente ausentes/incompletos.
+- Status antigo OK é apresentado como CARREGADO na interface quando o certificado está completo.
+- Upload informa quantos PDFs ficaram CARREGADOS, PARCIAIS ou com ERRO.
+- Cards estatísticos de ROTINA/CONTRA-PROVA recebem destaque verde/vermelho conforme os critérios técnicos.
+- VV é exibido sempre com 1 casa decimal nos certificados, inclusive quando o valor é inteiro.
+- Tabela de CPs destaca VV e relação A/B individual em verde/vermelho conforme aprovação/reprovação.
+- Lista principal de certificados também recebe indicação visual discreta para aprovado/reprovado.
+- Regra operacional adicionada: quando Data Rec. em Lab. > Data Ext. dos CPs, o detalhe exibe alerta "enviar para a BV".
+- O alerta BV é separado da qualidade da extração e não transforma uma leitura completa em PARCIAL.
+- Cabeçalho "A/B médio" alterado para "Esp. média (%)".
+
+COMPATIBILIDADE
+- Mantém PostgreSQL + SQLite fallback, autenticação, usuários, permissões, gestão de certificados, filtros e dashboard da v3.1.0.
+- Parser version atualizado para 3.2.0.
+- Certificados antigos são reavaliados pela estrutura atual ao serem exibidos; dados completos aparecem como CARREGADO sem exigir reimportação.

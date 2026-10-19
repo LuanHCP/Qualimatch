@@ -1,0 +1,8 @@
+QualiMatch v3.2.7 — RICE (Gmm)
+
+- O parser BI330 passa a extrair o valor Rice (Gmm) de cada CP.
+- Fallback pelo campo "Rice do Dia" quando o valor não está alinhado na linha do CP.
+- Nova coluna rice_gmm em certificate_samples, criada automaticamente em SQLite e PostgreSQL existentes.
+- A tabela de CPs do detalhe do certificado mostra "Rice (Gmm)" entre A/B e Gmb.
+- Precisão decimal do Rice é padronizada dinamicamente por fase, até 3 casas.
+- Parser versionado como 3.2.7 para reler certificados antigos uma vez e preencher o novo campo.

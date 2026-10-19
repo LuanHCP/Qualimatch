@@ -1,0 +1,7 @@
+Flask==3.0.3
+Werkzeug==3.0.4
+psycopg[binary]>=3.2.10,<4
+bcrypt==4.2.0
+openpyxl==3.1.5
+xlrd==2.0.1
+gunicorn==23.0.0

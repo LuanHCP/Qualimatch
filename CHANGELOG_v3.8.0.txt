@@ -1,0 +1,18 @@
+QualiMatch v3.8.0 — GESTÃO ESSENCIAL
+Data: 19/08/2026
+
+- Central de revisões/inconsistências.
+- Dashboard por Medição Mxx com cobertura e SLA.
+- Pendência BV com responsabilidade: Contratada / No prazo / Certificado.
+- Rastreabilidade Medição → Kit → Certificado.
+- Busca global respeitando permissões.
+- Central de notificações no cabeçalho.
+- Histórico de alterações com Antes × Depois.
+- Desfazer para kits, CPs e certificados suportados.
+- Perfis Visualizador, Editor e Administrador.
+- Relatório Excel por Medição Mxx.
+- Restauração de backups com backup de segurança automático.
+- Saúde do sistema e das fontes.
+- Cabeçalho Fluxo na tabela de Medições.
+- Reforço de autorização no upload de certificado.
+- Desenvolvido por Luan mantido no rodapé.

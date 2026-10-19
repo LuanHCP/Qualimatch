@@ -1,0 +1,16 @@
+QualiMatch v3.7.1 — Excel seguro / PDF → BD_QUALI
+
+- PDF → BD_QUALI agora pode gerar uma cópia XLSX preenchida, sem alterar a fonte oficial.
+- Usa a própria BD_QUALI configurada como molde; não recria a pasta de trabalho.
+- 1 CP de rotina continua representando 1 linha; contra-prova complementa as mesmas linhas.
+- Certificado já existente: atualiza os campos do BI330 somente quando a quantidade de linhas bate com a quantidade esperada.
+- Certificado novo: clona a linha da medição correspondente e adiciona a nova linha ao final da tabela.
+- Preserva estilos, fórmulas, demais abas e estrutura OOXML do arquivo.
+- Entradas preenchidas: Nº certificado, datas, Rice, Vv, desvios, Xmin/Xmax, total de CPs, quantidades reprovadas, A/B/espessura e status, incluindo contra-prova.
+- Fórmulas permanecem responsáveis por K, percentuais, média em cm, retenções, resumo e demais campos calculados.
+- Fórmulas compartilhadas (shared formulas) são materializadas corretamente nas novas linhas.
+- Correção crítica: escrever em uma célula autocontida não pode consumir a célula/formula vizinha.
+- Workbook é marcado para recálculo completo ao abrir no Excel.
+- Valida LINHA MEDIÇÃO contra a fonte atual antes de escrever, evitando gravação em linha reordenada após sync.
+- Bloqueia alterações em certificados ambíguos, parciais, com contagem divergente ou número de arquivo divergente.
+- Se Arena e Pavidez forem geradas juntas, o download é um ZIP com os dois XLSX e relatório de importação.

@@ -1,0 +1,36 @@
+QualiMatch v3.9.9 — RESTAURAÇÃO DE ÁREAS
+
+Data: 28/08/2026
+
+Objetivo:
+Restaurar as áreas "Qualidade geral" e "Meu espaço" que existiam apenas na versão local e desapareceram após o pull do repositório principal, sem desfazer as melhorias da v3.9.8.
+
+Alterações:
+- Portal inicial:
+  - restaurado card "Qualidade geral";
+  - restaurado card "Meu espaço";
+  - mantidos BV, Contratada e Administração.
+
+- Qualidade geral:
+  - volta como ambiente separado do Dashboard BV;
+  - área preservada para receber novos indicadores, documentos e informações gradualmente;
+  - acesso liberado para usuários BV e administradores.
+
+- Meu espaço:
+  - volta como ambiente pessoal separado;
+  - estrutura inicial com Meu Drive, Anotações, Atalhos e Painéis pessoais;
+  - acesso disponível para todo usuário autenticado;
+  - nenhum link fictício foi configurado.
+
+- Preservado integralmente:
+  - filtro múltiplo de certificados do Dashboard;
+  - paginação de certificados (30);
+  - paginação de medições (40);
+  - simplificação dos filtros da aba Certificados;
+  - remoção de Arquivos BV do menu;
+  - Pendências BV sem alterações.
+
+Validação:
+- sintaxe JavaScript validada;
+- cards e páginas QUALITY/PERSONAL confirmados;
+- versão exibida atualizada para v3.9.9.

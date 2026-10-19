@@ -1,0 +1,16 @@
+QualiMatch v3.8.16 - BOOTSTRAP PYTHON INSTALL MANAGER
+Data: 21/08/2026
+Base: v3.8.15
+
+Correcao:
+- Corrige falso positivo na deteccao do novo Python Launcher/Install Manager do Windows.
+- O launcher podia responder a `py -3.13` com "No runtime installed that matches 3.13" e ainda assim ser selecionado pelo bootstrap.
+- A deteccao agora exige um marcador produzido por um Python base REAL antes de aceitar o comando.
+- Ordem preferencial: Python 3.12, 3.11, 3.13.
+- Se o comando `py` existir mas nenhum runtime estiver instalado, o instalador tenta `py install 3.12` automaticamente.
+- Mensagem de fallback informa exatamente o comando manual a executar caso a instalacao automatica falhe.
+
+Sem mudancas:
+- Parser BI330 permanece 3.8.13.
+- Nenhuma mudanca de schema/migracao de banco.
+- Nenhuma regra de negocio alterada.

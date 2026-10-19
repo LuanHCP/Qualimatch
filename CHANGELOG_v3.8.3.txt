@@ -1,0 +1,10 @@
+QualiMatch v3.8.3 — Arquivos BV por Medição + Legenda de Duplicados
+
+- Nova fonte "Arquivos BV por medição" para ARENA/PAVIDEZ.
+- A fonte recebe uma pasta local sincronizada pelo SharePoint/OneDrive e percorre todas as subpastas recursivamente.
+- Detecta pastas M1, M02, M14, "Medição 14" e "14 - Medição" para agrupar os arquivos automaticamente.
+- Nova aba BV → Arquivos BV com navegador por medição/pasta, busca, filtro de tipo e pré-visualização de PDF/imagens.
+- O monitor automático BV passa a observar também a árvore de Arquivos BV, fazendo catch-up quando o computador volta de suspensão/desligamento.
+- Certificados que receberam tentativas de importação idênticas (status DUPLICADO em certificate_files) ficam roxos na listagem.
+- Legenda: verde aprovado, vermelho reprovado, amarelo ajustes/inconsistências, roxo duplicado.
+- Duplicatas continuam bloqueadas como novos certificados e não dobram estatísticas.

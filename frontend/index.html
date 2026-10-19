@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QualiMatch</title><link rel="stylesheet" href="/static/app.css?v=__QUALIMATCH_VERSION__">
+</head>
+<body>
+<div class="sky-scene" aria-hidden="true">
+  <div class="cloud sc1"></div>
+  <div class="cloud sc2"></div>
+  <svg class="plane" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <g transform="rotate(90 12 12)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5z" fill="#e3d9ff"/></g>
+  </svg>
+</div>
+<div class="forest-scene" aria-hidden="true">
+  <span class="tree t1"></span><span class="tree t2"></span><span class="tree t3"></span><span class="tree t4"></span>
+  <span class="tree t5"></span><span class="tree t6"></span><span class="tree t7"></span><span class="tree t8"></span>
+  <span class="tree t9"></span><span class="tree t10"></span><span class="tree t11"></span><span class="tree t12"></span>
+</div>
+<div class="road-scene" aria-hidden="true">
+  <svg class="mountains" viewBox="0 0 400 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,60 0,44 42,17 78,36 118,10 160,34 200,15 240,37 276,21 316,41 356,18 400,38 400,60" fill="#201c34"/>
+    <polygon points="0,60 0,52 50,32 96,47 148,28 200,48 256,30 312,49 360,33 400,50 400,60" fill="#141225"/>
+  </svg>
+  <div class="sun"></div>
+  <div class="hill h1"></div>
+  <div class="hill h2"></div>
+  <div class="asphalt"></div>
+  <div class="toll" aria-hidden="true">
+    <div class="toll-roof"></div>
+    <div class="toll-post p1"></div>
+    <div class="toll-post p2"></div>
+    <div class="toll-bar"></div>
+    <div class="toll-cabin"><div class="cabin-roof"></div><div class="cabin-door"></div></div>
+    <div class="toll-steps"><span></span><span></span><span></span></div>
+    <div class="toll-worker"><div class="w-head"></div><div class="w-body"></div></div>
+  </div>
+  <svg class="car" viewBox="0 0 70 28" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(70,0) scale(-1,1)">
+    <path d="M6 20c0-1.6 1.1-3 3-3l3.5-6.2c.7-1.2 2-2 3.4-2h20.2c1.4 0 2.7.8 3.4 2l3.9 6.6 6.6.8c2.6.3 4.5 1.7 4.5 3.5 0 1.1-.8 2-1.9 2.2-1 .2-2.3.3-4 .3H62a3.4 3.4 0 01-3.4 3.4A3.4 3.4 0 0155.2 24H16.8a3.4 3.4 0 01-3.4 3.4A3.4 3.4 0 019 24H8c-2.2 0-4-1.6-4-4z" fill="#f1f3f8" stroke="#c9ccd6" stroke-width=".4"/>
+    <path d="M15 11.6l2.2-4.4c.4-.8 1.2-1.3 2.1-1.3h6.9v6.4H15z" fill="#232538"/>
+    <path d="M27.2 5.9h9c.9 0 1.7.5 2.1 1.3l2.5 4.4H27.2z" fill="#232538"/>
+    <rect x="6" y="16.6" width="58" height="4.6" fill="#7047dc"/>
+    <circle cx="16.5" cy="24" r="3.6" fill="#1b1c26"/><circle cx="16.5" cy="24" r="1.4" fill="#666a7c"/>
+    <circle cx="55.5" cy="24" r="3.6" fill="#1b1c26"/><circle cx="55.5" cy="24" r="1.4" fill="#666a7c"/>
+    </g>
+    <text x="35" y="20.1" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="3.6" font-weight="700" letter-spacing=".4" fill="#ffffff">MOTIVA</text>
+  </svg>
+  <svg class="truck" viewBox="0 0 84 30" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(84,0) scale(-1,1)">
+    <rect x="18" y="8" width="60" height="14" rx="1.4" fill="#f1f3f8" stroke="#c9ccd6" stroke-width=".4"/>
+    <path d="M6 12c0-1.1.9-2 2-2h10v12H8a2 2 0 01-2-2z" fill="#dfe2ea" stroke="#c9ccd6" stroke-width=".4"/>
+    <path d="M9 6.4c0-.7.6-1.3 1.3-1.3h5.4c.7 0 1.3.6 1.3 1.3v3.6H9z" fill="#dfe2ea" stroke="#c9ccd6" stroke-width=".4"/>
+    <rect x="10.4" y="6.8" width="5" height="3" fill="#232538"/>
+    <rect x="18" y="16.6" width="60" height="3.4" fill="#7047dc"/>
+    <circle cx="14" cy="24" r="3.6" fill="#1b1c26"/><circle cx="14" cy="24" r="1.4" fill="#666a7c"/>
+    <circle cx="60" cy="24" r="3.6" fill="#1b1c26"/><circle cx="60" cy="24" r="1.4" fill="#666a7c"/>
+    <circle cx="70" cy="24" r="3.6" fill="#1b1c26"/><circle cx="70" cy="24" r="1.4" fill="#666a7c"/>
+    </g>
+  </svg>
+  <svg class="roller" viewBox="0 0 60 28" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(60,0) scale(-1,1)">
+    <rect x="14" y="13" width="32" height="3" fill="#232538"/>
+    <rect x="20" y="4" width="22" height="9" rx="2" fill="#f3bf67" stroke="#c9a248" stroke-width=".4"/>
+    <rect x="23" y="6.2" width="8" height="4.4" fill="#232538"/>
+    <rect x="40" y="1" width="2.2" height="6" rx="1" fill="#4a4d63"/>
+    <circle cx="12" cy="20" r="8.5" fill="#cfd3e0" stroke="#8d90a3" stroke-width="1"/>
+    <rect x="3.5" y="19.3" width="17" height="1.4" fill="#8d90a3" opacity=".65"/>
+    <circle cx="12" cy="20" r="3" fill="#9296a8"/>
+    <circle cx="46" cy="21" r="4.6" fill="#1b1c26"/><circle cx="46" cy="21" r="1.8" fill="#666a7c"/>
+    </g>
+  </svg>
+</div>
+<div id="auth-shell" class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-brand"><div class="logo">QM<div class="road-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.4" stroke-linecap="round"><path d="M9 3L4 21"/><path d="M15 3l5 18"/><path d="M11 9h2M10 14h4"/></svg></div></div><div><b>QualiMatch</b><small>PRVias • Qualidade</small></div></div>
+    <div id="auth-setup-warning"></div>
+
+    <form id="login-form" class="auth-form">
+      <span class="eyebrow">ACESSO</span><h1>Entrar no QualiMatch</h1><p>Use seu e-mail e senha cadastrados.</p>
+      <label><span>E-mail</span><input id="login-email" type="email" autocomplete="username" required></label>
+      <label><span>Senha</span><input id="login-password" type="password" autocomplete="current-password" required></label>
+      <button class="primary auth-submit" type="submit">Entrar</button>
+      <div class="auth-links"><button type="button" class="text-btn" data-auth-mode="register">Solicitar cadastro</button><button type="button" class="text-btn" data-auth-mode="forgot">Esqueci minha senha</button></div>
+    </form>
+
+    <form id="register-form" class="auth-form auth-hidden">
+      <span class="eyebrow">NOVO ACESSO</span><h1>Solicitar cadastro</h1><p>O acesso só será liberado após aprovação do administrador.</p>
+      <label><span>Nome completo</span><input id="register-name" autocomplete="name" required></label>
+      <label><span>E-mail</span><input id="register-email" type="email" autocomplete="email" required></label>
+      <label><span>Senha</span><input id="register-password" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label><span>Confirmar senha</span><input id="register-confirm" type="password" autocomplete="new-password" minlength="8" required></label>
+      <div class="password-note">Mínimo de 8 caracteres, com pelo menos uma letra e um número.</div>
+      <button class="primary auth-submit" type="submit">Solicitar acesso</button>
+      <div class="auth-links"><button type="button" class="text-btn" data-auth-mode="login">Voltar para entrar</button></div>
+    </form>
+
+    <form id="forgot-form" class="auth-form auth-hidden">
+      <span class="eyebrow">RECUPERAÇÃO</span><h1>Redefinir senha</h1><p>Informe seu e-mail. Se a conta estiver ativa, enviaremos um link temporário.</p>
+      <label><span>E-mail</span><input id="forgot-email" type="email" autocomplete="email" required></label>
+      <button class="primary auth-submit" type="submit">Enviar instruções</button>
+      <div class="auth-links"><button type="button" class="text-btn" data-auth-mode="login">Voltar para entrar</button></div>
+    </form>
+
+    <form id="reset-form" class="auth-form auth-hidden">
+      <span class="eyebrow">NOVA SENHA</span><h1>Criar nova senha</h1><p>O link de recuperação é válido por 30 minutos.</p>
+      <label><span>Nova senha</span><input id="reset-password" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label><span>Confirmar senha</span><input id="reset-confirm" type="password" autocomplete="new-password" minlength="8" required></label>
+      <button class="primary auth-submit" type="submit">Salvar nova senha</button>
+    </form>
+    <div id="auth-message" class="auth-message"></div>
+  </div>
+</div>
+
+<div id="portal-shell" class="portal-shell auth-hidden">
+  <div class="portal-topbar">
+    <div class="portal-brand"><div class="logo">QM<div class="road-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.4" stroke-linecap="round"><path d="M9 3L4 21"/><path d="M15 3l5 18"/><path d="M11 9h2M10 14h4"/></svg></div></div><div><b>QualiMatch</b><small>Selecione seu ambiente de trabalho</small></div></div>
+    <div class="portal-userbar"><span>Olá, <b id="portal-user-name">Usuário</b></span><button id="portal-logout-btn" class="ghost compact">Sair</button></div>
+  </div>
+  <div class="portal-stage">
+    <div class="portal-intro"><span class="eyebrow">AMBIENTES</span><h1>Onde você quer entrar?</h1><p>Seu administrador controla quais áreas ficam disponíveis para sua conta.</p></div>
+    <div class="portal-cards">
+      <button class="portal-card portal-bv" data-portal-card="BV">
+        <div class="portal-card-glow"></div><div class="portal-emblem">BV</div>
+        <div class="portal-card-copy"><span class="portal-tag">CONTROLE TÉCNICO</span><h2>BV</h2><p>Dashboard, certificados, Pendências BV e medições.</p></div>
+        <div class="portal-card-state"><span class="portal-access-label">Liberado</span><b>Entrar →</b></div>
+      </button>
+      <button class="portal-card portal-contractor" data-portal-card="CONTRACTOR">
+        <div class="portal-card-glow"></div><div class="portal-emblem">CT</div>
+        <div class="portal-card-copy"><span class="portal-tag">ÁREA EXTERNA</span><h2>Contratada</h2><p>Ambiente separado para envio, acompanhamento e retornos.</p></div>
+        <div class="portal-card-state"><span class="portal-access-label">Liberado</span><b>Entrar →</b></div>
+      </button>
+      <button class="portal-card portal-quality" data-portal-card="TRACES">
+        <div class="portal-card-glow"></div><div class="portal-emblem">TR</div>
+        <div class="portal-card-copy"><span class="portal-tag">RECEBIMENTO E ORGANIZAÇÃO</span><h2>Traços</h2><p>Controle completo com banco, Excel e pastas oficiais.</p></div>
+        <div class="portal-card-state"><span class="portal-access-label">Liberado</span><b>Entrar →</b></div>
+      </button>
+      <button class="portal-card portal-nc" data-portal-card="NC">
+        <div class="portal-card-glow"></div><div class="portal-emblem">NC</div>
+        <div class="portal-card-copy"><span class="portal-tag">OCORRÊNCIAS E RETENÇÕES</span><h2>Não conformidades</h2><p>Sistema completo de NC, RNC e ações corretivas e preventivas.</p></div>
+        <div class="portal-card-state"><span class="portal-access-label">Liberado</span><b>Entrar →</b></div>
+      </button>
+      <button class="portal-card portal-admin" data-portal-card="ADMIN">
+        <div class="portal-card-glow"></div><div class="portal-emblem">AD</div>
+        <div class="portal-card-copy"><span class="portal-tag">GESTÃO DO SISTEMA</span><h2>Administração</h2><p>Usuários, permissões, sincronização, histórico e backups.</p></div>
+        <div class="portal-card-state"><span class="portal-access-label">Liberado</span><b>Entrar →</b></div>
+      </button>
+      <button class="portal-card portal-universal" data-portal-card="UNIVERSAL">
+        <div class="portal-card-glow"></div><div class="portal-emblem">FU</div>
+        <div class="portal-card-copy"><span class="portal-tag">UTILITÁRIOS LOCAIS</span><h2>Ferramentas Universais</h2><p>Separe e unifique PDFs ou converta imagens JFIF para PNG.</p></div>
+        <div class="portal-card-state"><span class="portal-access-label">Liberado</span><b>Entrar →</b></div>
+      </button>
+
+    </div>
+    <div id="portal-empty-note" class="portal-empty-note auth-hidden">Sua conta está aprovada, mas nenhum ambiente foi liberado ainda. Procure um administrador.</div>
+  </div>
+</div>
+
+<div class="layout auth-hidden" id="app-layout">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">QM<div class="road-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.4" stroke-linecap="round"><path d="M9 3L4 21"/><path d="M15 3l5 18"/><path d="M11 9h2M10 14h4"/></svg></div></div><div><b>QualiMatch</b><small id="portal-context">Ambiente BV</small><div id="global-sync-indicator" hidden style="margin-top:6px;min-width:150px"><small id="global-sync-text" class="meta">Sincronizando...</small><div class="control-progress"><span id="global-sync-bar" style="width:0%"></span></div></div></div></div>
+  <button id="portal-back-btn" class="portal-back ghost"><span>←</span> Trocar ambiente</button>
+  <nav id="nav">
+    <button data-page="dashboard" data-portal="BV" class="active"><span>▦</span> Dashboard</button>
+    <button data-page="certificates" data-portal="BV"><span>▤</span> Certificados</button>
+    <button data-page="pending" data-portal="BV"><span>△</span> Pendências BV</button>
+    <button data-page="measurements" data-portal="BV"><span>≡</span> Medições</button>
+    <button data-page="cycles" data-portal="BV"><span>◫</span> Gestão Mxx</button>
+    <button data-page="bv-kpi" data-portal="BV"><span>◉</span> Levantamento KPI</button>
+    <button data-page="bv-general-report" data-portal="BV"><span>▥</span> Relatório Geral</button>
+
+
+    <button data-page="contractor-home" data-portal="CONTRACTOR"><span>⌂</span> Visão geral</button>
+    <button data-page="contractor-kits" data-portal="CONTRACTOR"><span>▦</span> Kits de ensaio</button>
+    <button data-page="contractor-certificates" data-portal="CONTRACTOR"><span>▤</span> Certificados</button>
+    <button data-page="contractor-pending" data-portal="CONTRACTOR"><span>△</span> Pendências</button>
+
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="dashboard"><span>▦</span> Visão geral</button>
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="traces"><span>▤</span> Todos os traços</button>
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="inventory"><span>▧</span> Inventário</button>
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="reports"><span>◫</span> Relatórios</button>
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="people"><span>◉</span> Responsáveis</button>
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="admin"><span>⚙</span> Administração</button>
+    <button data-page="traces-app" data-portal="TRACES" data-trace-target="tools"><span>⌑</span> Ferramentas</button>
+
+    <button data-page="nc-app" data-portal="NC" data-nc-target="dashboard"><span>▦</span> Painel</button>
+    <button data-page="nc-app" data-portal="NC" data-nc-target="ncs"><span>▤</span> Registros</button>
+    <button data-page="nc-app" data-portal="NC" data-nc-target="contratos"><span>▧</span> Contratos</button>
+    <button data-page="nc-app" data-portal="NC" data-nc-target="textos"><span>≡</span> Textos padronizados</button>
+    <button data-page="nc-app" data-portal="NC" data-nc-target="config"><span>⚙</span> Configuração da SEDE</button>
+    <button data-page="nc-app" data-portal="NC" data-nc-target="usuarios"><span>◉</span> Usuários</button>
+    <button data-page="nc-app" data-portal="NC" data-nc-target="importexport"><span>⇄</span> Importar / Exportar</button>
+    <div id="nc-sede-picker" class="sidebar-sede-picker auth-hidden" data-portal-block="NC"><label for="nc-sede-select">SEDE ATUAL</label><select id="nc-sede-select" aria-label="Selecionar SEDE"></select></div>
+
+    <button data-page="universal-split" data-portal="UNIVERSAL"><span>✂</span> Separar PDF</button>
+    <button data-page="universal-merge" data-portal="UNIVERSAL"><span>⊕</span> Unificar PDF</button>
+    <button data-page="universal-compress" data-portal="UNIVERSAL"><span>⇣</span> Comprimir PDF</button>
+    <button data-page="universal-images-pdf" data-portal="UNIVERSAL"><span>▤</span> Imagens para PDF</button>
+    <button data-page="universal-organize" data-portal="UNIVERSAL"><span>☷</span> Organizar páginas</button>
+    <button data-page="universal-jfif" data-portal="UNIVERSAL"><span>▣</span> JFIF para PNG</button>
+
+    <button data-page="admin" data-portal="ADMIN"><span>⚙</span> Usuários e acessos</button>
+    <button data-page="tools" data-portal="ADMIN"><span>⌁</span> Ferramentas</button>
+    <button data-page="review" data-portal="ADMIN"><span>!</span> Revisões</button>
+    <button data-page="sync" data-portal="ADMIN" id="nav-sync"><span>↻</span> Sincronização</button>
+    <button data-page="history" data-portal="ADMIN" id="nav-history"><span>◷</span> Histórico</button>
+    <button data-page="health" data-portal="ADMIN"><span>●</span> Saúde do sistema</button>
+    <button data-page="backups" data-portal="ADMIN" id="nav-backups"><span>◇</span> Backups</button>
+  </nav>
+  <div class="sidebar-user"><div class="user-avatar" id="user-avatar">U</div><div><b id="user-name">Usuário</b><small id="user-role">USER</small></div><button id="logout-btn" class="ghost compact">Sair</button></div>
+  <div class="sidefoot"><span id="server-dot"></span> servidor local<br><small>v__QUALIMATCH_VERSION__<br>Desenvolvido por Luan</small></div>
+</aside>
+<main>
+<header><div><h1 id="page-title">Dashboard</h1><p id="page-subtitle">Visão financeira, qualidade e certificados</p></div><div class="header-actions"><div class="global-search"><input id="global-search-input" placeholder="Buscar BI330, CP, kit, linha, BR..."><div id="global-search-results" class="global-search-results" hidden></div></div><div class="notification-center"><button id="notification-btn" class="ghost notification-btn" title="Notificações">🔔 <b id="notification-count">0</b></button><div id="notification-panel" class="notification-panel" hidden></div></div><div id="dashboard-warning" class="dashboard-warning" hidden><button type="button" class="warning-trigger" aria-label="Avisos do dashboard">⚠ <span id="dashboard-warning-count">Aviso</span></button><div id="dashboard-warning-tooltip" class="warning-tooltip" role="tooltip"></div></div><button class="primary" id="sync-all">↻ Sincronizar tudo</button></div><div class="progress-line" id="qm-progress" aria-hidden="true"></div></header>
+
+<section id="page-dashboard" class="page active">
+  <div class="filters panel compact-panel dashboard-filter-bar"><div class="filter-label">Filtros</div><select id="dash-contractor"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><select id="dash-status"><option value="ALL">Todos os status</option><option value="APROVADO">Aprovados</option><option value="REPROVADO">Reprovados</option></select><select id="dash-measurement" title="Ciclo do dia 11 ao dia 10"><option value="">Todas as medições</option></select><div class="multi-select" id="dash-certificates-filter"><button type="button" class="multi-select-trigger" id="dash-certificates-trigger"><span>Todos os certificados</span><b>⌄</b></button><div class="multi-select-menu" id="dash-certificates-menu" hidden><div class="multi-select-head"><input id="dash-certificates-search" placeholder="Buscar certificado..."><div><button type="button" class="ghost compact" id="dash-certificates-all">Todos</button><button type="button" class="ghost compact" id="dash-certificates-clear">Limpar</button></div></div><div id="dash-certificates-options" class="multi-select-options"></div></div></div><input type="date" id="dash-start" title="Data inicial opcional"><input type="date" id="dash-end" title="Data final opcional"><button id="dash-refresh">Atualizar</button><small id="dash-measurement-period" class="filter-period-hint"></small></div>
+
+  <div class="section-title"><div><span class="eyebrow">FINANCEIRO / PRODUÇÃO</span><h2>Resumo oficial consolidado</h2></div><small>Prioridade: RELATÓRIO; BD_QUALI completa como auditoria/fallback</small></div>
+  <div class="cards cards-4" id="financial-kpis"></div>
+
+  <div class="section-title"><div><span class="eyebrow">CERTIFICADOS BI330</span><h2>Controle técnico</h2></div><small>Fase final: contra-prova quando existente; senão rotina</small></div>
+  <div class="cards cards-4" id="technical-kpis"></div>
+
+  <div class="grid-main">
+    <div class="panel"><div class="panel-head"><div><h3>Certificados recentes <button type="button" class="help-ico" aria-label="Ajuda: Certificados recentes"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">VV, espessura e situação em um único lugar.</span></button></h3></div><button class="ghost compact" id="go-certificates">Ver todos</button></div><div id="recent-certificates"></div></div>
+    <div class="panel"><div class="panel-head"><div><h3>Status da qualidade oficial <button type="button" class="help-ico" aria-label="Ajuda: Status da qualidade oficial"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Distribuição das linhas da BD_QUALI por situação. Contagem de todas as linhas da BD_QUALI; filtros/linhas ocultas do Excel não removem histórico.</span></button></h3></div></div><div id="status-pie"></div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h3>Fontes e atualização <button type="button" class="help-ico" aria-label="Ajuda: Fontes e atualização"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">De onde vieram os números exibidos acima.</span></button></h3></div></div><div id="source-info" class="source-grid"></div></div>
+</section>
+
+<section id="page-certificates" class="page">
+  <div class="certificate-top">
+    <div class="panel import-panel"><span class="eyebrow">IMPORTAÇÃO</span><h3>Certificados BI330 <button type="button" class="help-ico" aria-label="Ajuda: Certificados BI330"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Configure a pasta sincronizada em <b>Sincronização</b> para importar todos automaticamente. Também é possível selecionar vários PDFs aqui.</span></button></h3><div class="upload-row"><select id="c-upload-contractor"><option>ARENA</option><option>PAVIDEZ</option></select><label class="file-btn">Selecionar PDFs<input type="file" id="c-file" accept="application/pdf" multiple hidden></label><button id="c-upload" class="primary">Extrair selecionados</button></div><div id="c-upload-msg" class="meta"></div></div>
+    <div class="panel"><span class="eyebrow">LEITURA TÉCNICA</span><h3>O que é exibido</h3><div class="mini-grid"><div><b>VV médio</b><span>Média do volume de vazios da fase final</span></div><div><b>Esp. média</b><span>Espessura executada média em cm</span></div><div><b>Esp. média (%)</b><span>Relação entre espessura executada e de projeto</span></div><div><b>Contra-prova</b><span>Mantida separada da rotina</span></div></div></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head certificate-filters"><div><h3>Base de certificados <button type="button" class="help-ico" aria-label="Ajuda: Base de certificados"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Filtros técnicos por medição, certificado, rodovia, trecho, Vv e espessura. O ciclo Mxx vai do dia 11 ao dia 10 do mês seguinte. Clique no número para abrir, substituir ou excluir.</span></button></h3></div></div>
+    <div class="certificate-filter-grid">
+      <label><span>Contratada</span><select id="c-contractor"><option value="ALL">Todas</option><option>ARENA</option><option>PAVIDEZ</option></select></label>
+      <label><span>Medição</span><select id="c-measurement"><option value="">Todas as medições</option></select></label>
+      <label><span>Ordenar</span><select id="c-sort"><option value="newest">Mais recentes</option><option value="oldest">Mais antigos</option></select></label>
+      <label><span>Volume de vazios (Vv)</span><select id="c-vv-status"><option value="ALL">Todos</option><option value="APROVADO">Aprovado</option><option value="REPROVADO">Reprovado</option><option value="SEM_RESULTADO">Sem resultado</option></select></label>
+      <label><span>Espessura</span><select id="c-thickness-status"><option value="ALL">Todas</option><option value="APROVADO">Aprovada</option><option value="REPROVADO">Reprovada</option><option value="SEM_RESULTADO">Sem resultado</option></select></label>
+      <label><span>Contra-prova (CP)</span><select id="c-counterproof"><option value="ALL">Todos</option><option value="ENTREGUE">Com contra-prova entregue</option><option value="PENDENTE">Contra-prova pendente</option><option value="NAO">Sem contra-prova</option></select></label>
+      <label><span>Consistência de datas</span><select id="c-date-issue"><option value="ALL">Todas</option><option value="INCONSISTENTE">Só com data inconsistente</option></select></label>
+      <label><span>Rodovia</span><select id="c-road"><option value="">Todas as BR/PR</option></select></label>
+      <label class="filter-wide"><span>Trecho / estaca</span><input id="c-segment" placeholder="Ex.: 405+845 ou 405+845 a 406+100"></label>
+      <label><span>Certificado</span><select id="c-number"><option value="">Todos os certificados</option></select></label>
+      <div class="filter-actions"><button id="c-clear" class="ghost">Limpar</button><button id="c-remove-duplicates" class="ghost" title="Remove da aba Certificados somente cópias já identificadas por conteúdo técnico como DUPLICADO, preservando uma ocorrência original">Remover duplicados</button><button id="c-reprocess-no-result" class="ghost" title="Reprocessa apenas certificados com Situação = Sem resultado usando o parser atual">Validar sem resultado</button><button id="c-load" class="primary">Aplicar filtros</button></div>
+    </div>
+    <div id="c-reprocess-msg" class="meta"></div><div id="certificate-summary" class="inline-summary"></div>
+    <div class="table-wrap certificate-table-wrap"><table class="data-table certificate-table"><thead><tr><th>Certificado</th><th>Data ex. serviço</th><th>Trecho</th><th>Traço</th><th>CPs</th><th>VV médio</th><th>Esp. média</th><th>Esp. média (%)</th><th>VV</th><th>Espessura</th><th>Contra-prova</th><th>Leitura</th><th>PDF</th></tr></thead><tbody id="c-body"></tbody></table></div><div id="c-pagination" class="pagination"></div>
+  </div>
+</section>
+
+<section id="page-pending" class="page">
+  <div class="panel">
+    <div class="panel-head"><div><h3>Responsabilidade BV <button type="button" class="help-ico" aria-label="Ajuda: Responsabilidade BV"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Mostra execuções sem certificado quando a coluna <b>Entrega</b> da planilha da construtora confirma <b>Entregue</b>. Itens ainda dentro do SLA aparecem como <b>NO PRAZO</b>; os não entregues permanecem somente na Contratada. Pendências que não podem mais ser tratadas podem ser justificadas e ficam separadas da lista ativa.</span></button></h3></div><div class="toolbar no-margin"><select id="p-contractor"><option value="ALL">Todas</option><option>ARENA</option><option>PAVIDEZ</option></select><button id="p-load">Atualizar</button></div></div>
+    <div id="pending-summary" class="inline-summary"></div>
+    <div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Medição</th><th>Data de execução</th><th>Rodovia</th><th>Linhas de medição</th><th>Entrega</th><th>Status / SLA</th><th>Ação</th></tr></thead><tbody id="p-body"></tbody></table></div>
+  </div>
+  <div class="panel justified-panel">
+    <div class="panel-head"><div><h3>Pendências BV justificadas</h3><p>Itens justificados ficam separados e deixam de contar entre as pendências ativas. Use Reabrir para devolvê-los à lista.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Empresa</th><th>Medição</th><th>Data</th><th>Rodovia</th><th>Justificativa</th><th>Justificada em</th><th>Ação</th></tr></thead><tbody id="p-justified-body"></tbody></table></div>
+  </div>
+</section>
+
+<section id="page-measurements" class="page"><div class="panel"><div class="panel-head"><div><h3>Medições importadas <button type="button" class="help-ico" aria-label="Ajuda: Medições importadas"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Base operacional usada no cruzamento com os certificados.</span></button></h3></div><div class="toolbar no-margin"><select id="m-contractor"><option value="ALL">Todas</option><option>ARENA</option><option>PAVIDEZ</option></select><input id="m-search" placeholder="Buscar data, rodovia, medição..."><button id="m-load">Buscar</button></div></div><div class="table-wrap"><table><thead><tr><th>Linha</th><th>Empresa</th><th>Data</th><th>Ref.</th><th>Rodovia</th><th>Sentido</th><th>KMI</th><th>KMF</th><th>Faixa</th><th>Extensão</th><th>Largura</th><th>Espessura</th><th>Volume</th><th>Fluxo</th></tr></thead><tbody id="m-body"></tbody></table></div><div id="m-pagination" class="pagination"></div></div></section>
+
+<section id="page-cycles" class="page">
+  <div class="section-title"><div><span class="eyebrow">GESTÃO POR MEDIÇÃO</span><h2>Medições Mxx e SLA</h2></div><small>Ciclo do dia 11 ao dia 10</small></div>
+  <div class="filters panel compact-panel"><div class="filter-label">Visão</div><select id="cycle-contractor"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><button id="cycle-refresh">Atualizar</button></div>
+  <div id="cycle-kpis" class="cards cards-4"></div>
+  <div class="panel"><div class="panel-head"><div><h3>Desempenho por medição <button type="button" class="help-ico" aria-label="Ajuda: Desempenho por medição"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Dias de execução, cobertura de kits/certificados, responsáveis pelas pendências e prazo médio.</span></button></h3></div></div><div class="table-wrap"><table><thead><tr><th>Medição</th><th>Período</th><th>Dias execução</th><th>Dias com kit</th><th>Dias certificado</th><th>Cobertura kit</th><th>Cobertura certificado</th><th>Pend. Contratada</th><th>No prazo</th><th>Pend. certificado</th><th>SLA kit</th><th>SLA certificado</th><th>Relatório</th></tr></thead><tbody id="cycle-body"></tbody></table></div></div>
+</section>
+
+<section id="page-bv-kpi" class="page">
+  <div class="section-title bv-kpi-title"><div><span class="eyebrow">BV / DESEMPENHO</span><h2>Levantamento KPI</h2><p>Situação técnica dos certificados e responsabilidade das pendências.</p></div><small>Atualizado a partir das medições, d.KIT e certificados sincronizados</small></div>
+  <div class="filters panel compact-panel bv-kpi-toolbar"><div><span class="filter-label">Contratada</span><select id="bv-kpi-contractor"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select></div><div><span class="filter-label">Medição</span><select id="bv-kpi-measurement"><option value="ALL">Todas as medições</option></select></div><button id="bv-kpi-refresh" class="primary">Atualizar indicadores</button></div>
+  <div id="bv-kpi-cards" class="cards bv-kpi-cards"></div>
+  <div class="kpi-base-note"><b>Base de cálculo:</b> percentual por quantidade prevista de certificados. Aprovação considera o resultado técnico; reprovação só é final quando a contra-prova também reprova; extração e certificado vêm das medições e d.KIT.</div>
+  <div class="grid-main bv-kpi-grid">
+    <div class="panel"><div class="panel-head"><div><span class="eyebrow">VISÃO EXECUTIVA</span><h3>Distribuição dos indicadores</h3></div></div><div id="bv-kpi-bars" class="bv-kpi-bars"></div></div>
+    <div class="panel"><div class="panel-head"><div><span class="eyebrow">LEGENDA OPERACIONAL</span><h3>Quem precisa agir</h3></div></div><div class="bv-kpi-rules"><div><i class="kpi-dot extraction"></i><span><b>Pendente extração</b>A contratada ainda não concluiu/entregou a extração na d.KIT.</span></div><div><i class="kpi-dot certificate"></i><span><b>Pendente certificado</b>A extração foi entregue e o certificado ainda não chegou pela BV.</span></div><div><i class="kpi-dot counterproof"></i><span><b>Pendente contra-prova</b>O ensaio de rotina reprovou e a contra-prova ainda não foi recebida.</span></div></div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><span class="eyebrow">POR CICLO</span><h3>Resumo por medição</h3></div></div><div class="table-wrap"><table class="bv-kpi-table"><thead><tr><th>Medição</th><th>Certificados</th><th>Aprovados</th><th>Reprovados</th><th>Pend. contra-prova</th><th>Pend. extração</th><th>Pend. certificado</th></tr></thead><tbody id="bv-kpi-measurement-body"></tbody></table></div></div>
+  <div class="panel"><div class="panel-head"><div><span class="eyebrow">PLANO DE AÇÃO</span><h3>Itens que exigem acompanhamento</h3></div><select id="bv-kpi-type"><option value="ALL">Todas as pendências</option><option value="PENDENTE_CONTRAPROVA">Contra-prova</option><option value="PENDENTE_EXTRACAO">Extração</option><option value="PENDENTE_CERTIFICADO">Certificado</option></select></div><div class="table-wrap"><table class="bv-kpi-detail-table"><thead><tr><th>Situação</th><th>Contratada</th><th>Medição</th><th>Data</th><th>Referência</th><th>Rodovia</th><th>Prazo / detalhe</th><th>Ação</th></tr></thead><tbody id="bv-kpi-detail-body"></tbody></table></div></div>
+</section>
+
+<section id="page-bv-general-report" class="page">
+  <div class="section-title bv-report-title"><div><span class="eyebrow">BV / CONTROLE DOCUMENTAL</span><h2>Relatório geral de certificados</h2><p>Visão consolidada das entregas e metas por medição.</p></div><small>VV/ESP 100% • CA, Ligante e Agregados 20% • DUI 1 por medição</small></div>
+  <div class="filters panel compact-panel bv-report-toolbar"><div><span class="filter-label">Contratada</span><select id="bv-report-contractor"><option value="ALL">Todas as contratadas</option><option>ARENA</option><option>PAVIDEZ</option></select></div><button id="bv-report-refresh">Atualizar dados</button><button id="bv-report-pdf" class="primary">Exportar pendências em PDF</button></div>
+  <div id="bv-report-kpis" class="cards cards-4"></div>
+  <div class="grid-main bv-report-grid">
+    <div class="panel">
+      <div class="panel-head"><div><h3>Volume por medição <button type="button" class="help-ico" aria-label="Ajuda: volume por medição"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Cada barra é uma medição (Mxx); os blocos coloridos mostram quantos certificados de cada tipo chegaram nela. Passe o mouse num bloco para ver o tipo e a quantidade.</span></button></h3></div></div>
+      <div id="bv-report-chart"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h3>Distribuição por tipo</h3></div></div>
+      <div id="bv-report-donut"></div>
+    </div>
+  </div>
+  <div class="panel bv-report-detail"><div class="panel-head"><div><span class="eyebrow">DETALHAMENTO</span><h3>Entregue / esperado por medição <button type="button" class="help-ico" aria-label="Ajuda: relatório geral"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Lê as pastas 01, 02, 03 e 04.0. A pasta 04. Volume de Vazio e as fichas físicas são ignoradas. Clique numa quantidade para conferir os PDFs.</span></button></h3></div><span class="bv-report-legend"><i></i> Atendido <i></i> Pendente</span></div><div class="table-wrap"><table class="bv-report-table"><thead><tr><th>Medição</th><th><span class="th-dot" style="background:#8b5cf6"></span>VV/ESP <small>100%</small></th><th><span class="th-dot" style="background:#36c690"></span>CA <small>20%</small></th><th><span class="th-dot" style="background:#f0b95c"></span>Ligante <small>20%</small></th><th><span class="th-dot" style="background:#ef6c7a"></span>DUI <small>1/Mxx</small></th><th><span class="th-dot" style="background:#5da9e9"></span>Agregados <small>20%</small></th><th><span class="th-dot" style="background:#c084fc"></span>Outros</th><th>Total</th></tr></thead><tbody id="bv-report-body"></tbody></table></div></div>
+</section>
+
+<section id="page-bv-files" class="page">
+  <div class="section-title"><div><span class="eyebrow">BV / SHAREPOINT</span><h2>Arquivos por medição</h2></div><small>Pasta sincronizada • leitura recursiva</small></div>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Navegador de arquivos BV <button type="button" class="help-ico" aria-label="Ajuda: Navegador de arquivos BV"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Aponte em Administração → Sincronização para a pasta raiz alimentada pela BV. Pastas M1, M2, M14 etc. são detectadas automaticamente.</span></button></h3></div></div>
+    <div class="toolbar kit-toolbar"><select id="bv-file-company"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><input id="bv-file-search" placeholder="Buscar arquivo, pasta ou medição..."><select id="bv-file-ext"><option value="">Todos os tipos</option><option value="pdf">PDF</option><option value="xlsx">Excel</option><option value="docx">Word</option><option value="jpg">Imagem</option></select><button id="bv-file-refresh" class="primary">Atualizar</button></div>
+    <div class="folder-browser"><aside class="folder-sidebar"><div class="folder-sidebar-title">Medições / pastas</div><div id="bv-folder-list"></div></aside><div class="folder-content"><div id="bv-folder-summary" class="inline-summary"></div><div id="bv-file-preview" class="file-preview-grid"></div><div id="bv-pagination" class="pagination"></div></div></div>
+  </div>
+</section>
+
+<section id="page-traces-app" class="page traces-app-page">
+  <div id="traces-app-loading" class="traces-app-loading">
+    <div class="traces-loader"></div>
+    <h2>Preparando o Controle de Traços</h2>
+    <p>Carregando banco, Excel e pastas oficiais...</p>
+  </div>
+  <iframe id="traces-app-frame" title="Controle de Traços" allow="clipboard-read; clipboard-write" hidden></iframe>
+</section>
+
+<section id="page-nc-app" class="page nc-app-page">
+  <div id="nc-app-loading" class="nc-app-loading">
+    <div class="nc-loader"></div>
+    <h2>Preparando o Sistema de Não Conformidades</h2>
+    <p>Carregando registros, contratos e ações...</p>
+  </div>
+  <iframe id="nc-app-frame" title="Sistema de Não Conformidades" allow="clipboard-read; clipboard-write" hidden></iframe>
+</section>
+
+<section id="page-universal-split" class="page universal-tool-page">
+  <iframe src="/static/universal-tools/separador-pdf.html" title="Separador de PDF"></iframe>
+</section>
+<section id="page-universal-merge" class="page universal-tool-page">
+  <iframe src="/static/universal-tools/unificador-pdf.html" title="Unificador de PDF"></iframe>
+</section>
+<section id="page-universal-compress" class="page universal-tool-page">
+  <iframe src="/static/universal-tools/compressor-pdf.html" title="Compressor de PDF"></iframe>
+</section>
+<section id="page-universal-images-pdf" class="page universal-tool-page">
+  <iframe src="/static/universal-tools/imagens-para-pdf.html" title="Imagens para PDF"></iframe>
+</section>
+<section id="page-universal-organize" class="page universal-tool-page">
+  <iframe src="/static/universal-tools/organizador-pdf.html" title="Organizador de páginas PDF"></iframe>
+</section>
+<section id="page-universal-jfif" class="page universal-tool-page">
+  <iframe src="/static/universal-tools/jfif-para-png.html" title="Conversor JFIF para PNG"></iframe>
+</section>
+
+<section id="page-quality-overview" class="page">
+  <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL</span><h2>Visão executiva dos traços</h2></div><small id="qg-source-state">Fonte ainda não carregada</small></div>
+  <div id="qg-admin-source" class="panel qg-source-panel auth-hidden">
+    <div class="panel-head"><div><h3>Fonte do inventário de traços <button type="button" class="help-ico" aria-label="Ajuda: Fonte do inventário de traços"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Administrador pode usar uma cópia Excel ou apontar para o arquivo sincronizado pelo OneDrive/SharePoint. A leitura é somente consulta.</span></button></h3></div></div>
+    <div class="qg-source-actions">
+      <label class="qg-path-field"><span>Caminho local sincronizado</span><input id="qg-source-path" placeholder="C:\...\INVENTARIO TRAÇOS_R1.xlsx"></label>
+      <button id="qg-source-save" class="ghost">Salvar caminho</button>
+      <label class="file-btn">Enviar cópia Excel<input type="file" id="qg-source-file" accept=".xlsx,.xlsm" hidden></label>
+      <button id="qg-source-upload" class="primary">Importar planilha</button>
+    </div>
+    <div id="qg-source-detail" class="meta"></div>
+  </div>
+  <div class="filters panel compact-panel qg-filters">
+    <div class="filter-label">Filtros</div>
+    <select id="qg-overview-contractor"><option value="ALL">Todas as contratadas</option></select>
+    <select id="qg-overview-type"><option value="ALL">Todos os tipos</option></select>
+    <input id="qg-overview-search" placeholder="Buscar traço, usina, ligante...">
+    <button id="qg-overview-refresh" class="primary">Atualizar</button>
+  </div>
+  <div id="qg-kpis" class="cards qg-kpis"></div>
+  <div class="qg-overview-grid">
+    <div class="panel"><div class="panel-head"><div><h3>Situação por contratada <button type="button" class="help-ico" aria-label="Ajuda: Situação por contratada"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Distribuição de aprovados, restritos, em análise e reprovados/NC.</span></button></h3></div></div><div id="qg-contractor-status" class="qg-contractor-status"></div></div>
+    <div class="panel"><div class="panel-head"><div><h3>Traços por tipo <button type="button" class="help-ico" aria-label="Ajuda: Traços por tipo"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Quantidade por família do inventário.</span></button></h3></div></div><div id="qg-type-bars" class="qg-type-bars"></div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h3>Aprovados por contratada <button type="button" class="help-ico" aria-label="Ajuda: Aprovados por contratada"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Resumo com acesso direto à lista detalhada de cada empresa.</span></button></h3></div><button id="qg-open-approved" class="ghost compact">Ver todos os aprovados</button></div><div id="qg-approved-contractors" class="qg-approved-contractors"></div></div>
+  <div class="panel"><div class="panel-head"><div><h3>Vencimentos próximos <button type="button" class="help-ico" aria-label="Ajuda: Vencimentos próximos"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Traços aprovados com vencimento nos próximos 30 dias.</span></button></h3></div></div><div class="table-wrap"><table class="qg-table"><thead><tr><th>Código</th><th>Contratada</th><th>Tipo</th><th>Traço</th><th>Vencimento</th><th>Dias</th></tr></thead><tbody id="qg-expiring-body"></tbody></table></div></div>
+</section>
+
+<section id="page-quality-approved" class="page">
+  <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL / CONSULTA TÉCNICA</span><h2>Traços aprovados</h2></div><small>Somente status original APROVADO</small></div>
+  <div class="filters panel compact-panel qg-filters qg-approved-filters">
+    <select id="qga-contractor"><option value="ALL">Todas as contratadas</option></select>
+    <select id="qga-type"><option value="ALL">Todos os tipos</option></select>
+    <select id="qga-plant"><option value="ALL">Todas as usinas</option></select>
+    <select id="qga-binder"><option value="ALL">Todos os ligantes</option></select>
+    <input id="qga-search" placeholder="Código, traço, usina, agregado...">
+    <button id="qga-clear" class="ghost">Limpar</button><button id="qga-refresh" class="primary">Aplicar</button>
+  </div>
+  <div class="panel qg-approved-summary-panel"><div class="panel-head"><div><h3 id="qga-title">Traços aprovados</h3><p id="qga-hint">Selecione uma contratada ou consulte a base completa.</p></div></div><div id="qga-contractor-chips" class="qg-contractor-chips"></div></div>
+  <div class="panel"><div class="table-wrap"><table class="qg-table qg-approved-table"><thead><tr><th>Código</th><th>Contratada</th><th>Categoria</th><th>Traço</th><th>Usina</th><th>Ligante</th><th>Aprovação</th><th>Vencimento</th><th>Documento</th></tr></thead><tbody id="qga-body"></tbody></table></div></div>
+</section>
+
+<section id="page-quality-traces" class="page">
+  <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL / INVENTÁRIO</span><h2>Todos os traços</h2></div><small>Status original preservado da planilha</small></div>
+  <div class="filters panel compact-panel qg-filters">
+    <select id="qgt-contractor"><option value="ALL">Todas as contratadas</option></select>
+    <select id="qgt-type"><option value="ALL">Todos os tipos</option></select>
+    <select id="qgt-status"><option value="ALL">Todos os status</option></select>
+    <select id="qgt-plant"><option value="ALL">Todas as usinas</option></select>
+    <select id="qgt-binder"><option value="ALL">Todos os ligantes</option></select>
+    <input id="qgt-search" placeholder="Buscar em todos os traços...">
+    <button id="qgt-clear" class="ghost">Limpar</button><button id="qgt-refresh" class="primary">Aplicar</button>
+  </div>
+  <div id="qgt-summary" class="inline-summary"></div>
+  <div class="panel"><div class="table-wrap"><table class="qg-table"><thead><tr><th>Código</th><th>Contratada</th><th>Categoria</th><th>Traço</th><th>Usina</th><th>Ligante</th><th>Status</th><th>Aprovação</th><th>Vencimento</th></tr></thead><tbody id="qgt-body"></tbody></table></div></div>
+</section>
+
+<section id="page-quality-nc-overview" class="page">
+  <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL / NÃO CONFORMIDADES</span><h2>Visão executiva das RNCs</h2></div><small id="qgnc-source-state">Fonte ainda não carregada</small></div>
+  <div id="qgnc-admin-source" class="panel qg-source-panel auth-hidden">
+    <div class="panel-head"><div><h3>Fonte do controle de Não Conformidades <button type="button" class="help-ico" aria-label="Ajuda: Fonte do controle de Não Conformidades"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Use o caminho local da planilha sincronizada no computador. A leitura é somente consulta e aceita .xlsm/.xlsx.</span></button></h3></div></div>
+    <div class="qg-source-actions">
+      <label class="qg-path-field"><span>Caminho local sincronizado</span><input id="qgnc-source-path" placeholder="C:\...\CONTROLE_NC_PV_Pavimentos_Leon.xlsm"></label>
+      <button id="qgnc-source-save" class="ghost">Salvar caminho</button>
+      <label class="file-btn">Enviar cópia Excel<input type="file" id="qgnc-source-file" accept=".xlsx,.xlsm" hidden></label>
+      <button id="qgnc-source-upload" class="primary">Importar planilha</button>
+    </div>
+    <div id="qgnc-source-detail" class="meta"></div>
+  </div>
+  <div class="filters panel compact-panel qg-filters">
+    <div class="filter-label">Filtros</div>
+    <select id="qgnco-contractor"><option value="ALL">Todas as contratadas</option></select>
+    <select id="qgnco-status"><option value="ALL">Todos os status</option></select>
+    <select id="qgnco-discipline"><option value="ALL">Todas as disciplinas</option></select>
+    <input id="qgnco-search" placeholder="Buscar nº da NC, assunto, trecho, descrição...">
+    <button id="qgnco-refresh" class="primary">Atualizar</button>
+  </div>
+  <div id="qgnc-kpis" class="cards qg-kpis"></div>
+  <div class="qgnc-financial-grid">
+    <div class="panel"><span class="eyebrow">RETENÇÃO <button type="button" class="help-ico" aria-label="Ajuda: Retenção"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Valor previsto/proposto para retenção nas RNCs do filtro.</span></button></span><div class="qgnc-money" id="qgnc-proposed-retention">R$ 0,00</div></div>
+    <div class="panel"><span class="eyebrow">RETIDO DE FATO</span><div class="qgnc-money" id="qgnc-real-retained">R$ 0,00</div><p id="qgnc-retained-hint">0 ocorrências com retenção.</p></div>
+  </div>
+  <div class="qg-overview-grid">
+    <div class="panel"><div class="panel-head"><div><h3>Situação das NCs por contratada <button type="button" class="help-ico" aria-label="Ajuda: Situação das NCs por contratada"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Abertas, em tratamento, encerradas e canceladas por empresa.</span></button></h3></div></div><div id="qgnc-contractor-status" class="qg-contractor-status"></div></div>
+    <div class="panel"><div class="panel-head"><div><h3>Principais assuntos <button type="button" class="help-ico" aria-label="Ajuda: Principais assuntos"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Temas mais recorrentes entre as RNCs do filtro.</span></button></h3></div></div><div id="qgnc-subject-bars" class="qg-type-bars"></div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h3>NCs abertas / em tratamento <button type="button" class="help-ico" aria-label="Ajuda: NCs abertas / em tratamento"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Itens mais recentes que ainda exigem acompanhamento.</span></button></h3></div><button id="qgnc-open-list" class="ghost compact">Abrir consulta completa</button></div><div class="table-wrap"><table class="qg-table qgnc-table"><thead><tr><th>NC</th><th>Contratada</th><th>Assunto</th><th>Status</th><th>Emissão</th><th>Prazo resposta</th><th>Retido</th></tr></thead><tbody id="qgnc-open-body"></tbody></table></div></div>
+</section>
+
+<section id="page-quality-nc-list" class="page">
+  <div class="section-title"><div><span class="eyebrow">QUALIDADE GERAL / CONSULTA DE RNCs</span><h2>Todas as Não Conformidades</h2></div><small>Somente registros do tipo RNC da aba NC</small></div>
+  <div class="filters panel compact-panel qg-filters">
+    <select id="qgncl-contractor"><option value="ALL">Todas as contratadas</option></select>
+    <select id="qgncl-status"><option value="ALL">Todos os status</option></select>
+    <select id="qgncl-subject"><option value="ALL">Todos os assuntos</option></select>
+    <select id="qgncl-discipline"><option value="ALL">Todas as disciplinas</option></select>
+    <select id="qgncl-classification"><option value="ALL">Todas as classificações</option></select>
+    <select id="qgncl-retention"><option value="ALL">Retido / não retido</option></select>
+    <input id="qgncl-search" placeholder="Buscar nº, contratada, trecho, descrição...">
+    <button id="qgncl-clear" class="ghost">Limpar</button><button id="qgncl-refresh" class="primary">Aplicar</button>
+  </div>
+  <div id="qgncl-summary" class="inline-summary"></div>
+  <div class="panel"><div class="table-wrap"><table class="qg-table qgnc-table"><thead><tr><th>NC</th><th>Contratada</th><th>Assunto</th><th>Status</th><th>Disciplina</th><th>Emissão</th><th>Prazo</th><th>Valor a reter</th><th>Retido real</th></tr></thead><tbody id="qgncl-body"></tbody></table></div></div>
+</section>
+
+<section id="page-contractor-home" class="page">
+  <div class="contractor-hero panel"><div><span class="eyebrow">CONTRATADA</span><h2>Portal da Contratada</h2><p>Estrutura inicial criada para evoluirmos separadamente da visão da BV.</p></div><span class="status-badge info">MÓDULO EM DESENVOLVIMENTO</span></div>
+  <div class="filters panel compact-panel"><div class="filter-label">Kits</div><select id="contractor-home-company"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><button id="contractor-home-refresh">Atualizar</button></div>
+  <div class="cards cards-4 contractor-demo-cards" id="contractor-kit-kpis"></div>
+  <div class="panel"><div class="panel-head"><div><h3>Entregas por mês <button type="button" class="help-ico" aria-label="Ajuda: Entregas por mês"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Quantidade efetivamente entregue em cada mês (Data recebimento; fallback = Data aplicação). Sem linha de meta.</span></button></h3></div></div><div id="contractor-delivery-chart"></div></div>
+  <div class="panel"><div class="panel-head"><div><h3>Controles OK por categoria <button type="button" class="help-ico" aria-label="Ajuda: Controles OK por categoria"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Verde ≥ 95% • Laranja de 85% a 94,99% • Vermelho abaixo de 85%.</span></button></h3></div></div><div id="contractor-control-cards" class="control-status-grid"></div></div>
+</section>
+
+<section id="page-contractor-kits" class="page">
+  <div class="section-title"><div><span class="eyebrow">CONTRATADA / KITS</span><h2>Controle de kits de ensaio</h2></div><small>Fonte local sincronizada pelo SharePoint/OneDrive</small></div>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Base de kits <button type="button" class="help-ico" aria-label="Ajuda: Base de kits"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Dados lidos diretamente da aba <b>d.KIT</b> das planilhas Arena/Pavidez configuradas em Administração → Sincronização.</span></button></h3></div></div>
+    <div class="certificate-filter-grid kit-filter-grid">
+      <label><span>Contratada</span><select id="kit-contractor"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select></label>
+      <label><span>Ordenar</span><select id="kit-sort"><option value="newest">Mais recentes</option><option value="oldest">Mais antigos</option></select></label>
+      <label><span>Situação</span><select id="kit-status"><option value="ALL">Todas</option><option value="OK">OK</option><option value="INCOMPLETO">INCOMPLETO</option><option value="PENDENTE">PENDENTE</option></select></label>
+      <label><span>Rodovia</span><select id="kit-road"><option value="">Todas as BR/PR</option></select></label>
+      <label><span>Período</span><select id="kit-period"><option value="">Todos os períodos</option><option value="DIURNO">DIURNO</option><option value="NOTURNO">NOTURNO</option></select></label>
+      <label><span>Data aplicação - início</span><input type="date" id="kit-start"></label>
+      <label><span>Data aplicação - fim</span><input type="date" id="kit-end"></label>
+      <label class="filter-search"><span>Busca geral</span><input id="kit-search" placeholder="Buscar #SEQ, projeto, rodovia, status..."></label>
+      <div class="filter-actions"><button id="kit-clear" class="ghost">Limpar</button><button id="kit-load" class="primary">Aplicar filtros</button></div>
+    </div>
+    <div id="kit-summary" class="cards cards-4 kit-summary-cards"></div>
+    <div class="table-wrap kit-table-wrap"><table class="data-table kit-table"><thead><tr><th>#SEQ</th><th>Contratada</th><th>Serviço</th><th>Data aplicação</th><th>Projeto mistura</th><th>Período</th><th>Rodovia</th><th>KMI</th><th>KMF</th><th>Data</th><th>Entrega</th><th>Status</th><th>1. Aplicação</th><th>2. Usinagem</th><th>3. Vv</th><th>4. Taxa</th><th>5. Ligante</th><th>6. Mancha areia</th><th>7. Pêndulo</th><th>8. Esp. úmida</th><th>SIN. - Retro</th><th>Ações</th></tr></thead><tbody id="kit-body"></tbody></table></div><div id="kit-pagination" class="pagination"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Documentos dos kits <button type="button" class="help-ico" aria-label="Ajuda: Documentos dos kits"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Índice recursivo da pasta <b>Entrega Contratada</b> sincronizada pelo SharePoint/OneDrive. Pastas dentro de pastas são lidas automaticamente.</span></button></h3></div></div>
+    <div class="toolbar kit-toolbar"><select id="kit-doc-contractor"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><input id="kit-doc-search" placeholder="Buscar arquivo, pasta ou #SEQ..."><button id="kit-doc-load" class="primary">Atualizar arquivos</button></div>
+    <div id="kit-doc-summary" class="inline-summary"></div>
+    <div class="table-wrap"><table class="data-table"><thead><tr><th>Contratada</th><th>#SEQ vinculado</th><th>Arquivo</th><th>Pasta relativa</th><th>Tipo</th><th>Tamanho</th><th>Ações</th></tr></thead><tbody id="kit-doc-body"></tbody></table></div>
+  </div>
+</section>
+
+<section id="page-contractor-certificates" class="page">
+  <div class="section-title"><div><span class="eyebrow">CONTRATADA</span><h2>Arquivos por pasta</h2></div><small>Entrega Contratada / SharePoint</small></div>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Navegador de entregas <button type="button" class="help-ico" aria-label="Ajuda: Navegador de entregas"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Selecione uma pasta de primeiro nível (ex.: <b>1.0</b>, <b>2.0</b>) para visualizar somente os certificados em PDF abaixo dela.</span></button></h3></div></div>
+    <div class="toolbar kit-toolbar"><select id="contractor-doc-company"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><input id="contractor-doc-search" placeholder="Buscar pasta ou arquivo..."><button id="contractor-doc-refresh" class="primary">Atualizar</button></div>
+    <div class="folder-browser">
+      <aside class="folder-sidebar"><div class="folder-sidebar-title">Pastas</div><div id="contractor-folder-list"></div></aside>
+      <div class="folder-content"><div id="contractor-folder-summary" class="inline-summary"></div><div id="contractor-file-preview" class="file-preview-grid"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- compatibilidade textual legado: somente datas de execução que ainda não possuem kit -->
+<section id="page-contractor-pending" class="page">
+  <div class="section-title"><div><span class="eyebrow">CONTRATADA</span><h2>Pendências da contratada</h2></div><small>Medição × Data aplicação dos kits</small></div>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Pendências por medição <button type="button" class="help-ico" aria-label="Ajuda: Pendências por medição"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Mostra execuções que ainda não possuem kit entregue e também valida o preenchimento da d.KIT. Linha sem <b>Data aplicação</b> conta como pendência, exceto quando <b>KMI e KMF</b> já estiverem preenchidos. Quando todos os kits da data estiverem como <b>Entregue</b>, o item sai da Contratada e passa para a BV.</span></button></h3></div><div class="toolbar no-margin"><select id="contractor-pending-company"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><button id="contractor-pending-refresh" class="primary">Atualizar</button></div></div>
+    <div id="contractor-pending-summary" class="inline-summary"></div>
+    <div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Medição</th><th>Data de execução</th><th>Rodovia</th><th>Trecho</th><th>Medições no dia</th><th>Entrega</th><th>Status</th><th>Ação</th></tr></thead><tbody id="contractor-pending-body"></tbody></table></div>
+  </div>
+  <div class="panel justified-panel">
+    <div class="panel-head"><div><h3>Pendências justificadas</h3><p>Itens que não podem mais ser tratados ficam separados e deixam de contar como pendentes.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Data</th><th>Rodovia</th><th>Justificativa</th><th>Justificada em</th><th>Ação</th></tr></thead><tbody id="contractor-justified-body"></tbody></table></div>
+  </div>
+</section>
+
+
+<section id="page-review" class="page">
+  <div class="section-title"><div><span class="eyebrow">CENTRAL DE CONCILIAÇÃO</span><h2>Inconsistências e ações necessárias</h2></div><small>Medição → Kit → Certificado → BD_QUALI</small></div>
+  <div class="filters panel compact-panel"><div class="filter-label">Filtros</div><select id="review-contractor"><option value="ALL">Arena + Pavidez</option><option>ARENA</option><option>PAVIDEZ</option></select><select id="review-severity"><option value="ALL">Todas as prioridades</option><option value="danger">Críticos</option><option value="warning">Avisos</option><option value="info">Informativos</option></select><select id="review-type"><option value="ALL">Todos os tipos</option></select><input id="review-search" placeholder="Buscar certificado, kit, rodovia..."><button id="review-refresh">Atualizar</button><button id="review-export" class="ghost">Exportar página CSV</button></div>
+  <div id="review-kpis" class="cards cards-4"></div>
+  <div class="panel"><div class="table-wrap"><table><thead><tr><th>Prioridade</th><th>Tipo</th><th>Contratada</th><th>Item</th><th>Detalhe</th><th>Ação</th></tr></thead><tbody id="review-body"></tbody></table></div><div id="review-pagination" class="pagination"></div></div>
+</section>
+
+<section id="page-health" class="page">
+  <div class="section-title"><div><span class="eyebrow">ADMINISTRAÇÃO</span><h2>Saúde do sistema</h2></div><small>Banco, fontes, backup e sincronização</small></div>
+  <div id="health-kpis" class="cards cards-4"></div>
+  <div id="health-alerts" class="health-alerts"></div>
+  <div class="panel runtime-panel">
+    <div class="panel-head"><div><span class="eyebrow">MODO ECONÔMICO</span><h3>Desempenho e controle</h3></div><span id="runtime-badge" class="badge">PRONTO</span></div>
+    <div class="runtime-grid">
+      <div><b id="runtime-label">Nenhuma operação pesada em andamento</b><small id="runtime-current">As rotinas automáticas usam somente arquivos alterados.</small><div class="control-progress"><span id="runtime-progress" style="width:0%"></span></div></div>
+      <div class="row-actions runtime-actions"><button id="runtime-pause" class="ghost">Pausar automações</button><button id="runtime-cancel" class="ghost">Cancelar operação</button><button id="runtime-archive" class="ghost">Compactar histórico</button><button id="runtime-shutdown" class="danger">Encerrar QualiMatch</button></div>
+    </div>
+    <small id="runtime-details" class="meta"></small>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h3>Fontes monitoradas <button type="button" class="help-ico" aria-label="Ajuda: Fontes monitoradas"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Última sincronização e estado de cada origem.</span></button></h3></div><button id="health-refresh" class="ghost">Atualizar</button></div><div class="table-wrap"><table><thead><tr><th>Contratada</th><th>Fonte</th><th>Status</th><th>Última sincronização</th><th>Caminho</th><th>Erro</th></tr></thead><tbody id="health-body"></tbody></table></div></div>
+</section>
+
+<section id="page-tools" class="page">
+  <div class="section-title"><div><span class="eyebrow">ADMINISTRAÇÃO / FERRAMENTAS</span><h2>Central de Ferramentas</h2></div><small>Automação assistida • prévia antes de gravar</small></div>
+  <div class="tool-cards">
+    <div class="tool-card tool-card-active"><div class="tool-icon">PDF</div><div><span class="portal-tag">ETAPA 1 FUNCIONAL</span><h3>PDF → BD_QUALI <button type="button" class="help-ico" aria-label="Ajuda: PDF → BD_QUALI"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Lê BI330 em lote, usa 1 CP de rotina = 1 linha e cruza cada CP com a base de Medições.</span></button></h3></div></div>
+    <div class="tool-card tool-card-active"><div class="tool-icon">XLS</div><div><span class="portal-tag">ETAPA 2 FUNCIONAL</span><h3>BD_QUALI segura <button type="button" class="help-ico" aria-label="Ajuda: BD_QUALI segura"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Gera cópia para conferência ou atualiza a planilha principal com backup automático, validação e preservação das fórmulas.</span></button></h3></div></div>
+    <div class="tool-card tool-card-active"><div class="tool-icon">XLS</div><div><span class="portal-tag">FUNCIONAL</span><h3>Inspetor de planilhas <button type="button" class="help-ico" aria-label="Ajuda: Inspetor de planilhas"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Mostra abas, cabeçalho provável, colunas duplicadas, fórmulas e amostras antes de configurar uma fonte.</span></button></h3></div></div>
+  </div>
+  <div class="callout"><b>Modo protegido</b><span>A prévia continua sendo obrigatória. Você pode gerar uma cópia ou usar “Atualizar planilha principal”. Na gravação direta o QualiMatch cria backup integral, valida o arquivo antes/depois e usa troca atômica. Certificados novos entram ao fim da tabela; existentes são atualizados nas próprias linhas. Feche o Excel antes da gravação direta.</span></div>
+  <div class="panel">
+    <div class="panel-head"><div><h3>Analisar certificados <button type="button" class="help-ico" aria-label="Ajuda: Analisar certificados"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Selecione até 30 PDFs BI330. O cruzamento usa Contratada + Data Aplicação + Rodovia + Estaca + Faixa/Sentido.</span></button></h3></div></div>
+    <div class="tool-upload-row"><label class="file-picker"><span>PDFs BI330</span><input id="tool-pdf-files" type="file" accept="application/pdf,.pdf" multiple></label><button id="tool-pdf-analyze" class="primary">Analisar PDFs</button><button id="tool-pdf-csv" class="ghost" disabled>Baixar prévia CSV</button><button id="tool-pdf-excel" class="excel-action" disabled>Gerar cópia Excel</button><button id="tool-pdf-write-main" class="danger" disabled>Atualizar planilha principal</button></div>
+    <div id="tool-pdf-message" class="inline-summary"></div>
+    <div id="tool-pdf-kpis" class="cards cards-4"></div>
+    <div id="tool-pdf-certificates"></div>
+    <div class="table-wrap tool-preview-table"><table><thead><tr><th>Certificado</th><th>CP</th><th>Data aplicação</th><th>Rodovia PDF</th><th>Sentido</th><th>Faixa</th><th>Estaca</th><th>VV</th><th>A/B</th><th>Rice</th><th>Medição</th><th>Linha</th><th>Trecho medição</th><th>Vínculo</th></tr></thead><tbody id="tool-pdf-body"><tr><td colspan="14" class="empty">Selecione os PDFs para gerar a prévia.</td></tr></tbody></table></div>
+  </div>
+  <div class="panel source-inspector-panel">
+    <div class="panel-head"><div><h3>Inspecionar estrutura de planilha <button type="button" class="help-ico" aria-label="Ajuda: Inspecionar estrutura de planilha"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Leitura segura e somente para diagnóstico. O arquivo enviado não é alterado nem salvo pelo QualiMatch.</span></button></h3></div></div>
+    <div class="tool-upload-row"><label class="file-picker"><span>Planilha Excel</span><input id="tool-source-file" type="file" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12"></label><button id="tool-source-inspect" class="primary">Inspecionar planilha</button></div>
+    <div id="tool-source-message" class="inline-summary"><span class="muted">Selecione uma planilha para conferir sua estrutura antes da sincronização.</span></div>
+    <div id="tool-source-kpis" class="cards cards-4"></div>
+    <div id="tool-source-sheets"></div>
+  </div>
+</section>
+
+<section id="page-sync" class="page">
+  <div class="callout"><b>Fluxo recomendado</b><span>Sincronize as bibliotecas do SharePoint pelo OneDrive no Windows e aponte abaixo para os arquivos/pastas locais. O QualiMatch lê uma cópia em cache. Sincronização normal só processa o que mudou; “Reprocessar” é apenas para diagnóstico.</span></div>
+  <div class="panel auto-monitor-panel">
+    <div class="panel-head"><div><span class="eyebrow">IMPORTAÇÃO AUTOMÁTICA</span><h3>Monitor SharePoint / OneDrive <button type="button" class="help-ico" aria-label="Ajuda: Monitor SharePoint / OneDrive"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Enquanto o QualiMatch estiver rodando, arquivos que chegarem nas pastas locais sincronizadas entram automaticamente. Ao ligar o servidor novamente, ele faz o catch-up do que chegou enquanto estava desligado.</span></button></h3></div><span id="auto-monitor-badge" class="badge">CARREGANDO</span></div>
+    <div class="monitor-controls">
+      <label class="monitor-check"><input type="checkbox" id="auto-monitor-enabled"> <span><b>Monitor ativo</b><small>Liga/desliga a importação automática.</small></span></label>
+      <label class="monitor-check"><input type="checkbox" id="auto-monitor-bv"> <span><b>BV</b><small>Novos PDFs BI330 de Arena e Pavidez.</small></span></label>
+      <label class="monitor-check"><input type="checkbox" id="auto-monitor-contractor"> <span><b>Contratada</b><small>d.KIT + árvore Entrega Contratada.</small></span></label>
+      <label class="monitor-check"><input type="checkbox" id="auto-monitor-quality"> <span><b>Preencher BD_QUALI</b><small>Novo BI330 pronto → grava automaticamente na planilha oficial com backup.</small></span></label>
+      <label class="monitor-interval"><span><b>Verificar a cada</b><small>Intervalo do monitor local.</small></span><select id="auto-monitor-seconds"><option value="10">10 s</option><option value="15">15 s</option><option value="30">30 s</option><option value="60">1 min</option><option value="120">2 min</option></select></label>
+    </div>
+    <div class="row-actions monitor-actions"><button id="auto-monitor-save" class="primary">Salvar monitor</button><button id="auto-monitor-run" class="ghost">Verificar agora</button></div>
+    <div class="panel-head monitor-history-head"><div><h3>Últimas importações automáticas <button type="button" class="help-ico" aria-label="Ajuda: Últimas importações automáticas"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Mostra o arquivo detectado e se foi carregado/indexado corretamente.</span></button></h3></div><button id="auto-monitor-refresh" class="ghost compact">Atualizar</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Quando</th><th>Ambiente</th><th>Empresa</th><th>Tipo</th><th>Arquivo</th><th>Evento</th><th>Status</th><th>Resultado</th></tr></thead><tbody id="auto-monitor-events"><tr><td colspan="8" class="empty">Carregando monitor...</td></tr></tbody></table></div><div id="auto-monitor-pagination" class="pagination"></div>
+  </div>
+  <div id="sources"></div>
+</section>
+
+<section id="page-history" class="page">
+  <div class="panel history-filter-panel"><div class="panel-head"><div><h3>Pesquisar histórico <button type="button" class="help-ico" aria-label="Ajuda: Pesquisar histórico"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Filtre sincronizações e alterações manuais por uma data específica.</span></button></h3></div><div class="toolbar no-margin"><input type="date" id="history-date"><button id="history-clear" class="ghost">Limpar</button><button id="history-load" class="primary">Pesquisar</button></div></div></div>
+  <div class="panel"><div class="panel-head"><div><h3>Histórico de sincronização <button type="button" class="help-ico" aria-label="Ajuda: Histórico de sincronização"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Importações, avisos e erros das fontes.</span></button></h3></div></div><div class="table-wrap"><table><thead><tr><th>Quando</th><th>Empresa</th><th>Fonte</th><th>Status</th><th>Registros</th><th>Mensagem</th></tr></thead><tbody id="h-body"></tbody></table></div><div id="history-log-pagination" class="pagination"></div></div>
+  <div class="panel"><div class="panel-head"><div><h3>Alterações manuais <button type="button" class="help-ico" aria-label="Ajuda: Alterações manuais"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Edições feitas a partir da v3.8 podem ser desfeitas pelo administrador.</span></button></h3></div></div><div class="table-wrap"><table><thead><tr><th>Quando</th><th>Usuário</th><th>Ação</th><th>Objeto</th><th>Status</th><th>Ação</th></tr></thead><tbody id="change-body"></tbody></table></div><div id="history-change-pagination" class="pagination"></div></div>
+</section>
+<section id="page-backups" class="page"><div class="panel"><div class="panel-head"><div><h3>Backups do banco <button type="button" class="help-ico" aria-label="Ajuda: Backups do banco"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Backups seguros do banco ativo. ADMIN pode restaurar um ponto anterior; antes da restauração o estado atual é salvo automaticamente.</span></button></h3></div><button id="backup-create" class="primary">Criar backup</button></div><div id="backup-list"></div></div></section>
+
+<section id="page-admin" class="page">
+  <div class="section-title"><div><span class="eyebrow">ADMINISTRAÇÃO</span><h2>Usuários e segurança</h2></div><small>Somente administradores</small></div>
+  <div class="cards cards-4" id="admin-user-kpis"></div>
+  <div class="panel"><div class="panel-head"><div><h3>Solicitações, usuários e ambientes <button type="button" class="help-ico" aria-label="Ajuda: Solicitações, usuários e ambientes"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Aprove o cadastro e depois libere explicitamente os acessos. Para Contratada, marque Arena e/ou Pavidez separadamente: uma empresa não enxerga a outra. Somente ADMIN vê ambas por padrão.</span></button></h3></div><button id="admin-refresh" class="ghost">Atualizar</button></div><div class="table-wrap"><table class="admin-users-table"><thead><tr><th>Nome</th><th>E-mail</th><th>Perfil</th><th>Nível</th><th>Status</th><th>Acessos</th><th>Último login</th><th>Ações</th></tr></thead><tbody id="admin-users-body"></tbody></table></div></div>
+  <div class="panel"><div class="panel-head"><div><h3>Auditoria recente <button type="button" class="help-ico" aria-label="Ajuda: Auditoria recente"><span aria-hidden="true">?</span><span class="help-box" role="tooltip">Registro de logins, cadastros e alterações sensíveis.</span></button></h3></div></div><div class="table-wrap"><table><thead><tr><th>Quando</th><th>Usuário</th><th>Ação</th><th>Objeto</th><th>IP</th></tr></thead><tbody id="admin-audit-body"></tbody></table></div></div>
+</section>
+</main>
+</div>
+<div id="toast"></div>
+<div id="modal" class="modal-backdrop" aria-hidden="true"><div class="modal-card"><button class="modal-close" id="modal-close">×</button><div id="modal-content"></div></div></div>
+<script src="/static/app.js?v=__QUALIMATCH_VERSION__"></script>
+<script src="/static/email_notifications.js?v=__QUALIMATCH_VERSION__"></script>
+<script src="/static/general_quality.js?v=__QUALIMATCH_VERSION__"></script>
+<script>
+/* v3.9.0 — apenas efeito visual da barra de progresso ao trocar de página; não altera nenhuma função existente do app.js */
+(function(){
+  var bar=document.getElementById('qm-progress');
+  var nav=document.getElementById('nav');
+  if(!bar||!nav)return;
+  nav.addEventListener('click',function(e){
+    if(!e.target.closest('button[data-page]'))return;
+    bar.classList.remove('run');
+    void bar.offsetWidth;
+    bar.classList.add('run');
+  });
+})();
+</script>
+<script>
+/* v3.10.0 — abre/fecha as caixas de ajuda (ícone "?") por clique/toque, além de hover/foco; não altera nenhuma função existente do app.js */
+(function(){
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('.help-ico');
+    document.querySelectorAll('.help-ico.open').forEach(function(el){ if(el!==btn) el.classList.remove('open'); });
+    if(btn){ btn.classList.toggle('open'); e.stopPropagation(); }
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape') document.querySelectorAll('.help-ico.open').forEach(function(el){ el.classList.remove('open'); });
+  });
+})();
+</script>
+</body></html>

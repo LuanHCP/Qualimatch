@@ -1,0 +1,12 @@
+QualiMatch v3.8.7 — PREENCHIMENTO AUTOMÁTICO BD_QUALI
+
+- Novo BI330 detectado pela BV pode preencher automaticamente a BD_QUALI principal.
+- Usa o pipeline PDF → BD_QUALI já validado: matching por medição, preservação de fórmulas/formatação, backup e gravação atômica.
+- Só grava planos 100% prontos; REVISAR/SEM MEDIÇÃO/PARCIAL ficam bloqueados.
+- Verifica quantas linhas do certificado já existem na BD_QUALI antes da escrita.
+- Certificados novos são adicionados ao fim; BI alterado com linhas existentes pode atualizar os campos do certificado sem duplicar linhas.
+- Após a gravação automática, a fonte Qualidade é ressincronizada e Dashboard/Pendências refletem os novos dados.
+- Monitor ADMIN ganhou toggle "Preencher BD_QUALI".
+- Upload manual, monitor automático e sincronização manual de certificados compartilham a mesma reconciliação.
+- Eventos aparecem no histórico como BD_QUALI_OK, REVISAR, JA_PREENCHIDO ou ERRO.
+- Versão visual/cache: v3.8.7.

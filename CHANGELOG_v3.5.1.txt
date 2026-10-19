@@ -1,0 +1,6 @@
+QualiMatch v3.5.1 — Correção Fonte Documentos dos Kits
+
+- Corrige HTTP 400 "Fonte inválida" ao salvar caminho da fonte kit_documentos.
+- O endpoint de fontes agora aceita explicitamente kit_documentos para ARENA e PAVIDEZ.
+- Mantém validação posterior exigindo que Documentos dos Kits aponte para uma pasta local existente.
+- Frontend/cache versionados para 3.5.1.

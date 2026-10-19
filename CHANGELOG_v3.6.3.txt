@@ -1,0 +1,9 @@
+QualiMatch v3.6.3 — Contratada: pendência diária, gráfico e filtros de kits
+
+- Pendências da Contratada agora são agrupadas por contratada + data: apenas um aviso por dia, mesmo que existam várias linhas de medição na mesma data.
+- A cobertura continua considerando certificados e Data aplicação da tabela d.KIT.
+- O registro diário informa quantas medições existiam naquele dia.
+- Corrigido o gráfico "Entregas por data": CSS das colunas/barras incluído corretamente.
+- Kits de ensaio receberam filtros no padrão da BV: Contratada, Ordenar, Situação, Rodovia, Serviço, Período, Data aplicação início/fim, Busca geral, Limpar e Aplicar filtros.
+- Adicionado endpoint de opções de filtro para kits.
+- Cache visual atualizado para v3.6.3.

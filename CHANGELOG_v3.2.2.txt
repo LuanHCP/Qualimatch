@@ -1,0 +1,9 @@
+QualiMatch v3.2.2 — DASHBOARD REFINADO
+
+- Avisos do dashboard deixam de ocupar uma faixa fixa: agora aparecem em botão amarelo ao lado de "Sincronizar tudo", com tooltip por hover/foco.
+- Total serviço, Aprovado, Pendente e Reprovado recebem indicador de variação em R$ e percentual.
+- Tendência usa snapshots oficiais quando há histórico suficiente; na primeira utilização, usa as duas datas mais recentes da BD_QUALI como fallback.
+- Cores da tendência consideram o sentido do KPI: aumento em Total/Aprovado é favorável; redução em Pendente/Reprovado é favorável.
+- Certificados recentes ocupa menos largura no dashboard.
+- Gráfico donut foi ampliado e a legenda ganhou espaço; descrições passam a quebrar linha em vez de serem truncadas.
+- Nenhuma alteração no parser, matching, pendências, autenticação ou estrutura do banco.

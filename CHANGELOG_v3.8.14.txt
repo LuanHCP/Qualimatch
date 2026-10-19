@@ -1,0 +1,8 @@
+QualiMatch v3.8.14 — AUTO-REPARO DO AMBIENTE PYTHON
+
+- Corrige o erro "failed to locate pyvenv.cfg" ao iniciar o projeto sobre uma pasta que ficou com .venv incompleto ou copiado de outra instalação.
+- iniciar.bat agora valida .venv\pyvenv.cfg e testa o Python do ambiente antes de usar.
+- Se o ambiente estiver quebrado, ele remove apenas a pasta .venv e recria automaticamente.
+- iniciar_preparar.bat recebeu a mesma proteção.
+- Nenhuma alteração no parser BI330, no schema ou nos dados do banco.
+- PARSER_VERSION permanece 3.8.13 para não forçar reprocessamentos desnecessários.

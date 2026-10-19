@@ -1,0 +1,12 @@
+QualiMatch v3.8.4 — BV Autoimport + Arquivos sob demanda
+
+- Arquivos BV por medição agora também importa automaticamente PDFs BI330.
+- PDFs não-BI330 continuam apenas indexados.
+- Duplicados são bloqueados e não entram duas vezes no Dashboard/estatísticas.
+- Monitor automático aplica a mesma regra em novos/alterados da árvore BV.
+- Aba Arquivos BV passa a carregar grupos/metadados antes dos arquivos.
+- PDF/imagem só é baixado do disco quando o usuário pede Pré-visualizar/Abrir.
+- Listagem inicial limitada a 100 itens por grupo, com Carregar mais.
+- Arquivos BV podem ser arquivados logicamente pelo site sem apagar o SharePoint.
+- Arquivos arquivados manualmente não retornam na próxima sincronização.
+- Se um duplicado arquivado era a única ocorrência duplicada, o marcador roxo deixa de contar essa ocorrência.

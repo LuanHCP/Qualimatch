@@ -1,0 +1,13 @@
+QualiMatch v3.3.0 — Portais e Permissões
+
+- Login passa a abrir uma seleção visual com três ambientes: BV, Contratada e Administração.
+- Cada usuário possui permissões independentes para BV e Contratada.
+- Administração é liberada por perfil ADMIN; administradores podem promover outros usuários.
+- Backend bloqueia rotas da BV quando o usuário não possui acesso, mesmo por chamada direta da API.
+- Usuários aprovados existentes recebem BV na primeira migração para preservar o comportamento anterior.
+- Aprovação de um novo usuário continua liberando BV por padrão; o ADMIN pode remover ou adicionar acessos depois.
+- Portal Contratada criado com abas demonstrativas: Visão geral, Certificados e Pendências, sem dados reais nesta versão.
+- Administração passa a concentrar Usuários/Acessos, Sincronização, Histórico e Backups.
+- Adicionado botão “Trocar ambiente” dentro do sistema.
+- ADMIN não pode remover a própria permissão administrativa; o sistema também preserva pelo menos um admin aprovado.
+- Nenhuma alteração no parser BI330: parser_version continua 3.2.7.

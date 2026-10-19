@@ -1,0 +1,14 @@
+QualiMatch v2.3.0 — 14/08/2026
+
+- Ordenação de certificados por mais recentes/mais antigos.
+- Filtro de CPs mínimo/máximo.
+- Filtro por status técnico: APROVADO, REPROVADO e SEM RESULTADO.
+- Filtro por rodovia e por trecho/estaca.
+- Endpoint /api/certificates-filter-options para opções dinâmicas de rodovia.
+- Correção do reconhecimento de BR/PR em nomes com underscore, como _BR376_.
+- Migração automática de rodovias antigas a partir do file_path/file_name salvo.
+- Parser versionado como 2.3.0 para reler certificados incompletos no próximo sync.
+- Gráfico de status no Dashboard alterado de barras para pizza/donut.
+- Preservadas exclusão lógica, substituição segura, backups e manual_override da v2.2.0.
+- Pendências: ARENA 16, PAVIDEZ 15, total 31.
+- Validação: 30 testes automatizados + JS válido + endpoints principais HTTP 200.

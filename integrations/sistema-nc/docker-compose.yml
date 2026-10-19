@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PGDATABASE:-nc_sistema}
+      POSTGRES_USER: ${PGUSER:-nc_app}
+      POSTGRES_PASSWORD: ${PGPASSWORD:?defina PGPASSWORD no .env}
+    volumes:
+      - nc_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER:-nc_app} -d ${PGDATABASE:-nc_sistema}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGPORT: "5432"
+      PGDATABASE: ${PGDATABASE:-nc_sistema}
+      PGUSER: ${PGUSER:-nc_app}
+      PGPASSWORD: ${PGPASSWORD:?defina PGPASSWORD no .env}
+      APP_SECRET_KEY: ${APP_SECRET_KEY:?defina APP_SECRET_KEY no .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      SESSION_LIFETIME_MINUTES: ${SESSION_LIFETIME_MINUTES:-480}
+      SESSION_ABSOLUTE_MAX_HOURS: ${SESSION_ABSOLUTE_MAX_HOURS:-24}
+      LOGIN_MAX_ATTEMPTS: ${LOGIN_MAX_ATTEMPTS:-5}
+      LOGIN_LOCKOUT_MINUTES: ${LOGIN_LOCKOUT_MINUTES:-15}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-15}
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+      BOOTSTRAP_ADMIN_NOME: ${BOOTSTRAP_ADMIN_NOME:-Administrador do Sistema}
+    ports:
+      - "8000:8000"
+    volumes:
+      - nc_uploads:/app/backend/uploads
+
+volumes:
+  nc_pgdata:
+  nc_uploads:

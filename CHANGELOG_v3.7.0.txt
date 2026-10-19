@@ -1,0 +1,15 @@
+QualiMatch v3.7.0 — Central de Ferramentas / PDF → BD_QUALI
+
+- Nova aba Administração → Ferramentas.
+- Primeira ferramenta funcional: análise em lote de até 30 PDFs BI330.
+- Regra: 1 CP de rotina = 1 linha esperada na BD_QUALI.
+- Contra-prova é ligada à mesma linha do CP de rotina, sem duplicar linhas.
+- Cruzamento CP × Medição por contratada + Data Aplicação + rodovia + estaca + faixa/sentido.
+- Status do vínculo: VINCULADO / REVISAR / SEM MEDIÇÃO.
+- Prévia mostra Medição Mxx, Linha da medição e trecho associado.
+- Diagnóstico de quantidade existente na BD_QUALI por número do certificado.
+- Aviso quando o número BI330 do nome do arquivo diverge do conteúdo do PDF.
+- Mapeamento preparado para campos de rotina e contra-prova da BD_QUALI (datas, Rice, VV, A/B, estatísticas e status).
+- Exportação da prévia em CSV.
+- Somente ADMIN pode executar a ferramenta.
+- Nenhuma alteração é feita na BD_QUALI nesta versão.

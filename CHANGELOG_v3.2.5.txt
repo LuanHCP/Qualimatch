@@ -1,0 +1,7 @@
+QualiMatch v3.2.5 — Tendência financeira corrigida
+
+- Corrige a tendência dos cards financeiros no Dashboard quando apenas uma das empresas possui dois ou mais snapshots.
+- Arena e Pavidez passam a contribuir independentemente para a comparação; uma empresa sem histórico não bloqueia a variação da outra.
+- Reprocessamentos/sincronizações duplicadas com os mesmos valores são ignorados na busca do snapshot anterior, usando o último estado realmente diferente.
+- Mantém setas, valor da diferença e percentual, com verde para aumento de Total/Aprovado e redução de Pendente/Reprovado.
+- Mantém todos os recursos e ajustes da v3.2.4.

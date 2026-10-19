@@ -1,0 +1,6 @@
+QualiMatch v3.6.2 — Pendência Contratada por Data Aplicação
+
+- Corrige a Pendência da Contratada para considerar kit_rows.application_date como cobertura.
+- A regra continua respeitando a cobertura dos certificados já usada na BV.
+- Se uma data de medição existir como Data aplicação de um kit da mesma contratada, ela é removida da pendência.
+- Mantém: Certificados da Contratada somente em PDF; gráfico de entregas; cartões 1–8 + SIN.-Retro com verde >=95%, laranja >=85% e <95%, vermelho <85%.

@@ -1,0 +1,22 @@
+name: QualiMatch CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.lock
+      - name: Install locked dependencies
+        run: python -m pip install -r requirements.lock
+      - name: Compile Python
+        run: python -m compileall -q app.py qualimatch tests tools
+      - name: Run tests
+        run: python -m pytest -q

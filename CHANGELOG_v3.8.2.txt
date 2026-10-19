@@ -1,0 +1,8 @@
+QualiMatch v3.8.2 — Dias reais de execução + bloqueio de duplicados
+
+- Dias de execução/meta mensal contam datas distintas da planilha de Medições.
+- Várias linhas/faixas/trechos na mesma data contam como 1 dia.
+- Na visão Arena + Pavidez, a mesma data também conta uma única vez no calendário.
+- Importação manual e monitor automático bloqueiam certificados com conteúdo técnico integralmente repetido.
+- PDFs duplicados ficam registrados como DUPLICADO no monitor, sem criar novo certificado.
+- Reprocessamento do próprio arquivo continua permitido; contra-prova/conteúdo novo do mesmo BI continua permitido.

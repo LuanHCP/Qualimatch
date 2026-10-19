@@ -1,0 +1,12 @@
+QualiMatch v3.8.15 - BOOTSTRAP PYTHON ROBUSTO
+Data: 21/08/2026
+
+- Corrige a recorrencia do erro "failed to locate pyvenv.cfg" durante instalar.bat.
+- A v3.8.14 validava o .venv do projeto, mas ainda podia selecionar via PATH um python.exe que pertencia a outro ambiente virtual apagado/incompleto.
+- O bootstrap agora limpa VIRTUAL_ENV, PYTHONHOME e PYTHONPATH herdados.
+- Prefere o Python Launcher oficial (py -3.13/-3.12/-3.11/-3) e depois instalacoes base conhecidas.
+- Ignora aliases do WindowsApps e caminhos de .venv/venv ao procurar Python no PATH.
+- Valida que o interpretador escolhido e um Python BASE (sys.prefix == sys.base_prefix) e >= 3.11 antes de criar o .venv.
+- Se a pasta .venv estiver presa/em uso, interrompe com mensagem clara em vez de continuar com ambiente quebrado.
+- Nenhuma mudanca no parser BI330 (PARSER_VERSION continua 3.8.13).
+- Nenhuma mudanca de schema ou conteudo do banco.

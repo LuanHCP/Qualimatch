@@ -1,0 +1,6 @@
+QualiMatch v3.2.1 — AJUSTES DE ROTINA / CERTIFICADOS
+
+- Corrigida a regra do alerta BV: agora alerta quando Data de recebimento em laboratório é ANTERIOR à Data Ext. dos CPs.
+- Desvio padrão do VV reposicionado imediatamente ao lado de VV médio nos cards da fase.
+- K removido do subtítulo do desvio e exibido no cabeçalho da fase, entre FASE/ROTINA e os badges de aprovação.
+- Mantido o parser técnico na versão 3.2.0 para evitar reprocessamento desnecessário de todos os PDFs; a alteração de alerta é reavaliada em tempo de consulta.

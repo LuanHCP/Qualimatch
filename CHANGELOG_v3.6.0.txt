@@ -1,0 +1,8 @@
+QualiMatch v3.6.0 — Contratada: Dashboard, Pastas e Pendências
+
+- Card Recebidos passa a contar linhas preenchidas da d.KIT, sem depender da Data Recebimento.
+- Dashboard da Contratada ganha 9 cartões de controles OK: 1 a 8 + SIN.-Retro, com quantidade e percentual.
+- Em Kits de ensaio, a coluna Data Recebimento passa a ser exibida apenas como Data.
+- Aba Certificados da Contratada vira navegador da pasta Entrega Contratada, agrupando por pasta de primeiro nível (1.0, 2.0 etc.) e exibindo prévias de PDF/imagem.
+- Arquivos não renderizáveis no navegador permanecem disponíveis pelo botão Abrir.
+- Aba Pendências da Contratada passa a usar a mesma regra de pendência da BV: datas reais de medição versus datas cobertas pelos certificados.

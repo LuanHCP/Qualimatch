@@ -1,0 +1,12 @@
+QualiMatch v3.0.0 - PostgreSQL
+
+- Suporte a PostgreSQL via DATABASE_URL, mantendo SQLite como fallback/backup.
+- Assistente configurar_postgres.bat para testar conexão e gerar .env.
+- Migrador SQLite -> PostgreSQL preservando IDs e validando contagens.
+- Índices adicionais para certificado/data/rodovia/trecho/CPs/matching.
+- Remoção do gargalo N+1: CPs, documentos e vínculos são carregados em lote.
+- Listagem de certificados e resumo do dashboard passam a usar consultas em lote.
+- Backups automáticos continuam funcionando no PostgreSQL através de snapshot lógico .json.gz.
+- /api/health informa o backend do banco em uso.
+- Mantidas regras anteriores: Data Ext. dos CPs como data principal, pendências por data de execução,
+  gestão segura de certificados, filtros de CP/status/rodovia/trecho e dashboard com gráfico donut.

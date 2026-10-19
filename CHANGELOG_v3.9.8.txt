@@ -1,0 +1,44 @@
+QualiMatch v3.9.8 — UX BV / PAGINAÇÃO / FILTRO MÚLTIPLO
+
+Data: 28/08/2026
+
+Alterações principais:
+- Dashboard:
+  - novo filtro suspenso de seleção múltipla de certificados;
+  - pesquisa interna no seletor;
+  - seleção preservada enquanto permanecer disponível para a contratada escolhida;
+  - indicadores técnicos e lista de certificados recentes passam a respeitar os certificados selecionados;
+  - financeiro oficial permanece consolidado para preservar a leitura da BD_QUALI/RELATÓRIO.
+
+- BV > Certificados:
+  - removido o filtro "Situação";
+  - removida a "Busca geral";
+  - mantidos os filtros técnicos por medição, Vv, espessura, rodovia, trecho e certificado;
+  - paginação visual de 30 certificados por página;
+  - contador de faixa exibida (ex.: 1–30 de 287);
+  - navegação Anterior / páginas / Próxima;
+  - linhas com bordas e cantos arredondados, preservando cores de aprovado, reprovado, alerta e duplicado.
+
+- BV > Medições:
+  - paginação de 40 linhas por página;
+  - navegação inferior com contador e páginas.
+
+- BV > Arquivos BV:
+  - removido do menu do portal BV;
+  - sincronização e rotinas internas relacionadas continuam preservadas para não quebrar automações existentes.
+
+- BV > Pendências BV:
+  - sem alterações funcionais ou visuais.
+
+Arquivos alterados:
+- app.py
+- qualimatch/queries.py
+- frontend/index.html
+- frontend/static/app.js
+- frontend/static/app.css
+
+Validações realizadas:
+- referências removidas de c-status e c-search não permanecem no JavaScript;
+- botão Arquivos BV não permanece no menu BV;
+- sintaxe de frontend/static/app.js validada em runtime JavaScript;
+- elementos de paginação e filtro múltiplo confirmados no HTML final.

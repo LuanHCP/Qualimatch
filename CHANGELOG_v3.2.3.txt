@@ -1,0 +1,7 @@
+QualiMatch v3.2.3 — CACHE VISUAL CORRIGIDO
+
+- Preserva integralmente as cores/estilos técnicos da v3.2.1/v3.2.2.
+- CSS e JavaScript recebem versão na URL (?v=3.2.3), impedindo cache antigo no mesmo localhost/IP.
+- Respostas de / e /static/* passam a usar Cache-Control no-store/no-cache.
+- Corrige o cenário em que backend novo era exibido com CSS/JS antigo, dando aparência de regressão de versão.
+- Mantém os refinamentos do dashboard da v3.2.2.

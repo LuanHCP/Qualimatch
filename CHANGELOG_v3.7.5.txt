@@ -1,0 +1,10 @@
+QualiMatch v3.7.5 — Pré-visualização + edição segura dos kits
+
+- Preview inline/modal de PDFs e imagens da Entrega Contratada.
+- Edição manual de kits pela interface ADMIN.
+- Arquivamento lógico de kits sem apagar a d.KIT original.
+- Overrides manuais persistem após sincronização.
+- Gráfico mensal: Data recebimento com fallback para Data aplicação.
+- Registros arquivados deixam de contar em cards, filtros, gráfico e pendências.
+- Cache visual atualizado para 3.7.5.
+- 108 testes automatizados aprovados.

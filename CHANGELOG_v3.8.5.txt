@@ -1,0 +1,6 @@
+QualiMatch v3.8.5 — HOTFIX INICIALIZAÇÃO
+
+- Corrige falha de startup ao atualizar um banco existente da v3.8.3/v3.8.4.
+- A coluna bv_documents.is_active agora é criada antes do índice idx_bv_documents_active.
+- iniciar.bat mantém a janela aberta se o servidor encerrar com erro, facilitando diagnóstico.
+- Mantém todos os recursos da v3.8.4.

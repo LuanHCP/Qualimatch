@@ -1,0 +1,7 @@
+QualiMatch v3.8.9 — FILTROS TÉCNICOS BV
+
+- Novo filtro Volume de vazios (Vv): Todos / Aprovado / Reprovado / Sem resultado.
+- Novo filtro Espessura: Todas / Aprovada / Reprovada / Sem resultado.
+- Filtros combináveis com todos os filtros existentes de Certificados.
+- Backend aplica os filtros sobre status_vv e status_thickness da fase final do BI330.
+- Contra-prova entregue continua comandando a situação técnica final.

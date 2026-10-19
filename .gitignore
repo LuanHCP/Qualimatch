@@ -1,0 +1,37 @@
+# QualiMatch — arquivos locais, sensíveis e regeneráveis
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Banco local — nunca versionar atualizações do banco de produção
+data/qualimatch.db
+data/qualimatch.db-shm
+data/qualimatch.db-wal
+data/*.db
+*.sqlite
+*.sqlite3
+
+# Caches, backups e auditorias geradas
+data/cache/
+data/certificados/
+data/demo_documents/
+data/quality_general/
+backups/
+data/backups/
+AUDITORIA_*.csv
+*.log
+*.tmp
+~$*
+.test-tmp/
+
+# SO / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,7 @@
+QualiMatch v3.8.6 — SEPARAÇÃO DE PENDÊNCIAS
+
+- Pendências BV exibe somente itens PENDENTE CERTIFICADO.
+- Itens sem kit ficam exclusivamente em Pendências da Contratada como PENDENTE CONTRATADA.
+- Itens NO PRAZO deixam de poluir as duas telas operacionais; continuam disponíveis nos indicadores/gestão Mxx.
+- Rodapé lateral simplificado para mostrar apenas v3.8.6, mantendo Desenvolvido por Luan em linha separada.
+- Cache visual atualizado para v3.8.6.

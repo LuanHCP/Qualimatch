@@ -1,0 +1,17 @@
+QualiMatch v2.1.1 — 13/08/2026
+
+CORREÇÃO PRINCIPAL
+- Corrigida a extração de Trecho / Segmento Ensaiado dos certificados BI330.
+- O parser testa o cabeçalho em texto corrido e em modo layout.
+- Suporta BR-376, BR 376 - PR, PR 090 - PR, quebras de linha e estacas com espaços.
+- Segmento oficial do cabeçalho tem prioridade; CPs são apenas fallback estimado.
+- Fallback estimado é marcado como PARCIAL.
+- Upgrade 2.1.1 relê certificados antigos sem segment_source para recuperar o trecho oficial.
+
+MANTIDO
+- Data principal: Data Ext. dos CP's.
+- Datas ex. serviço para matching/pendências.
+- Pendências validadas: ARENA 16, PAVIDEZ 15, total 31.
+
+VALIDAÇÃO
+- 24 testes automatizados aprovados.

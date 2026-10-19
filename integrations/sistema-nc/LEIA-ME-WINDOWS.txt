@@ -1,0 +1,21 @@
+SISTEMA DE NAO CONFORMIDADES - INSTALACAO NO WINDOWS
+
+Pre-requisitos:
+1. PostgreSQL Database Server com Command Line Tools (psql).
+2. pgAdmin 4 para visualizar e administrar o banco.
+3. Python 3 com a opcao "Add Python to PATH".
+
+Primeira instalacao:
+- Clique duas vezes em INSTALAR_E_INICIAR.bat.
+- Informe a senha do usuario postgres e os dados solicitados.
+- O instalador cria o banco, o usuario nc_app, as tabelas, os dados iniciais e o administrador do sistema.
+- Ao terminar, o navegador abre em http://127.0.0.1:8000.
+
+Proximos acessos:
+- Clique duas vezes em INICIAR_SISTEMA.bat.
+
+No pgAdmin 4:
+- Atualize a arvore Databases do servidor local. O banco padrao aparece como nc_sistema.
+- Se o servidor ainda nao estiver cadastrado, registre localhost, porta 5432 e o usuario postgres.
+
+Importante: pgAdmin 4 e a interface de administracao; o servidor PostgreSQL precisa estar instalado e em execucao.

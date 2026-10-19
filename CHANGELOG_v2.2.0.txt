@@ -1,0 +1,17 @@
+QualiMatch v2.2.0 — 13/08/2026
+
+GESTÃO SEGURA DE CERTIFICADOS
+- Adicionados botões "Substituir PDF" e "Excluir" no detalhe do certificado.
+- Substituição preserva o ID lógico do certificado e reprocessa todos os dados a partir do novo PDF.
+- PDFs antigos permanecem no histórico como SUBSTITUIDO.
+- Exclusão é lógica: o registro/PDFs são preservados, mas o certificado sai de listas, estatísticas e matching.
+- Backup automático do SQLite antes de substituir ou excluir.
+- Proteção manual_override evita que sincronização da pasta antiga reverta uma exclusão/substituição.
+- Certificados inativos são ignorados por listagem, indicadores, médias e cobertura derivada dos PDFs.
+
+VALIDAÇÃO
+- 27 testes automatizados aprovados.
+- API: health, dashboard, certificates e pending retornaram HTTP 200.
+- Teste real: substituir manteve o total; excluir reduziu somente 1 certificado e o detalhe passou a retornar 404.
+- Banco restaurado após o teste destrutivo: 765 certificados ativos.
+- Pendências mantidas: ARENA 16, PAVIDEZ 15, total 31.

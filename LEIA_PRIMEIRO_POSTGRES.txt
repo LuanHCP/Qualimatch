@@ -1,0 +1,36 @@
+QUALIMATCH v3.0.0 - MIGRACAO PARA POSTGRESQL
+
+Seu PostgreSQL já deve ter:
+- Banco: qualimatch
+- Usuário: qualimatch_app
+- Porta padrão: 5432
+
+PASSO 1 - Configure a conexão
+Execute: configurar_postgres.bat
+Informe a senha do usuário qualimatch_app.
+O script testa a conexão e cria o arquivo .env local.
+
+PASSO 2 - Migre o banco atual
+Execute: migrar_para_postgres.bat
+O processo:
+1. preserva data/qualimatch.db;
+2. cria data/backups/sqlite_antes_migracao.db;
+3. cria as tabelas no PostgreSQL;
+4. copia os dados preservando IDs e relacionamentos;
+5. compara as quantidades tabela por tabela;
+6. só marca a migração como concluída se tudo bater.
+
+PASSO 3 - Inicie
+Execute: iniciar.bat
+Na rede: iniciar_rede.bat
+
+TESTE
+Abra no navegador:
+http://127.0.0.1:8000/api/health
+
+Deve aparecer "database":"postgresql".
+
+IMPORTANTE
+- Não apague data/qualimatch.db mesmo após a migração.
+- Não envie o arquivo .env para GitHub ou outras pessoas: ele contém a senha do banco.
+- Os outros usuários acessam somente a porta 8000 do QualiMatch; não exponha a porta 5432 na rede sem necessidade.

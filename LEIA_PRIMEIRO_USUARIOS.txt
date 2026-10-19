@@ -1,0 +1,32 @@
+QUALIMATCH v3.2.0 — USUÁRIOS E APROVAÇÃO
+
+ORDEM RECOMENDADA NESTE PC:
+
+1) PostgreSQL
+   - Se a pasta nova não tiver .env, copie o .env da v3.0.1 OU execute configurar_postgres.bat novamente.
+   - Se ainda não migrou o SQLite, execute migrar_para_postgres.bat.
+
+2) Administrador
+   - Execute configurar_admin.bat.
+   - Informe seu nome, e-mail e senha.
+   - Sua conta será criada como ADMIN + APPROVED.
+
+3) E-mail
+   - No próprio configurar_admin.bat você pode configurar Gmail, Microsoft 365 ou outro SMTP.
+   - Para Gmail com 2FA, normalmente use Senha de App.
+   - Se pular o SMTP, as solicitações ainda aparecem em Administração > Usuários.
+
+4) Inicie
+   - iniciar.bat: somente este PC.
+   - iniciar_rede.bat: outros PCs da mesma rede também podem acessar.
+
+FLUXO DO USUÁRIO:
+- Solicitar cadastro -> Nome + E-mail + Senha -> PENDENTE.
+- ADMIN recebe aviso por e-mail (se SMTP configurado) e vê a solicitação no painel.
+- ADMIN aprova ou recusa.
+- Só após APROVADO o login é liberado.
+
+IMPORTANTE:
+- Não publique o arquivo .env.
+- A senha do usuário não é enviada por e-mail e não fica salva em texto puro.
+- Excluir/substituir certificados, sincronizar, backups e gestão de usuários exigem ADMIN no backend.

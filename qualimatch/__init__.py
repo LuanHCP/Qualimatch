@@ -1,0 +1,11 @@
+from .write_policy import install_high_score_excel_write_policy
+from .row_completion_policy import install_partial_existing_rows_policy
+from .manual_measurement_link import install_manual_override_policy
+from .financial_cycle_baseline import install_financial_cycle_baseline_policy
+
+install_high_score_excel_write_policy()
+install_partial_existing_rows_policy()
+install_manual_override_policy()
+install_financial_cycle_baseline_policy()
+
+__all__ = []

@@ -1,0 +1,66 @@
+QualiMatch v3.9.11 — RESTAURAÇÃO DA QUALIDADE GERAL
+
+Data: 28/08/2026
+
+Base de referência:
+- Qualimatch_PATCH_FIX_NC_E_TRACOS_VENCIDOS(1).zip enviado pelo usuário.
+- O módulo foi restaurado como funcionalidade interna do QualiMatch; atalhos de Power BI adicionados temporariamente na v3.9.10 foram removidos.
+
+Qualidade Geral restaurada:
+1. Visão geral
+   - KPIs dos traços;
+   - situação por contratada;
+   - distribuição por tipo;
+   - aprovados por contratada;
+   - vencimentos próximos.
+
+2. Traços aprovados
+   - filtros por contratada, tipo, usina, ligante e pesquisa;
+   - acesso ao detalhe do traço e documento quando houver link.
+
+3. Todos os traços
+   - filtros técnicos;
+   - status original preservado;
+   - status VENCIDO calculado dinamicamente pela DATA VENCIMENTO;
+   - traço vencido deixa de contar como aprovado vigente.
+
+4. Não conformidades
+   - leitura somente de registros RNC;
+   - KPIs de abertas, em tratamento, encerradas, canceladas e vencidas;
+   - valores previstos/propostos para retenção;
+   - valores efetivamente retidos;
+   - situação por contratada;
+   - assuntos recorrentes;
+   - RNCs abertas/em tratamento.
+
+5. Consulta de NCs
+   - filtros por contratada, status, assunto, disciplina, classificação, retenção e pesquisa;
+   - detalhes completos em modal.
+
+Fontes:
+- Inventário de traços: planilha .xlsx/.xlsm configurável por caminho local sincronizado ou upload de cópia.
+- Não conformidades: planilha .xlsx/.xlsm configurável por caminho local sincronizado ou upload de cópia.
+- Leitura somente consulta; não altera as planilhas de origem.
+
+Permissões:
+- Restaurada permissão exclusiva "Qualidade Geral" no cadastro de usuários.
+- Administradores recebem acesso automaticamente.
+- Demais usuários precisam ter Qualidade Geral marcada explicitamente no painel Administração.
+
+Preservado da v3.9.8+:
+- Dashboard e filtro múltiplo de certificados;
+- Certificados: 30 por página, filtros simplificados e linhas arredondadas;
+- Medições: 40 por página;
+- Pendências BV sem mudanças;
+- Arquivos BV fora do menu;
+- Meu espaço;
+- cards de ambientes em três colunas, com quebra natural para a linha seguinte.
+
+Validações:
+- frontend/static/app.js: sintaxe JavaScript válida;
+- frontend/static/general_quality.js: sintaxe JavaScript válida;
+- cinco páginas internas da Qualidade Geral presentes;
+- APIs de traços e NCs presentes;
+- atalhos Power BI removidos da Qualidade Geral;
+- cálculo dinâmico de VENCIDO confirmado no backend;
+- permissão access_quality_general presente no banco, autenticação, API e interface administrativa.

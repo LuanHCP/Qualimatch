@@ -1,0 +1,11 @@
+QualiMatch v3.8.19 — Duplicados na aba Certificados BV
+
+- Move o atalho de remoção em lote para BV > Certificados, conforme fluxo operacional solicitado.
+- O botão usa o filtro de Contratada (Todas / ARENA / PAVIDEZ).
+- Remove somente arquivos já classificados pelo pipeline como DUPLICADO por conteúdo técnico/hash/fingerprint.
+- NÃO considera o número BI330 sozinho como duplicidade: números iguais em datas/trechos/conteúdos diferentes são preservados.
+- Mantém uma ocorrência canônica do certificado.
+- A cópia removida fica marcada internamente como DUPLICADO_REMOVIDO e perde o vínculo com o certificado, evitando reaparecer em nova sincronização enquanto o arquivo físico não mudar.
+- Se a cópia também estiver no navegador Arquivos BV, ela é arquivada somente da visualização. O arquivo físico SharePoint/OneDrive não é apagado.
+- Parser BI330 permanece 3.8.13.
+- Bootstrap Python permanece herdado da v3.8.17.

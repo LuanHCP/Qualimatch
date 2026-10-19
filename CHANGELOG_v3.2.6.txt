@@ -1,0 +1,11 @@
+QualiMatch v3.2.6 — Padronização dinâmica de casas decimais
+
+- Valores do mesmo assunto/coluna passam a usar a maior quantidade de casas decimais necessária dentro do conjunto exibido.
+- Exemplo: Largura 3,7 / 3,55 / 4 passa a ser exibida como 3,70 / 3,55 / 4,00.
+- Aplicado às colunas numéricas da aba Medições (extensão, largura, espessura e volume).
+- Aplicado às espessuras médias da lista/recentes de certificados.
+- Aplicado por fase aos CPs: espessura executada, espessura de projeto, relação A/B, Gmb e K.
+- Resumos de espessura e A/B usam a mesma precisão dos dados da respectiva fase.
+- Regras específicas preservadas: VV continua sempre com 1 casa decimal; valores monetários continuam com 2 casas; contagens continuam inteiras.
+- Precisão dinâmica limitada a 3 casas nos dados técnicos para evitar ruído de ponto flutuante/calculado.
+- Cache dos assets atualizado para v3.2.6.

@@ -1,0 +1,26 @@
+QualiMatch v2.1.0 — 13/08/2026
+
+PRINCIPAL
+- Data principal do certificado: Data Ext. dos CP's.
+- Data de execução mantida separada para matching e pendências.
+
+PARSER
+- Leitura normal + modo layout do pypdf.
+- Escolha automática da variante com mais CPs.
+- Extração tolerante de Data Ext. dos CP's.
+- Fallback de rodovia pelo nome do arquivo.
+- Rejeição de traço deslocado pelo layout (ex.: Dia 1 Dia 2 Usina).
+- Status OK/PARCIAL e avisos de campos não reconhecidos.
+- Dados bons não são apagados por reprocessamento parcial.
+- Versão do parser controlada por PDF para upgrades incrementais.
+
+PENDÊNCIAS
+- Mantida a regra por dia real de execução.
+- Considera todas as Datas ex. serviço, não apenas a primeira.
+- Considera também datas dos CPs e Nº CERTIFICADO Vv do BD_QUALI.
+- Validação: Arena 16, Pavidez 15, total 31.
+
+VALIDAÇÃO
+- 19 testes automatizados aprovados.
+- API health/dashboard/pending/certificates: HTTP 200.
+- JavaScript: sintaxe OK.

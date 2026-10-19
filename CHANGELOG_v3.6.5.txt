@@ -1,0 +1,7 @@
+QualiMatch v3.6.5 — Medições M1..M14
+
+- Pendências BV e Contratada passam a identificar a medição mensal M correspondente.
+- Referência: M14 = 11/08/2026 a 10/09/2026; M13 = 11/07/2026 a 10/08/2026.
+- O cálculo segue automaticamente até M1 e para medições futuras.
+- A data de execução continua sendo usada no matching com certificados/kits; Mxx identifica o ciclo de medição.
+- Tabelas exibem Medição + período ao lado da data de execução.

@@ -1,0 +1,6 @@
+QualiMatch v3.0.1 — Correção de dependências PostgreSQL
+
+- Corrige configurar_postgres.bat quando .venv já existe mas psycopg não está instalado.
+- O configurador agora verifica importação de psycopg/python-dotenv e instala requirements.txt automaticamente se necessário.
+- migrar_para_postgres.bat recebeu a mesma validação para evitar erro "No module named psycopg".
+- Nenhuma alteração nos dados ou regras de certificados/pendências.

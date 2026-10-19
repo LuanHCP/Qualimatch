@@ -1,0 +1,12 @@
+QualiMatch v3.8.1 — MONITOR AUTOMÁTICO SHAREPOINT/ONEDRIVE
+
+- Monitor local automático para novos/alterados PDFs BI330 da BV (ARENA/PAVIDEZ).
+- Monitor automático da Contratada para d.KIT e árvore Entrega Contratada.
+- Espera arquivo estabilizar antes do parser para evitar ler PDF ainda em sincronização.
+- Catch-up automático ao iniciar o QualiMatch depois de período offline.
+- Painel ADMIN com liga/desliga, escopo BV/Contratada, intervalo e “Verificar agora”.
+- Histórico por arquivo em auto_import_events.
+- Notificação para ADMIN quando importação automática falhar.
+- Leitura em lote do estado dos certificados para evitar uma query por PDF a cada varredura.
+- Mantém todas as funções e permissões da v3.8.0.
+- Rodapé: Desenvolvido por Luan.

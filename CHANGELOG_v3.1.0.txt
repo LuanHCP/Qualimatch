@@ -1,0 +1,31 @@
+QualiMatch v3.1.0 — USUÁRIOS, APROVAÇÃO E SEGURANÇA
+Data: 14/08/2026
+
+NOVO
+- Login obrigatório por e-mail e senha.
+- Cadastro com Nome, E-mail, Senha e confirmação de senha.
+- Novos cadastros entram como PENDING e não acessam o sistema até aprovação.
+- Painel Administração > Usuários exclusivo do ADMIN.
+- Aprovar, recusar, bloquear e reativar usuários.
+- Notificação por e-mail ao(s) administrador(es) quando chega nova solicitação.
+- E-mail ao usuário quando o acesso é aprovado/recusado.
+- Recuperação de senha por token de uso único, válido por 30 minutos.
+- Hash de senha Argon2; senha nunca é armazenada em texto puro.
+- Sessões HttpOnly de 12 horas.
+- Limite básico de tentativas de login por IP.
+- Auditoria para login, cadastro, aprovação, bloqueio, upload, substituição/exclusão, sincronização e backups.
+
+PERMISSÕES
+- ADMIN: leitura + sincronização + fontes + backups + substituir/excluir certificado + usuários.
+- USER: dashboard, certificados, pendências, medições e upload de certificados.
+- As permissões são validadas no backend. Ocultar botão na interface não é a proteção principal.
+
+BANCO
+- Tabelas adicionadas: users, sessions, password_reset_tokens, audit_log.
+- Compatível com PostgreSQL e SQLite fallback.
+- Dados operacionais/certificados anteriores não são recriados nem apagados.
+
+CONFIGURAÇÃO
+- Novo configurar_admin.bat cria/atualiza o ADMIN e configura SMTP opcionalmente.
+- configurar_postgres.py agora preserva as demais chaves do .env em vez de sobrescrever o arquivo.
+- iniciar.bat verifica também argon2/psycopg antes de iniciar.

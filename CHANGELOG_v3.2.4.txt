@@ -1,0 +1,6 @@
+QualiMatch v3.2.4 — Pendências BV + Linha da medição
+
+- Título da página Pendências alterado para "Pendências BV".
+- Aba Medições passa a exibir a coluna "Linha" antes de Empresa.
+- O valor exibido vem do campo line_measurement importado da coluna LINHA/LINHA MEDIÇÃO da planilha, sem usar um sequencial artificial da interface.
+- Cache-busting atualizado para v3.2.4.

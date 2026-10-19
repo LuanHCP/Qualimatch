@@ -1,0 +1,21 @@
+QualiMatch v3.7.4 — Gravação direta + isolamento por contratada
+Data: 18/08/2026
+
+- Central de Ferramentas: novo botão “Atualizar planilha principal”.
+- A gravação direta continua exigindo a prévia/vínculos do PDF → BD_QUALI.
+- Antes de alterar a BD_QUALI oficial, gera e valida todos os XLSX em memória.
+- Cria backup integral da planilha em data/backups/bd_quali.
+- Confere hash para impedir escrita se a planilha mudou entre a prévia e o commit.
+- Escreve em temporário na mesma pasta e usa os.replace para troca atômica.
+- Se houver falha em uma das contratadas, tenta rollback dos arquivos já gravados.
+- Se a planilha estiver aberta/bloqueada no Excel, a operação é recusada com mensagem para fechá-la.
+- Após a escrita, valida o arquivo oficial e sincroniza novamente a fonte Qualidade no QualiMatch.
+- Mantida a opção “Gerar cópia Excel” para conferência antes da gravação oficial.
+- Usuários da Contratada passam a ter escopos independentes ARENA e PAVIDEZ.
+- Novos cadastros aprovados não recebem acesso a nenhum portal automaticamente; o ADMIN libera BV/Arena/Pavidez explicitamente.
+- ADMIN escolhe, por usuário, BV, Contratada • Arena, Contratada • Pavidez e Administração.
+- Usuário Arena não consegue consultar kits, pendências ou documentos Pavidez e vice-versa, inclusive por chamada direta à API.
+- “ALL” no portal Contratada é automaticamente reduzido à empresa permitida quando o usuário possui apenas uma.
+- Administradores continuam com acesso às duas contratadas.
+- Usuários existentes que já tinham acesso Contratada recebem Arena+Pavidez apenas na primeira migração, para preservar compatibilidade; o ADMIN pode restringir depois.
+- Rodapé preservado: Desenvolvido por Luan.

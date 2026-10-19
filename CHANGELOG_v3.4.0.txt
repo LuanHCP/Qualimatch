@@ -1,0 +1,9 @@
+QualiMatch v3.4.0 — Kits da Contratada
+
+- Nova fonte "Tabela de Kits" para ARENA e PAVIDEZ (aba d.KIT).
+- Leitura local de arquivos XLSX sincronizados pelo SharePoint/OneDrive.
+- Descoberta automática/manual da planilha de kits a partir das fontes locais já configuradas.
+- Nova tabela kit_rows no SQLite/PostgreSQL.
+- Portal Contratada ganha aba "Kits de ensaio" e visão geral com KPIs.
+- Campos exibidos: #SEQ, serviço, data aplicação, projeto mistura, período, rodovia, KMI/KMF, data recebimento, status, controles 1 a 8 e SIN.-Retro.
+- Fonte fica configurável em Administração → Sincronização e pode ser localizada automaticamente.
