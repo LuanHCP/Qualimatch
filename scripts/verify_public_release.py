@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import os
+import subprocess
 from pathlib import Path
 
 
@@ -27,10 +28,17 @@ TEXT_SUFFIXES = {
 
 def main() -> int:
     problems: list[str] = []
-    paths: list[Path] = []
-    for current, directories, files in os.walk(ROOT):
-        directories[:] = [name for name in directories if name not in SKIP_DIRS]
-        paths.extend(Path(current) / name for name in files)
+    tracked = subprocess.run(
+        ["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=False,
+    )
+    if tracked.returncode == 0:
+        paths = [ROOT / item.decode("utf-8", errors="surrogateescape")
+                 for item in tracked.stdout.split(b"\0") if item]
+    else:
+        paths = []
+        for current, directories, files in os.walk(ROOT):
+            directories[:] = [name for name in directories if name not in SKIP_DIRS]
+            paths.extend(Path(current) / name for name in files)
     for path in paths:
         if path.resolve() == Path(__file__).resolve():
             continue

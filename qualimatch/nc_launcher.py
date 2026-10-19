@@ -7,6 +7,7 @@ import hmac
 import json
 import os
 import subprocess
+import sys
 import threading
 import time
 import urllib.request
@@ -92,6 +93,24 @@ def _validate_project() -> tuple[Path, Path]:
     return root, python
 
 
+def _prepare_demo_project(root: Path) -> None:
+    """Prepara o banco e o ambiente isolados quando a V2 está em modo demo."""
+    if os.getenv("QUALIMATCH_DEMO", "true").strip().lower() not in {"1", "true", "yes", "on"}:
+        return
+    setup = root.parents[1] / "tools" / "setup_nc_demo.py"
+    if not setup.is_file():
+        raise RuntimeError("Preparador demonstrativo do Sistema de NC não foi encontrado.")
+    result = subprocess.run(
+        [sys.executable, str(setup)], cwd=str(root.parents[1]),
+        capture_output=True, text=True,
+        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        check=False,
+    )
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout or "erro desconhecido").strip()
+        raise RuntimeError(f"Não foi possível preparar o Sistema de NC: {detail[-1200:]}")
+
+
 def _start_hidden(root: Path, python: Path) -> None:
     global _managed_process
     child_env = os.environ.copy()
@@ -166,6 +185,8 @@ def launch_nc_project(
         _claimed_by_qualimatch = True
         entry_url = nc_project_login(user_email, user_name, is_admin, permission_level)
         return {"ok": True, "url": entry_url or NC_URL, "started": False, "status": "ready", "sso": bool(entry_url)}
+    root = NC_PROJECT_DIR.resolve()
+    _prepare_demo_project(root)
     root, python = _validate_project()
     _start_hidden(root, python)
     deadline = time.monotonic() + max(1.0, wait_seconds)

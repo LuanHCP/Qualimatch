@@ -6,6 +6,7 @@ import hashlib
 import hmac
 import json
 import os
+import shutil
 import subprocess
 import threading
 import time
@@ -122,6 +123,26 @@ def _validate_project() -> Path:
             "Configure TRACES_PROJECT_DIR com o caminho da pasta prototipo-tracos."
         )
     return root
+
+
+def _prepare_demo_project(root: Path) -> None:
+    """Instala e compila Traços automaticamente em um clone público novo."""
+    if os.getenv("QUALIMATCH_DEMO", "true").strip().lower() not in {"1", "true", "yes", "on"}:
+        return
+    if (root / "node_modules").is_dir() and (root / "dist" / "server").is_dir():
+        return
+    npm = shutil.which("npm.cmd") or shutil.which("npm")
+    if not npm:
+        raise RuntimeError("Node.js 22 ou superior não foi encontrado para preparar o módulo Traços.")
+    for arguments in (("ci",), ("run", "build")):
+        result = subprocess.run(
+            [npm, *arguments], cwd=str(root), capture_output=True, text=True,
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+            check=False,
+        )
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout or "erro desconhecido").strip()
+            raise RuntimeError(f"Não foi possível preparar o módulo Traços: {detail[-1200:]}")
 
 
 def _remove_stale_dev_lock(root: Path) -> None:
@@ -260,6 +281,7 @@ def launch_traces_project(
         return result
 
     root = _validate_project()
+    _prepare_demo_project(root)
     _stop_stale_instance()
     _remove_stale_dev_lock(root)
     _start_hidden(root)

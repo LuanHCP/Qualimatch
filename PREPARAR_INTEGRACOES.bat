@@ -13,12 +13,22 @@ if errorlevel 1 (
 pushd "integrations\controle-tracos"
 call npm ci
 if errorlevel 1 (popd & goto :erro)
+call npm run build
+if errorlevel 1 (popd & goto :erro)
 popd
 
 echo.
 echo [2/2] Preparando Sistema de Nao Conformidades...
-echo O instalador solicitara a senha administrativa do PostgreSQL local.
-call "integrations\sistema-nc\INSTALAR_E_INICIAR.bat"
+echo Criando banco demonstrativo isolado para o modulo NC...
+set "NC_PY="
+if exist ".venv\Scripts\python.exe" set "NC_PY=.venv\Scripts\python.exe"
+if not defined NC_PY where py >nul 2>nul && set "NC_PY=py -3"
+if not defined NC_PY where python >nul 2>nul && set "NC_PY=python"
+if not defined NC_PY (
+  echo Python 3 nao encontrado. Inicie primeiro o QualiMatch V2 para instalar o Python.
+  goto :erro
+)
+call %NC_PY% tools\setup_nc_demo.py
 if errorlevel 1 goto :erro
 
 echo Integracoes preparadas.
