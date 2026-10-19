@@ -219,6 +219,14 @@ if errorlevel 1 (
   echo ok>".venv\.deps_ok"
 )
 
+rem Nao inicia parcialmente caso o arquivo lock esteja desatualizado.
+".venv\Scripts\python.exe" -c "import fastapi, uvicorn, pydantic, multipart, pypdf, reportlab, openpyxl, argon2, dotenv, psycopg, psycopg_pool, email_validator" >nul 2>nul
+if errorlevel 1 (
+  echo [QualiMatch] A instalacao terminou, mas ainda existem dependencias ausentes.
+  echo [QualiMatch] Atualize a pasta pelo GitHub e execute novamente.
+  goto :erro
+)
+
 echo [QualiMatch] Iniciando servidor local...
 ".venv\Scripts\python.exe" run.py
 if errorlevel 1 goto :erro_runtime
