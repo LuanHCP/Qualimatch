@@ -15,10 +15,13 @@ from typing import Iterator, Any
 
 from dotenv import load_dotenv
 
-from .config import BASE_DIR, DB_PATH, DEFAULT_SOURCES, BACKUP_DIR
+from .config import BASE_DIR, DB_PATH, DEFAULT_SOURCES, BACKUP_DIR, DEMO_MODE
 
 load_dotenv(BASE_DIR / ".env")
-DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+# A edição demonstrativa nunca pode herdar a conexão PostgreSQL corporativa
+# do Windows, do terminal ou de outra cópia do QualiMatch. Seus dados
+# fictícios vivem exclusivamente no SQLite local da própria pasta.
+DATABASE_URL = "" if DEMO_MODE else os.getenv("DATABASE_URL", "").strip()
 USE_POSTGRES = DATABASE_URL.lower().startswith(("postgresql://", "postgres://"))
 _pg_pool = None
 _pg_pool_lock = Lock()
