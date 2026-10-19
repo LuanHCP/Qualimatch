@@ -140,7 +140,7 @@ function showAuthMode(mode='login'){
 function showAuthScreen(mode='login'){const previous=currentPortal;$('#app-layout')?.classList.add('auth-hidden');$('#portal-shell')?.classList.add('auth-hidden');$('#auth-shell')?.classList.remove('auth-hidden');currentPortal=null;if(previous)void releasePortalProject(previous);showAuthMode(mode)}
 function showApp(){ $('#auth-shell')?.classList.add('auth-hidden');$('#portal-shell')?.classList.add('auth-hidden');$('#app-layout')?.classList.remove('auth-hidden') }
 function showPortalSelector(){
- const previous=currentPortal;currentPortal=null;if(previous)void releasePortalProject(previous);$('#auth-shell')?.classList.add('auth-hidden');$('#app-layout')?.classList.add('auth-hidden');$('#portal-shell')?.classList.remove('auth-hidden');
+ currentPortal=null;$('#auth-shell')?.classList.add('auth-hidden');$('#app-layout')?.classList.add('auth-hidden');$('#portal-shell')?.classList.remove('auth-hidden');
  $('#portal-user-name').textContent=currentUser?.name||'Usuário';
  let available=0;$$('[data-portal-card]').forEach(card=>{const portal=card.dataset.portalCard,ok=canAccessPortal(portal);available+=ok?1:0;card.classList.toggle('portal-locked',!ok);card.setAttribute('aria-disabled',ok?'false':'true');const label=card.querySelector('.portal-access-label');if(label)label.textContent=ok?'LIBERADO':'BLOQUEADO';const action=card.querySelector('.portal-card-state b');if(action)action.textContent=ok?'Entrar →':'🔒 Sem acesso'});
  $('#portal-empty-note')?.classList.toggle('auth-hidden',available>0);
@@ -154,7 +154,7 @@ function applyRoleUI(){
  $('#c-reprocess-no-result')?.classList.toggle('auth-hidden',!admin);
 }
 function applyPortalUI(){
- const names={BV:'Ambiente BV',CONTRACTOR:'Ambiente Contratada',TRACES:'Traços',NC:'Não conformidades',UNIVERSAL:'Ferramentas Universais',ADMIN:'Administração'};
+ const names={BV:'Ambiente Supervisora',CONTRACTOR:'Ambiente Contratada',TRACES:'Traços',NC:'Não conformidades',UNIVERSAL:'Ferramentas Universais',ADMIN:'Administração'};
  $('#portal-context').textContent=names[currentPortal]||'QualiMatch';
  $$('#nav button[data-portal]').forEach(b=>b.classList.toggle('auth-hidden',b.dataset.portal!==currentPortal));
  $$('[data-portal-block]').forEach(b=>b.classList.toggle('auth-hidden',b.dataset.portalBlock!==currentPortal));
@@ -164,7 +164,6 @@ function enterPortal(portal,page=null){
  portal=String(portal||'').toUpperCase();
  if(portal==='QUALITY')portal=String(page||'').startsWith('quality-nc-')||page==='nc-app'?'NC':'TRACES';
  if(!canAccessPortal(portal)){toast('Este ambiente ainda não foi liberado para sua conta.',true);return}
- const previous=currentPortal;if(previous&&previous!==portal)void releasePortalProject(previous);
  currentPortal=portal;showApp();applyRoleUI();applyPortalUI();
  const defaults={BV:'dashboard',CONTRACTOR:'contractor-home',TRACES:'traces-app',NC:'nc-app',UNIVERSAL:'universal-split',ADMIN:'admin'};
  const target=page&&$(`#nav button[data-page="${page}"][data-portal="${portal}"]`)?page:defaults[portal];openPage(target);refreshNotifications();
@@ -178,7 +177,6 @@ async function bootstrapAuth(){
  try{currentUser=await api('/api/auth/me');applyRoleUI();const requested=params.get('page');if(requested==='admin'&&canAccessPortal('ADMIN'))enterPortal('ADMIN','admin');else if(requested==='nc-app'&&canAccessPortal('NC'))enterPortal('NC',requested);else if(['traces-app','quality-overview','quality-approved','quality-traces'].includes(requested)&&canAccessPortal('QUALITY'))enterPortal('QUALITY',requested);else showPortalSelector()}catch{showAuthScreen('login')}
 }
 async function doLogout(){const previous=currentPortal;if(previous)await releasePortalProject(previous);currentPortal=null;try{await api('/api/auth/logout',{method:'POST'})}catch{}currentUser=null;showAuthScreen('login');authMessage('Sessão encerrada.')}
-window.addEventListener('pagehide',()=>{if(currentPortal==='TRACES')void fetch('/api/embedded-projects/traces/release',{method:'POST',keepalive:true});if(currentPortal==='NC')void fetch('/api/embedded-projects/nc/release',{method:'POST',keepalive:true})});
 const pendingReads=new Map();
 async function api(url,opt={}){
  const read=(opt.method||'GET').toUpperCase()==='GET'&&!opt.signal&&!opt.headers;

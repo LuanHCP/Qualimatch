@@ -90,6 +90,16 @@ async def maintenance_loop():
         await asyncio.sleep(3600)
 
 
+async def warm_embedded_project(launcher, label: str) -> None:
+    """Aquece uma única instância local sem atrasar a abertura do QualiMatch."""
+    try:
+        await asyncio.to_thread(launcher)
+    except Exception as exc:
+        # A rota de abertura ainda poderá tentar novamente e mostrar o erro
+        # detalhado. O aquecimento nunca deve impedir o portal principal.
+        print(f"[QualiMatch] Não foi possível pré-carregar {label}: {exc}")
+
+
 def _page_args(page: int, page_size: int) -> tuple[int, int, int]:
     current = max(1, int(page or 1))
     size = int(page_size or 25)
@@ -116,7 +126,16 @@ async def lifespan(app: FastAPI):
     init_db()
     if DEMO_MODE:
         await asyncio.to_thread(ensure_demo_data)
-        _tasks=[]
+        _tasks=[
+            asyncio.create_task(
+                warm_embedded_project(launch_traces_project, "Traços"),
+                name="qualimatch-warm-traces",
+            ),
+            asyncio.create_task(
+                warm_embedded_project(launch_nc_project, "Não conformidades"),
+                name="qualimatch-warm-nc",
+            ),
+        ]
     else:
         _tasks=[
             asyncio.create_task(auto_sync_loop(AUTO_SYNC_SECONDS), name='qualimatch-periodic-sync'),
