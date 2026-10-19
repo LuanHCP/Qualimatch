@@ -203,7 +203,9 @@ if not exist ".venv\pyvenv.cfg" goto :erro_python
 if errorlevel 1 goto :erro_python
 
 :dependencies
-".venv\Scripts\python.exe" -c "import fastapi, argon2, dotenv, psycopg" >nul 2>nul
+rem Valida todas as dependencias usadas na inicializacao e nas ferramentas.
+rem Testar apenas parte delas pode deixar um .venv antigo parecer completo.
+".venv\Scripts\python.exe" -c "import fastapi, uvicorn, pydantic, multipart, pypdf, reportlab, openpyxl, argon2, dotenv, psycopg, psycopg_pool, email_validator" >nul 2>nul
 if errorlevel 1 (
   echo [QualiMatch] Instalando dependencias...
   ".venv\Scripts\python.exe" -m pip install --upgrade pip
