@@ -34,6 +34,10 @@ _claimed_by_qualimatch = False
 _launch_lock = threading.Lock()
 
 
+def _demo_mode() -> bool:
+    return os.getenv("QUALIMATCH_DEMO", "true").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _single_launch(func):
     def wrapped(*args, **kwargs):
         with _launch_lock:
@@ -127,7 +131,7 @@ def _validate_project() -> Path:
 
 def _prepare_demo_project(root: Path) -> None:
     """Instala e compila Traços automaticamente em um clone público novo."""
-    if os.getenv("QUALIMATCH_DEMO", "true").strip().lower() not in {"1", "true", "yes", "on"}:
+    if not _demo_mode():
         return
     if (root / "node_modules").is_dir() and (root / "dist" / "server").is_dir():
         return
@@ -278,7 +282,12 @@ def launch_traces_project(
         sso = traces_project_login(user_email, user_name, is_admin, permission_level)
         if sso:
             result["sso"] = sso
-        return result
+        if sso or not _demo_mode():
+            return result
+        # Outra cópia pode estar ocupando as portas 3000/3001 com chave SSO
+        # diferente. Reinicia apenas se a aplicação foi confirmada como Traços.
+        _stop_stale_instance()
+        _claimed_by_qualimatch = False
 
     root = _validate_project()
     _prepare_demo_project(root)

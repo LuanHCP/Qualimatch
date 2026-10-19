@@ -7,6 +7,7 @@ instalado na máquina. O script é idempotente e pode rodar a cada abertura.
 from __future__ import annotations
 
 import os
+import hashlib
 import secrets
 import shutil
 import subprocess
@@ -20,7 +21,10 @@ BACKEND = NC_ROOT / "backend"
 DATA_DIR = NC_ROOT / ".demo-postgres"
 LOG_FILE = DATA_DIR / "postgres.log"
 READY_MARKER = NC_ROOT / ".demo-ready"
-PORT = os.getenv("QUALIMATCH_NC_DEMO_PORT", "55432")
+_PORT_OFFSET = int.from_bytes(
+    hashlib.sha256(str(NC_ROOT).casefold().encode("utf-8")).digest()[:2], "big"
+) % 1000
+PORT = os.getenv("QUALIMATCH_NC_DEMO_PORT", str(56000 + _PORT_OFFSET))
 DB_NAME = "nc_sistema_demo"
 DB_USER = "nc_demo"
 DB_PASSWORD = "qualimatch_demo_local"

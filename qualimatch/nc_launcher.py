@@ -26,6 +26,10 @@ _NC_SSO_SECRET_PATH = NC_PROJECT_DIR / "backend" / "qualimatch-sso.key"
 _launch_lock = threading.Lock()
 
 
+def _demo_mode() -> bool:
+    return os.getenv("QUALIMATCH_DEMO", "true").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _single_launch(func):
     def wrapped(*args, **kwargs):
         with _launch_lock:
@@ -95,7 +99,7 @@ def _validate_project() -> tuple[Path, Path]:
 
 def _prepare_demo_project(root: Path) -> None:
     """Prepara o banco e o ambiente isolados quando a V2 está em modo demo."""
-    if os.getenv("QUALIMATCH_DEMO", "true").strip().lower() not in {"1", "true", "yes", "on"}:
+    if not _demo_mode():
         return
     setup = root.parents[1] / "tools" / "setup_nc_demo.py"
     if not setup.is_file():
@@ -184,7 +188,16 @@ def launch_nc_project(
     if nc_project_ready():
         _claimed_by_qualimatch = True
         entry_url = nc_project_login(user_email, user_name, is_admin, permission_level)
-        return {"ok": True, "url": entry_url or NC_URL, "started": False, "status": "ready", "sso": bool(entry_url)}
+        if entry_url or not _demo_mode():
+            return {"ok": True, "url": entry_url or NC_URL, "started": False, "status": "ready", "sso": bool(entry_url)}
+        # Outra cópia local da NC pode estar usando a mesma porta com uma
+        # chave SSO diferente. Encerra somente o serviço confirmado como NC
+        # e sobe a instância pertencente a este projeto.
+        _stop_running_nc_instance()
+        _claimed_by_qualimatch = False
+        deadline = time.monotonic() + 10.0
+        while nc_project_ready() and time.monotonic() < deadline:
+            time.sleep(0.25)
     root = NC_PROJECT_DIR.resolve()
     _prepare_demo_project(root)
     root, python = _validate_project()
